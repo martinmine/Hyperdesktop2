@@ -41,42 +41,41 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="cls_Global_Func.cs" />
-    <Compile Include="cls_Hotkeys.cs" />
-    <Compile Include="cls_Imgur.cs" />
-    <Compile Include="cls_Screen_Bounds.cs" />
-    <Compile Include="cls_Screen_Capture.cs" />
-    <Compile Include="cls_Settings.cs" />
-    <Compile Include="cls_Upload.cs" />
-    <Compile Include="frm_About.cs">
+    <Compile Include="GlobalFunction.cs" />
+    <Compile Include="Hotkeys.cs" />
+    <Compile Include="Imgur.cs" />
+    <Compile Include="ScreenBounds.cs" />
+    <Compile Include="ScreenCapture.cs" />
+    <Compile Include="Settings.cs" />
+    <Compile Include="About.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frm_About.Designer.cs">
-      <DependentUpon>frm_About.cs</DependentUpon>
+    <Compile Include="About.Designer.cs">
+      <DependentUpon>About.cs</DependentUpon>
     </Compile>
-    <Compile Include="frm_Edit.cs">
+    <Compile Include="Edit.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frm_Edit.Designer.cs">
-      <DependentUpon>frm_Edit.cs</DependentUpon>
+    <Compile Include="Edit.Designer.cs">
+      <DependentUpon>Edit.cs</DependentUpon>
     </Compile>
-    <Compile Include="frm_Main.cs">
+    <Compile Include="Main.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frm_Main.Designer.cs">
-      <DependentUpon>frm_Main.cs</DependentUpon>
+    <Compile Include="Main.Designer.cs">
+      <DependentUpon>Main.cs</DependentUpon>
     </Compile>
-    <Compile Include="frm_Preferences.cs">
+    <Compile Include="Preferences.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frm_Preferences.Designer.cs">
-      <DependentUpon>frm_Preferences.cs</DependentUpon>
+    <Compile Include="Preferences.Designer.cs">
+      <DependentUpon>Preferences.cs</DependentUpon>
     </Compile>
-    <Compile Include="frm_Snipper.cs">
+    <Compile Include="Snipper.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frm_Snipper.Designer.cs">
-      <DependentUpon>frm_Snipper.cs</DependentUpon>
+    <Compile Include="Snipper.Designer.cs">
+      <DependentUpon>Snipper.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -87,20 +86,20 @@
     <None Include="icon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="frm_About.resx">
-      <DependentUpon>frm_About.cs</DependentUpon>
+    <EmbeddedResource Include="About.resx">
+      <DependentUpon>About.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frm_Edit.resx">
-      <DependentUpon>frm_Edit.cs</DependentUpon>
+    <EmbeddedResource Include="Edit.resx">
+      <DependentUpon>Edit.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frm_Main.resx">
-      <DependentUpon>frm_Main.cs</DependentUpon>
+    <EmbeddedResource Include="Main.resx">
+      <DependentUpon>Main.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frm_Preferences.resx">
-      <DependentUpon>frm_Preferences.cs</DependentUpon>
+    <EmbeddedResource Include="Preferences.resx">
+      <DependentUpon>Preferences.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frm_Snipper.resx">
-      <DependentUpon>frm_Snipper.cs</DependentUpon>
+    <EmbeddedResource Include="Snipper.resx">
+      <DependentUpon>Snipper.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
