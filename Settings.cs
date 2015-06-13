@@ -6,104 +6,102 @@ namespace hyperdesktop2
 {
     public static class Settings
     {
-        public static Int32 build = 7;
-        public static String build_url = "https://raw.githubusercontent.com/TheTarkus/Hyperdesktop2/master/BUILD";
-        public static String release_url = "https://github.com/TheTarkus/Hyperdesktop2/releases";
+        public const int BuildVersion = 7;
+        public const string BuildUrl = "https://raw.githubusercontent.com/TheTarkus/Hyperdesktop2/master/BUILD";
+        public const string ReleaseUrl = "https://github.com/TheTarkus/Hyperdesktop2/releases";
 
-        public static String app_data = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\Hyperdesktop2\";
-        public static String exe_path = app_data + @"hyperdesktop2.exe";
-        public static String ini_path = app_data + @"hyperdesktop2.ini";
+        public static readonly string AppData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\Hyperdesktop2\";
+        public static readonly string ExePath = AppData + @"hyperdesktop2.exe";
+        public static readonly string IniPath = AppData + @"hyperdesktop2.ini";
+
+        public static string SettingsBuild;
+
+        public static string ImgurClientId;
+
+        public static bool SaveScreenshots;
+        public static string SaveFolder;
+        public static string SaveFormat;
+        public static short SaveQuality;
+
+        public static string UploadMethod;
+        public static string UploadFormat;
+
+        public static bool RunAtSystemStartup;
+        public static bool CopyLinksToClipboard;
+        public static bool ShowCursor;
+        public static bool SoundEffects;
+        public static bool BalloonMessages;
+        public static bool LaunchBrowser;
+        public static bool EdiScreenshot;
+
+        public static bool AutoDetectScreeResolution;
+        public static string ScreenResolution;
 
         [DllImport("kernel32")]
-        static extern long WritePrivateProfileString(String section, String key, String val, String filePath);
+        static extern long WritePrivateProfileString(string section, string key, string val, string filePath);
         [DllImport("kernel32")]
-        static extern int GetPrivateProfileString(String section, String key, String def, StringBuilder retVal, Int32 size, String filePath);
+        static extern int GetPrivateProfileString(string section, string key, string def, StringBuilder retVal, int size, string filePath);
 
-        public static String Write(String section, String key, String value)
+        public static string Write(string section, string key, string value)
         {
-            WritePrivateProfileString(section, key, value, ini_path);
+            WritePrivateProfileString(section, key, value, IniPath);
             return value;
         }
 
-        public static String Read(String section, String key)
+        public static string Read(string section, string key)
         {
-            var temp = new StringBuilder(255);
-            int i = GetPrivateProfileString(section, key, "", temp, 255, ini_path);
-            return temp.ToString();
+            StringBuilder builder = new StringBuilder(255);
+            int i = GetPrivateProfileString(section, key, "", builder, 255, IniPath);
+            return builder.ToString();
         }
 
-        public static String Exists(String section, String key, String value)
+        public static string Exists(string section, string key, string value)
         {
-            String str = Read(section, key);
-            return (str.Length > 0) ? Read(section, key) : Write(section, key, value);
+            return (Read(section, key).Length > 0) ? Read(section, key) : Write(section, key, value);
         }
 
-        public static String settings_build;
-
-        public static String imgur_client_id;
-
-        public static Boolean save_screenshots;
-        public static String save_folder;
-        public static String save_format;
-        public static Int16 save_quality;
-
-        public static String upload_method;
-        public static String upload_format;
-
-        public static Boolean run_at_system_startup;
-        public static Boolean copy_links_to_clipboard;
-        public static Boolean show_cursor;
-        public static Boolean sound_effects;
-        public static Boolean balloon_messages;
-        public static Boolean launch_browser;
-        public static Boolean edit_screenshot;
-
-        public static Boolean auto_detect_screen_res;
-        public static String screen_res;
-
-        public static void get_settings()
+        public static void ReadSettings()
         {
-            Global_Func.app_data_folder_create();
-            settings_build = Exists("hyperdesktop2", "build", Convert.ToString(build));
+            GlobalFunctions.CreateAppDataFolder();
+            SettingsBuild = Exists("hyperdesktop2", "build", Convert.ToString(BuildVersion));
 
-            imgur_client_id = Exists("upload", "imgur_client_id", "84c55d06b4c9686");
+            ImgurClientId = Exists("upload", "imgur_client_id", "84c55d06b4c9686");
 
-            save_screenshots = Global_Func.str_to_bool(Exists("general", "save_screenshots", "false"));
-            save_folder = Exists("general", "save_folder", Environment.CurrentDirectory + "\\captures\\");
-            save_format = Exists("general", "save_format", "png");
-            save_quality = Convert.ToInt16(Exists("general", "save_quality", "100"));
+            SaveScreenshots = bool.Parse(Exists("general", "save_screenshots", "false"));
+            SaveFolder = Exists("general", "save_folder", Environment.CurrentDirectory + "\\captures\\");
+            SaveFormat = Exists("general", "save_format", "png");
+            SaveQuality = Convert.ToInt16(Exists("general", "save_quality", "100"));
 
-            upload_method = Exists("upload", "upload_method", "imgur");
-            upload_format = Exists("upload", "upload_format", "png");
+            UploadMethod = Exists("upload", "upload_method", "imgur");
+            UploadFormat = Exists("upload", "upload_format", "png");
 
-            copy_links_to_clipboard = Global_Func.str_to_bool(Exists("behavior", "copy_links_to_clipboard", "true"));
-            show_cursor = Global_Func.str_to_bool(Exists("behavior", "show_cursor", "false"));
-            sound_effects = Global_Func.str_to_bool(Exists("behavior", "sound_effects", "true"));
-            balloon_messages = Global_Func.str_to_bool(Exists("behavior", "balloon_messages", "true"));
-            launch_browser = Global_Func.str_to_bool(Exists("behavior", "launch_browser", "false"));
-            edit_screenshot = Global_Func.str_to_bool(Exists("behavior", "edit_screenshot", "true"));
+            CopyLinksToClipboard = bool.Parse(Exists("behavior", "copy_links_to_clipboard", "true"));
+            ShowCursor = bool.Parse(Exists("behavior", "show_cursor", "false"));
+            SoundEffects = bool.Parse(Exists("behavior", "sound_effects", "true"));
+            BalloonMessages = bool.Parse(Exists("behavior", "balloon_messages", "true"));
+            LaunchBrowser = bool.Parse(Exists("behavior", "launch_browser", "false"));
+            EdiScreenshot = bool.Parse(Exists("behavior", "edit_screenshot", "true"));
 
-            screen_res = Exists("screen", "screen_res", Screen_Bounds.reset());
+            ScreenResolution = Exists("screen", "screen_res", ScreenBounds.Reset());
         }
 
-        public static void write_settings()
+        public static void WriteSettings()
         {
-            Write("upload", "imgur_client_id", imgur_client_id);
+            Write("upload", "imgur_client_id", ImgurClientId);
 
-            Write("general", "save_screenshots", save_screenshots.ToString());
-            Write("general", "save_folder", save_folder);
-            Write("general", "save_format", save_format);
-            Write("general", "save_quality", save_quality.ToString());
+            Write("general", "save_screenshots", SaveScreenshots.ToString());
+            Write("general", "save_folder", SaveFolder);
+            Write("general", "save_format", SaveFormat);
+            Write("general", "save_quality", SaveQuality.ToString());
 
-            Write("behavior", "copy_links_to_clipboard", copy_links_to_clipboard.ToString());
-            Write("behavior", "show_cursor", show_cursor.ToString());
-            Write("behavior", "sound_effects", sound_effects.ToString());
-            Write("behavior", "balloon_messages", balloon_messages.ToString());
-            Write("behavior", "launch_browser", launch_browser.ToString());
-            Write("behavior", "edit_screenshot", edit_screenshot.ToString());
+            Write("behavior", "copy_links_to_clipboard", CopyLinksToClipboard.ToString());
+            Write("behavior", "show_cursor", ShowCursor.ToString());
+            Write("behavior", "sound_effects", SoundEffects.ToString());
+            Write("behavior", "balloon_messages", BalloonMessages.ToString());
+            Write("behavior", "launch_browser", LaunchBrowser.ToString());
+            Write("behavior", "edit_screenshot", EdiScreenshot.ToString());
 
-            Write("screen", "screen_res", screen_res);
+            Write("screen", "screen_res", ScreenResolution);
         }
-
     }
 }

@@ -9,22 +9,22 @@ namespace hyperdesktop2
 {
 	
 	public partial class Edit : Form
-	{
-		List<Bitmap> undo;
-		static Color pen_color = Color.Red;
-		static Int16 pen_size = 5;
-		Graphics g;
-		Point point_1, point_2;
-		Font font;
-		Pen pen = new Pen(pen_color);
-		SolidBrush brush = new SolidBrush(pen_color);
-		Boolean using_pen = true;
+    {
+        private static Color penColor = Color.Red;
+        private static Int16 penSize = 5;
+		private List<Bitmap> undo;
+		private Graphics g;
+		private Point pointX, pointY;
+		private Font font;
+		private Pen pen = new Pen(penColor);
+		private SolidBrush brush = new SolidBrush(penColor);
+		private Boolean usingPen = true;
 
-        Dictionary<string, int> sizes = new Dictionary<string, int>();
+        private Dictionary<string, int> sizes = new Dictionary<string, int>();
 		
 		public Bitmap Result { set; get; }
 		
-		public Edit(Bitmap _bmp, Font _font = null, Boolean _drop_shadow = false)
+		public Edit(Bitmap bmp, Font font = null, Boolean dropShadow = false)
 		{
 			InitializeComponent();
 
@@ -39,10 +39,10 @@ namespace hyperdesktop2
                 drop_size.Items.Add(pair.Key);
 
 			undo = new List<Bitmap>();
-			undo.Add(new Bitmap(_bmp));
+			undo.Add(new Bitmap(bmp));
 			
-			font = _font ?? new Font("Arial", 16) ;
-			check_drop_shadow.Checked = _drop_shadow;
+			font = font ?? new Font("Arial", 16) ;
+			check_drop_shadow.Checked = dropShadow;
 		}
 		
 		void Frm_EditLoad(object sender, EventArgs e)
@@ -72,22 +72,22 @@ namespace hyperdesktop2
 				text_insert.Text = String.Empty;
 		}
 		
-		void Btn_penClick(object sender, EventArgs e) { using_pen = true; }
+		void Btn_penClick(object sender, EventArgs e) { usingPen = true; }
 		void Btn_insertClick(object sender, EventArgs e) {
-			using_pen = false;
+			usingPen = false;
 			Drop_sizeSelectedIndexChanged(sender, e);
 		}
 		
 		void Drop_sizeSelectedIndexChanged(object sender, EventArgs e)
 		{
-			pen_size = Convert.ToInt16(sizes[drop_size.Text]);
-			font = new Font("Arial", pen_size + 12);
+			penSize = Convert.ToInt16(sizes[drop_size.Text]);
+			font = new Font("Arial", penSize + 12);
 		}
 		
 		void Drop_colorSelectedIndexChanged(object sender, EventArgs e)
 		{
-            pen_color = Color.FromName(drop_color.Text);
-            brush = new SolidBrush(pen_color); 
+            penColor = Color.FromName(drop_color.Text);
+            brush = new SolidBrush(penColor); 
 		}
 		#endregion
 		
@@ -118,17 +118,17 @@ namespace hyperdesktop2
 			if (e.Button != MouseButtons.Left)
 				return;
 			
-			if(!using_pen) {
+			if(!usingPen) {
 				g = Graphics.FromImage(picture_box.Image);
 				
 				if(check_drop_shadow.Checked)
-					g.DrawString(text_insert.Text, font, new SolidBrush(Color.Black), point_2.X + 1, point_2.Y + 1);
+					g.DrawString(text_insert.Text, font, new SolidBrush(Color.Black), pointY.X + 1, pointY.Y + 1);
 			
-				g.DrawString(text_insert.Text, font, brush, point_2.X, point_2.Y);
+				g.DrawString(text_insert.Text, font, brush, pointY.X, pointY.Y);
             }
 			
-			point_1 = e.Location;
-			pen = new Pen(pen_color, pen_size);	
+			pointX = e.Location;
+			pen = new Pen(penColor, penSize);	
 		}
 		
 		void SaveAsToolStripMenuItemClick(object sender, System.EventArgs e)
@@ -140,7 +140,7 @@ namespace hyperdesktop2
 			if(dialog.ShowDialog() == DialogResult.OK) {
 				picture_box.Image.Save(
 					dialog.FileName,
-					Global_Func.ext_to_imageformat(Path.GetExtension(dialog.FileName).Substring(1))
+					GlobalFunctions.ExtensionToImageFormat(Path.GetExtension(dialog.FileName).Substring(1))
 				);
 			}			
 		}
@@ -149,10 +149,10 @@ namespace hyperdesktop2
 		#region Mouse Movements & Paint
 		void Picture_boxMouseMove(object sender, MouseEventArgs e)
 		{
-			point_2 = e.Location;
+			pointY = e.Location;
 			picture_box.Invalidate();
 			
-			if (!(e.Button == MouseButtons.Left && using_pen))
+			if (!(e.Button == MouseButtons.Left && usingPen))
 				return;
 			
 			// Actually drawing on the image
@@ -160,13 +160,13 @@ namespace hyperdesktop2
 				g = Graphics.FromImage(picture_box.Image);
 				g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
                 g.FillEllipse(
-					new SolidBrush(pen_color),
-					point_2.X - Convert.ToInt32(pen_size / 2),
-					point_2.Y - Convert.ToInt32(pen_size / 2),
-					pen_size, pen_size
+					new SolidBrush(penColor),
+					pointY.X - Convert.ToInt32(penSize / 2),
+					pointY.Y - Convert.ToInt32(penSize / 2),
+					penSize, penSize
 				);
-				g.DrawLine(pen, point_1, point_2);
-        		point_1 = e.Location;
+				g.DrawLine(pen, pointX, pointY);
+        		pointX = e.Location;
 			} catch (Exception ex) {
 				Console.WriteLine(ex.Message);
 			}
@@ -186,18 +186,18 @@ namespace hyperdesktop2
 		{
 			try {
 				// Our hover preview
-				if(using_pen)
+				if(usingPen)
 					e.Graphics.FillEllipse(
-						new SolidBrush(pen_color),
-						point_2.X - Convert.ToInt32(pen_size / 2),
-						point_2.Y - Convert.ToInt32(pen_size / 2),
-						pen_size, pen_size
+						new SolidBrush(penColor),
+						pointY.X - Convert.ToInt32(penSize / 2),
+						pointY.Y - Convert.ToInt32(penSize / 2),
+						penSize, penSize
 					);
 				else {
 					if(check_drop_shadow.Checked)
-						e.Graphics.DrawString(text_insert.Text, font, new SolidBrush(Color.Black), point_2.X + 1, point_2.Y + 1);
+						e.Graphics.DrawString(text_insert.Text, font, new SolidBrush(Color.Black), pointY.X + 1, pointY.Y + 1);
 					
-					e.Graphics.DrawString(text_insert.Text, font, brush, point_2.X, point_2.Y);
+					e.Graphics.DrawString(text_insert.Text, font, brush, pointY.X, pointY.Y);
 				}
 			} catch (Exception ex) {
 				Console.WriteLine(ex.Message);

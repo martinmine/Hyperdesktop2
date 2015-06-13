@@ -7,27 +7,28 @@ namespace hyperdesktop2
 {
     class Imgur
     {
-        public static WebClient web_client = new WebClient();
-
+        public static WebClient WebClient = new WebClient();
         public static Boolean upload(Bitmap bmp)
         {
             try
             {
-                var data = new NameValueCollection();
+                
 
-                var image = Global_Func.bmp_to_base64(bmp, Global_Func.ext_to_imageformat(Settings.upload_format));
-                data.Add("image", image);
+                var postData = new NameValueCollection();
 
-                web_client.Headers.Add("Authorization", "Client-ID " + Settings.imgur_client_id);
-                web_client.UploadValuesAsync(
+                var imageData = GlobalFunctions.BmpToBase64(bmp, GlobalFunctions.ExtensionToImageFormat(Settings.UploadFormat));
+                postData.Add("image", imageData);
+
+                WebClient.Headers.Add("Authorization", "Client-ID " + Settings.ImgurClientId);
+                WebClient.UploadValuesAsync(
                     new Uri("https://api.imgur.com/3/image/"),
                     "POST",
-                    data
+                    postData
                 );
 
-                web_client.Headers.Remove("Authorization");
+                WebClient.Headers.Remove("Authorization");
             }
-            catch
+            catch (Exception e)
             {
                 return false;
             }
@@ -39,19 +40,19 @@ namespace hyperdesktop2
         {
             try
             {
-                var web_client = new WebClient();
+                var webClient = new WebClient();
 
-                web_client.Headers.Add("Authorization", "Client-ID " + Settings.imgur_client_id);
-                web_client.UploadData(
+                webClient.Headers.Add("Authorization", "Client-ID " + Settings.ImgurClientId);
+                webClient.UploadData(
                     new Uri("https://api.imgur.com/3/image/" + delete_hash),
                     "DELETE",
                     new Byte[] { 0x0 }
                 );
 
-                web_client.Dispose();
+                webClient.Dispose();
                 return true;
             }
-            catch
+            catch (Exception e)
             {
                 return false;
             }

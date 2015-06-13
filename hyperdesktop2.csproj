@@ -44,6 +44,8 @@
     <Compile Include="GlobalFunction.cs" />
     <Compile Include="Hotkeys.cs" />
     <Compile Include="Imgur.cs" />
+    <Compile Include="KeyPressedEventArgs.cs" />
+    <Compile Include="ModifierKeys.cs" />
     <Compile Include="ScreenBounds.cs" />
     <Compile Include="ScreenCapture.cs" />
     <Compile Include="Settings.cs" />

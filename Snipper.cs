@@ -33,8 +33,8 @@ namespace hyperdesktop2
             this.BackColor = Color.White;
             this.Opacity = 0.70;
 
-            this.Location = new Point(Screen_Bounds.bounds.Left, Screen_Bounds.bounds.Top);
-            this.Size = new Size(Screen_Bounds.bounds.Width, Screen_Bounds.bounds.Height);
+            this.Location = new Point(ScreenBounds.Bounds.Left, ScreenBounds.Bounds.Top);
+            this.Size = new Size(ScreenBounds.Bounds.Width, ScreenBounds.Bounds.Height);
         }
 
         public Rectangle rect { get; set; }
@@ -78,8 +78,8 @@ namespace hyperdesktop2
                 return;
 
             rect = new Rectangle(
-                Screen_Bounds.bounds.Left + select.Left,
-                Screen_Bounds.bounds.Top + select.Top,
+                ScreenBounds.Bounds.Left + select.Left,
+                ScreenBounds.Bounds.Top + select.Top,
                 select.Width,
                 select.Height
             );

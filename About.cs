@@ -23,7 +23,7 @@ namespace hyperdesktop2
 		}
 		void Frm_AboutLoad(object sender, System.EventArgs e)
 		{
-			label_build.Text = "Build: " + Settings.build;
+			label_build.Text = "Build: " + Settings.BuildVersion;
 		}
 	}
 }

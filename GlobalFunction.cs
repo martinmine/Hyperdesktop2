@@ -8,11 +8,11 @@ using System.Windows.Forms;
 
 namespace hyperdesktop2
 {
-    public static class Global_Func
+    public static class GlobalFunctions
     {
-        public static ImageFormat ext_to_imageformat(String ext)
+        public static ImageFormat ExtensionToImageFormat(string extension)
         {
-            switch (ext.ToLower())
+            switch (extension.ToLower())
             {
                 case "jpeg":
                 case "jpg":
@@ -24,19 +24,21 @@ namespace hyperdesktop2
             }
         }
 
+        [Obsolete]
         public static Boolean str_to_bool(String str)
         {
             return str.ToLower() == "true";
         }
 
+        [Obsolete]
         public static String get_text_inbetween(String input, String a, String b)
         {
             return input.Substring(input.IndexOf(a) + a.Length, input.IndexOf(b) - input.IndexOf(a) - a.Length);
         }
 
-        public static String bmp_to_base64(Bitmap bmp, ImageFormat format)
+        public static string BmpToBase64(Bitmap bmp, ImageFormat format)
         {
-            using (var stream = new MemoryStream())
+            using (MemoryStream stream = new MemoryStream())
             {
                 bmp.Save(stream, format);
                 Byte[] bytes = stream.ToArray();
@@ -45,39 +47,39 @@ namespace hyperdesktop2
             }
         }
 
-        readonly public static RegistryKey reg_key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run", true);
+        readonly public static RegistryKey startupRegistryKey = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run", true);
 
-        public static void run_at_startup(Boolean run)
+        public static void CheckRunAtStartup(bool run)
         {
-            app_data_folder_create();
+            CreateAppDataFolder();
 
             if (run)
-                reg_key.SetValue("Hyperdesktop2", Settings.exe_path);
+                startupRegistryKey.SetValue("Hyperdesktop2", Settings.ExePath);
             else
-                reg_key.DeleteValue("Hyperdesktop2", false);
+                startupRegistryKey.DeleteValue("Hyperdesktop2", false);
         }
 
-        public static void app_data_folder_create()
+        public static void CreateAppDataFolder()
         {
-            if (!Directory.Exists(Settings.app_data))
-                Directory.CreateDirectory(Settings.app_data);
+            if (!Directory.Exists(Settings.AppData))
+                Directory.CreateDirectory(Settings.AppData);
         }
 
-        public static void copy_files()
+        public static void InstallApplicationData()
         {
-            if (!File.Exists(Settings.exe_path))
+            if (!File.Exists(Settings.ExePath))
                 File.Copy(
                     Application.ExecutablePath,
-                    Settings.exe_path
+                    Settings.ExePath
                 );
 
             try
             {
-                if (!Directory.Exists(Settings.app_data + "\\sounds\\"))
+                if (!Directory.Exists(Settings.AppData + "\\sounds\\"))
                 {
-                    Directory.CreateDirectory(Settings.app_data + "\\sounds\\");
+                    Directory.CreateDirectory(Settings.AppData + "\\sounds\\");
                     foreach (var file in Directory.GetFiles(Environment.CurrentDirectory + "\\sounds"))
-                        File.Copy(file, Settings.app_data + "\\sounds\\" + Path.GetFileName(file));
+                        File.Copy(file, Settings.AppData + "\\sounds\\" + Path.GetFileName(file));
                 }
             }
             catch (Exception ex)
@@ -87,18 +89,17 @@ namespace hyperdesktop2
             }
         }
 
-        public static void play_sound(String file)
+        public static void PlaySound(string filePath)
         {
             try
             {
-
-                if (Settings.sound_effects)
-                    using (var sound_player = new SoundPlayer("sounds\\" + file))
-                        sound_player.Play();
+                if (Settings.SoundEffects)
+                    using (SoundPlayer soundPlayer = new SoundPlayer("sounds\\" + filePath))
+                        soundPlayer.Play();
             }
             catch
             {
-                Console.WriteLine("Can't find audio file: " + file);
+                Console.WriteLine("Can't find audio file: " + filePath);
             }
         }
     }

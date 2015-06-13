@@ -13,21 +13,21 @@ namespace hyperdesktop2
 		
 		void Frm_PreferencesLoad(object sender, EventArgs e)
 		{
-			check_save_screenshots.Checked 		= Settings.save_screenshots;
-			txt_save_folder.Text 				= Settings.save_folder;
-			drop_save_format.Text 				= Settings.save_format;
-			drop_save_quality.Text 				= Settings.save_quality.ToString();
+			check_save_screenshots.Checked 		= Settings.SaveScreenshots;
+			txt_save_folder.Text 				= Settings.SaveFolder;
+			drop_save_format.Text 				= Settings.SaveFormat;
+			drop_save_quality.Text 				= Settings.SaveQuality.ToString();
 			
-			drop_upload_method.Text 			= Settings.upload_method;
-			drop_upload_format.Text 			= Settings.upload_format;
+			drop_upload_method.Text 			= Settings.UploadMethod;
+			drop_upload_format.Text 			= Settings.UploadFormat;
 			
-			check_run_at_startup.Checked 		= Global_Func.reg_key.GetValue("Hyperdesktop2") != null;
-			check_copy_links.Checked 			= Settings.copy_links_to_clipboard;
-			check_sound_effects.Checked			= Settings.sound_effects;
-			check_show_cursor.Checked			= Settings.show_cursor;
-			check_balloon.Checked 				= Settings.balloon_messages;
-			check_launch_browser.Checked 		= Settings.launch_browser;
-			check_edit_screenshot.Checked 		= Settings.edit_screenshot;
+			check_run_at_startup.Checked 		= GlobalFunctions.startupRegistryKey.GetValue("Hyperdesktop2") != null;
+			check_copy_links.Checked 			= Settings.CopyLinksToClipboard;
+			check_sound_effects.Checked			= Settings.SoundEffects;
+			check_show_cursor.Checked			= Settings.ShowCursor;
+			check_balloon.Checked 				= Settings.BalloonMessages;
+			check_launch_browser.Checked 		= Settings.LaunchBrowser;
+			check_edit_screenshot.Checked 		= Settings.EdiScreenshot;
 		
 			numeric_top.Minimum = -50000;
 			numeric_left.Minimum = -50000;
@@ -35,7 +35,7 @@ namespace hyperdesktop2
 			numeric_height.Minimum = -50000;
 			
 			try {
-                String[] screen_res = Settings.screen_res.Split(',');
+                String[] screen_res = Settings.ScreenResolution.Split(',');
 				numeric_left.Value = Convert.ToDecimal(screen_res[0]);
 				numeric_top.Value = Convert.ToDecimal(screen_res[1]);
 				numeric_width.Value = Convert.ToDecimal(screen_res[2]);
@@ -49,7 +49,7 @@ namespace hyperdesktop2
 		void Btn_saveClick(object sender, EventArgs e)
 		{
 			// Screen resolution
-			Settings.screen_res 				= Settings.screen_res = String.Format(
+			Settings.ScreenResolution 				= Settings.ScreenResolution = String.Format(
 				"{0},{1},{2},{3}",
 				numeric_left.Value,
 				numeric_top.Value,
@@ -57,25 +57,25 @@ namespace hyperdesktop2
 				numeric_height.Value
 			);
 
-            Screen_Bounds.load();
+            ScreenBounds.Load();
 			
-			Settings.save_screenshots 			= check_save_screenshots.Checked;
-			Settings.save_folder 				= txt_save_folder.Text;
-			Settings.save_format 				= drop_save_format.Text;
-			Settings.save_quality 				= Convert.ToInt16(drop_save_quality.Text);
+			Settings.SaveScreenshots 			= check_save_screenshots.Checked;
+			Settings.SaveFolder 				= txt_save_folder.Text;
+			Settings.SaveFormat 				= drop_save_format.Text;
+			Settings.SaveQuality 				= Convert.ToInt16(drop_save_quality.Text);
 			
-			Settings.upload_method 				= drop_upload_method.Text;
-			Settings.upload_format 				= drop_upload_format.Text;
+			Settings.UploadMethod 				= drop_upload_method.Text;
+			Settings.UploadFormat 				= drop_upload_format.Text;
 			
-			Settings.copy_links_to_clipboard 	= check_copy_links.Checked;
-			Settings.sound_effects 				= check_sound_effects.Checked;
-			Settings.show_cursor 				= check_show_cursor.Checked;
-			Settings.balloon_messages 			= check_balloon.Checked;
-			Settings.launch_browser 			= check_launch_browser.Checked;
-			Settings.edit_screenshot 			= check_edit_screenshot.Checked;
+			Settings.CopyLinksToClipboard 	= check_copy_links.Checked;
+			Settings.SoundEffects 				= check_sound_effects.Checked;
+			Settings.ShowCursor 				= check_show_cursor.Checked;
+			Settings.BalloonMessages 			= check_balloon.Checked;
+			Settings.LaunchBrowser 			= check_launch_browser.Checked;
+			Settings.EdiScreenshot 			= check_edit_screenshot.Checked;
 			
-			Settings.write_settings();
-			Global_Func.run_at_startup(check_run_at_startup.Checked);
+			Settings.WriteSettings();
+			GlobalFunctions.CheckRunAtStartup(check_run_at_startup.Checked);
 			Dispose();
 		}
 		void Btn_cancelClick(object sender, EventArgs e)
@@ -100,7 +100,7 @@ namespace hyperdesktop2
 		}
 		void Btn_reset_screenClick(object sender, System.EventArgs e)
 		{
-            String[] screen_res = Screen_Bounds.reset().Split(',');
+            String[] screen_res = ScreenBounds.Reset().Split(',');
             numeric_left.Value = Convert.ToDecimal(screen_res[0]);
 			numeric_top.Value = Convert.ToDecimal(screen_res[1]);
 			numeric_width.Value = Convert.ToDecimal(screen_res[2]);
