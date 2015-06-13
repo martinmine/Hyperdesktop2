@@ -9,12 +9,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Hyperdesktop2")]
-[assembly: AssemblyDescription("Simple, fast screenshot sharing!")]
+[assembly: AssemblyTitle("Shikashi Uploader")]
+[assembly: AssemblyDescription("DONGified image and file uploader")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Tarkus.co")]
-[assembly: AssemblyProduct("Hyperdesktop2")]
-[assembly: AssemblyCopyright("Copyright 2014")]
+[assembly: AssemblyCompany("DONG Inc.")]
+[assembly: AssemblyProduct("Shikashi")]
+[assembly: AssemblyCopyright("Copyright 2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

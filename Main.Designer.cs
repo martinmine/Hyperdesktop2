@@ -177,7 +177,7 @@ namespace hyperdesktop2
             this.btn_browse.Name = "btn_browse";
             this.btn_browse.Size = new System.Drawing.Size(64, 23);
             this.btn_browse.TabIndex = 0;
-            this.btn_browse.Text = "browse";
+            this.btn_browse.Text = "Browse";
             this.btn_browse.UseVisualStyleBackColor = true;
             this.btn_browse.Click += new System.EventHandler(this.Btn_browseClick);
             this.btn_browse.DragDrop += new System.Windows.Forms.DragEventHandler(this.drag_drop);
@@ -214,7 +214,7 @@ namespace hyperdesktop2
             this.btn_capture_selected_area.Name = "btn_capture_selected_area";
             this.btn_capture_selected_area.Size = new System.Drawing.Size(136, 23);
             this.btn_capture_selected_area.TabIndex = 2;
-            this.btn_capture_selected_area.Text = "capture region";
+            this.btn_capture_selected_area.Text = "Capture region";
             this.btn_capture_selected_area.UseVisualStyleBackColor = true;
             this.btn_capture_selected_area.Click += new System.EventHandler(this.Btn_capture_regionClick);
             // 
@@ -225,7 +225,7 @@ namespace hyperdesktop2
             this.btn_capture.Name = "btn_capture";
             this.btn_capture.Size = new System.Drawing.Size(81, 23);
             this.btn_capture.TabIndex = 1;
-            this.btn_capture.Text = "capture";
+            this.btn_capture.Text = "Capture";
             this.btn_capture.UseVisualStyleBackColor = true;
             this.btn_capture.Click += new System.EventHandler(this.Btn_captureClick);
             // 
@@ -391,7 +391,7 @@ namespace hyperdesktop2
             this.tray_icon.BalloonTipClicked += new System.EventHandler(this.Tray_iconBalloonTipClicked);
             this.tray_icon.DoubleClick += new System.EventHandler(this.inverse_tray_options);
             // 
-            // frm_Main
+            // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -405,11 +405,11 @@ namespace hyperdesktop2
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.main_menu;
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(275, 99999998);
+            this.MaximumSize = new System.Drawing.Size(275, 99999999);
             this.MinimumSize = new System.Drawing.Size(275, 300);
-            this.Name = "frm_Main";
+            this.Name = "Main";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Hyperdesktop2";
+            this.Text = "shikashi uploader";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Frm_MainFormClosing);
             this.Load += new System.EventHandler(this.Frm_MainLoad);
             this.main_menu.ResumeLayout(false);

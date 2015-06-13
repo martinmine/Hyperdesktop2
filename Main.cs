@@ -39,8 +39,8 @@ namespace hyperdesktop2
             GlobalFunctions.CreateAppDataFolder();
             GlobalFunctions.InstallApplicationData();
 
-            var web_client = new WebClient();
-            Int32 build = Convert.ToInt32(web_client.DownloadString(Settings.BuildUrl));
+            WebClient web_client = new WebClient();
+            int build = Convert.ToInt32(web_client.DownloadString(Settings.BuildUrl));
 
             // Confirm if user wants to add to system startup
             // on first run
