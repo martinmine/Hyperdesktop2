@@ -83,7 +83,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="icon-16.ico" />
     <None Include="app.config" />
     <None Include="icon.ico" />
   </ItemGroup>

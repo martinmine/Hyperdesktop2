@@ -10,7 +10,7 @@ namespace hyperdesktop2
 
         public static void Load()
         {
-            String[] bounds_arr = Settings.ScreenResolution.Split(',');
+            string[] bounds_arr = Settings.ScreenResolution.Split(',');
             Bounds = new Rectangle(
                 Convert.ToInt32(bounds_arr[0]),
                 Convert.ToInt32(bounds_arr[1]),
@@ -19,7 +19,7 @@ namespace hyperdesktop2
             );
         }
 
-        public static String Reset()
+        public static string Reset()
         {
             Rectangle tempScreenBounds = new Rectangle(0, 0, 0, 0);
 
@@ -27,7 +27,7 @@ namespace hyperdesktop2
                 if (screen != Screen.PrimaryScreen)
                     tempScreenBounds = Rectangle.Union(screen.Bounds, tempScreenBounds);
 
-            return String.Format(
+            return string.Format(
                 "{0},{1},{2},{3}",
                 tempScreenBounds.Left,
                 tempScreenBounds.Top,

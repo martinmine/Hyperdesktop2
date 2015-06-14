@@ -48,19 +48,19 @@ namespace hyperdesktop2
             this.btn_okay = new System.Windows.Forms.Button();
             this.label_size = new System.Windows.Forms.Label();
             this.drop_size = new System.Windows.Forms.ComboBox();
-            this.drop_color = new System.Windows.Forms.ComboBox();
+            this.dropColor = new System.Windows.Forms.ComboBox();
             this.label_color = new System.Windows.Forms.Label();
             this.text_insert = new System.Windows.Forms.TextBox();
             this.btn_insert = new System.Windows.Forms.Button();
             this.btn_pen = new System.Windows.Forms.Button();
             this.panel = new System.Windows.Forms.Panel();
-            this.check_drop_shadow = new System.Windows.Forms.CheckBox();
+            this.checkDropShadow = new System.Windows.Forms.CheckBox();
             this.picture_frame = new System.Windows.Forms.Panel();
-            this.picture_box = new System.Windows.Forms.PictureBox();
+            this.pictureBox = new System.Windows.Forms.PictureBox();
             this.main_menu.SuspendLayout();
             this.panel.SuspendLayout();
             this.picture_frame.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picture_box)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // main_menu
@@ -140,7 +140,7 @@ namespace hyperdesktop2
             this.btn_okay.TabIndex = 2;
             this.btn_okay.Text = "Okay";
             this.btn_okay.UseVisualStyleBackColor = true;
-            this.btn_okay.Click += new System.EventHandler(this.Btn_okayClick);
+            this.btn_okay.Click += new System.EventHandler(this.BtnOkClick);
             // 
             // label_size
             // 
@@ -161,26 +161,26 @@ namespace hyperdesktop2
             this.drop_size.Name = "drop_size";
             this.drop_size.Size = new System.Drawing.Size(80, 23);
             this.drop_size.TabIndex = 4;
-            this.drop_size.SelectedIndexChanged += new System.EventHandler(this.Drop_sizeSelectedIndexChanged);
+            this.drop_size.SelectedIndexChanged += new System.EventHandler(this.DropSizeSelectedIndexChanged);
             // 
             // drop_color
             // 
-            this.drop_color.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.drop_color.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.drop_color.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.drop_color.FormattingEnabled = true;
-            this.drop_color.Items.AddRange(new object[] {
+            this.dropColor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.dropColor.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.dropColor.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dropColor.FormattingEnabled = true;
+            this.dropColor.Items.AddRange(new object[] {
             "Black",
             "Red",
             "Blue",
             "Green",
             "White",
             "Yellow"});
-            this.drop_color.Location = new System.Drawing.Point(238, 3);
-            this.drop_color.Name = "drop_color";
-            this.drop_color.Size = new System.Drawing.Size(80, 23);
-            this.drop_color.TabIndex = 6;
-            this.drop_color.SelectedIndexChanged += new System.EventHandler(this.Drop_colorSelectedIndexChanged);
+            this.dropColor.Location = new System.Drawing.Point(238, 3);
+            this.dropColor.Name = "drop_color";
+            this.dropColor.Size = new System.Drawing.Size(80, 23);
+            this.dropColor.TabIndex = 6;
+            this.dropColor.SelectedIndexChanged += new System.EventHandler(this.DropColorSelectedIndexChanged);
             // 
             // label_color
             // 
@@ -199,7 +199,7 @@ namespace hyperdesktop2
             this.text_insert.Size = new System.Drawing.Size(220, 21);
             this.text_insert.TabIndex = 7;
             this.text_insert.Text = "Insert Text";
-            this.text_insert.Click += new System.EventHandler(this.Text_insertClick);
+            this.text_insert.Click += new System.EventHandler(this.TextInsertClick);
             // 
             // btn_insert
             // 
@@ -210,7 +210,7 @@ namespace hyperdesktop2
             this.btn_insert.TabIndex = 8;
             this.btn_insert.Text = "Insert Text";
             this.btn_insert.UseVisualStyleBackColor = true;
-            this.btn_insert.Click += new System.EventHandler(this.Btn_insertClick);
+            this.btn_insert.Click += new System.EventHandler(this.BtnInsertClick);
             // 
             // btn_pen
             // 
@@ -221,15 +221,15 @@ namespace hyperdesktop2
             this.btn_pen.TabIndex = 9;
             this.btn_pen.Text = "Pen";
             this.btn_pen.UseVisualStyleBackColor = true;
-            this.btn_pen.Click += new System.EventHandler(this.Btn_penClick);
+            this.btn_pen.Click += new System.EventHandler(this.BtnPenClick);
             // 
             // panel
             // 
             this.panel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel.Controls.Add(this.check_drop_shadow);
+            this.panel.Controls.Add(this.checkDropShadow);
             this.panel.Controls.Add(this.drop_size);
-            this.panel.Controls.Add(this.drop_color);
+            this.panel.Controls.Add(this.dropColor);
             this.panel.Controls.Add(this.btn_okay);
             this.panel.Controls.Add(this.btn_pen);
             this.panel.Controls.Add(this.label_size);
@@ -243,12 +243,12 @@ namespace hyperdesktop2
             // 
             // check_drop_shadow
             // 
-            this.check_drop_shadow.Location = new System.Drawing.Point(696, 4);
-            this.check_drop_shadow.Name = "check_drop_shadow";
-            this.check_drop_shadow.Size = new System.Drawing.Size(92, 21);
-            this.check_drop_shadow.TabIndex = 10;
-            this.check_drop_shadow.Text = "Drop Shadow";
-            this.check_drop_shadow.UseVisualStyleBackColor = true;
+            this.checkDropShadow.Location = new System.Drawing.Point(696, 4);
+            this.checkDropShadow.Name = "check_drop_shadow";
+            this.checkDropShadow.Size = new System.Drawing.Size(92, 21);
+            this.checkDropShadow.TabIndex = 10;
+            this.checkDropShadow.Text = "Drop Shadow";
+            this.checkDropShadow.UseVisualStyleBackColor = true;
             // 
             // picture_frame
             // 
@@ -257,7 +257,7 @@ namespace hyperdesktop2
             | System.Windows.Forms.AnchorStyles.Right)));
             this.picture_frame.AutoScroll = true;
             this.picture_frame.BackColor = System.Drawing.Color.DimGray;
-            this.picture_frame.Controls.Add(this.picture_box);
+            this.picture_frame.Controls.Add(this.pictureBox);
             this.picture_frame.Location = new System.Drawing.Point(0, 24);
             this.picture_frame.Name = "picture_frame";
             this.picture_frame.Size = new System.Drawing.Size(788, 481);
@@ -265,16 +265,16 @@ namespace hyperdesktop2
             // 
             // picture_box
             // 
-            this.picture_box.Location = new System.Drawing.Point(0, 0);
-            this.picture_box.Name = "picture_box";
-            this.picture_box.Size = new System.Drawing.Size(467, 240);
-            this.picture_box.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.picture_box.TabIndex = 0;
-            this.picture_box.TabStop = false;
-            this.picture_box.Paint += new System.Windows.Forms.PaintEventHandler(this.Picture_boxPaint);
-            this.picture_box.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Picture_boxMouseDown);
-            this.picture_box.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Picture_boxMouseMove);
-            this.picture_box.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Picture_boxMouseUp);
+            this.pictureBox.Location = new System.Drawing.Point(0, 0);
+            this.pictureBox.Name = "picture_box";
+            this.pictureBox.Size = new System.Drawing.Size(467, 240);
+            this.pictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBox.TabIndex = 0;
+            this.pictureBox.TabStop = false;
+            this.pictureBox.Paint += new System.Windows.Forms.PaintEventHandler(this.PictureBoxPaint);
+            this.pictureBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.PictureBoxMouseDown);
+            this.pictureBox.MouseMove += new System.Windows.Forms.MouseEventHandler(this.PictureBoxMouseMove);
+            this.pictureBox.MouseUp += new System.Windows.Forms.MouseEventHandler(this.PictureBoxMouseUp);
             // 
             // frm_Edit
             // 
@@ -295,17 +295,17 @@ namespace hyperdesktop2
             this.panel.PerformLayout();
             this.picture_frame.ResumeLayout(false);
             this.picture_frame.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picture_box)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
 		}
-		private System.Windows.Forms.CheckBox check_drop_shadow;
-		private System.Windows.Forms.PictureBox picture_box;
+		private System.Windows.Forms.CheckBox checkDropShadow;
+		private System.Windows.Forms.PictureBox pictureBox;
 		private System.Windows.Forms.Panel picture_frame;
 		private System.Windows.Forms.ToolStripMenuItem submitToolStripMenuItem;
 		private System.Windows.Forms.ComboBox drop_size;
-		private System.Windows.Forms.ComboBox drop_color;
+		private System.Windows.Forms.ComboBox dropColor;
 		private System.Windows.Forms.Label label_color;
 		private System.Windows.Forms.TextBox text_insert;
 		private System.Windows.Forms.Button btn_insert;

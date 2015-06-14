@@ -14,7 +14,7 @@ namespace hyperdesktop2
     public partial class Main : Form
     {
         private Hotkeys hook;
-        private Boolean snipperOpen;
+        private bool snipperOpen;
 
         #region Main Form
         public Main()
@@ -75,13 +75,13 @@ namespace hyperdesktop2
                 }
             }
 
-            register_hotkeys();
+            RegisterHotkeys();
         }
 
-        void Frm_MainLoad(object sender, EventArgs e)
+        private void OnLoad(object sender, EventArgs e)
         {
-            Imgur.WebClient.UploadProgressChanged += upload_progress_changed;
-            Imgur.WebClient.UploadValuesCompleted += upload_progress_complete;
+            Imgur.WebClient.UploadProgressChanged += UploadProgressChanged;
+            Imgur.WebClient.UploadValuesCompleted += UploadProgressChanged;
 
             Settings.ReadSettings();
             tray_icon.Visible = true;
@@ -89,26 +89,28 @@ namespace hyperdesktop2
             ScreenBounds.Load();
         }
 
-        void Frm_MainFormClosing(object sender, FormClosingEventArgs e)
+        private void OnFormClosing(object sender, FormClosingEventArgs e)
         {
-            inverse_tray_options(sender, e);
+            InverseTrayOption(sender, e);
             e.Cancel = true;
         }
         #endregion
 
         #region Tray Icon
-        void balloon_tip(String text, String title, Int32 duration, ToolTipIcon icon = ToolTipIcon.Info)
+        private void BalloonTip(string text, string title, Int32 duration, ToolTipIcon icon = ToolTipIcon.Info)
         {
             tray_icon.BalloonTipText = text;
             tray_icon.BalloonTipTitle = title;
             tray_icon.BalloonTipIcon = icon;
             tray_icon.ShowBalloonTip(duration);
         }
-        void Tray_iconBalloonTipClicked(object sender, System.EventArgs e)
+
+        private void TrayIconBalloonTipClicked(object sender, System.EventArgs e)
         {
             Process.Start(tray_icon.BalloonTipText);
         }
-        void inverse_tray_options(object sender, EventArgs e)
+
+        private void InverseTrayOption(object sender, EventArgs e)
         {
             minimizeToTrayToolStripMenuItem.Text = (minimizeToTrayToolStripMenuItem.Text == "Open Window") ? "Minimize to Tray" : "Open Window";
 
@@ -118,26 +120,26 @@ namespace hyperdesktop2
         #endregion
 
         #region Drag and Drop
-        void drag_enter(object sender, DragEventArgs e)
+        private void OnDragEnter(object sender, DragEventArgs e)
         {
             e.Effect = e.Data.GetDataPresent(DataFormats.FileDrop) ? DragDropEffects.Move : DragDropEffects.None;
         }
-        void drag_drop(object sender, DragEventArgs e)
+        private void OnDragDrop(object sender, DragEventArgs e)
         {
-            var files = (String[])e.Data.GetData(DataFormats.FileDrop);
+            string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
 
-            foreach (String file in files)
+            foreach (string file in files)
             {
-                work_image(new Bitmap(Image.FromFile(file)));
+                WorkImage(new Bitmap(Image.FromFile(file)));
             }
         }
         #endregion
 
         #region Hotkeys
-        public void register_hotkeys()
+        public void RegisterHotkeys()
         {
             hook = new Hotkeys();
-            hook.KeyPressed += hook_KeyPressed;
+            hook.KeyPressed += OnHotkeyPressed;
 
             try
             {
@@ -151,20 +153,20 @@ namespace hyperdesktop2
             }
         }
 
-        void hook_KeyPressed(object sender, KeyPressedEventArgs e)
+        void OnHotkeyPressed(object sender, KeyPressedEventArgs e)
         {
             switch (e.Key)
             {
                 case Keys.D3:
-                    screen_capture("screen");
+                    ScreenCapture("screen");
                     break;
 
                 case Keys.D4:
-                    screen_capture("region");
+                    ScreenCapture("region");
                     break;
 
                 case Keys.D5:
-                    screen_capture("window");
+                    ScreenCapture("window");
                     break;
             }
         }
@@ -172,18 +174,18 @@ namespace hyperdesktop2
 
         #region Image
 
-        Bitmap edit_screenshot(Bitmap bmp)
+        private Bitmap EditScreenshot(Bitmap bmp)
         {
             if (!Settings.EdiScreenshot)
                 return null;
 
-            var edit = new Edit(bmp);
+            Edit edit = new Edit(bmp);
             edit.ShowDialog();
 
             return edit.Result;
         }
 
-        void save_screenshot(Bitmap bmp, String name = null)
+        void SaveScreenshot(Bitmap bmp, string name = null)
         {
             if (!Settings.SaveScreenshots)
                 return;
@@ -193,7 +195,7 @@ namespace hyperdesktop2
 
             try
             {
-                bmp.Save(String.Format("{0}/{1}.{2}", Settings.SaveFolder, name, Settings.SaveFormat,
+                bmp.Save(string.Format("{0}/{1}.{2}", Settings.SaveFolder, name, Settings.SaveFormat,
                     GlobalFunctions.ExtensionToImageFormat(Settings.SaveFormat)));
             }
             catch (Exception ex)
@@ -203,7 +205,7 @@ namespace hyperdesktop2
             }
         }
 
-        void screen_capture(String type)
+        private void ScreenCapture(string type)
         {
             Bitmap bmp = null;
 
@@ -222,7 +224,7 @@ namespace hyperdesktop2
                         return;
 
                     snipperOpen = true;
-                    var rect = Snipper.get_region();
+                    var rect = Snipper.GetRegion();
 
                     if (rect == new Rectangle(0, 0, 0, 0))
                         return;
@@ -231,15 +233,15 @@ namespace hyperdesktop2
                     snipperOpen = false;
                     break;
             }
-            work_image(bmp, true);
+            WorkImage(bmp, true);
         }
 
-        void work_image(Bitmap bmp, Boolean edit = false)
+        private void WorkImage(Bitmap bmp, bool edit = false)
         {
             GlobalFunctions.PlaySound("capture.wav");
 
             if (edit)
-                bmp = edit_screenshot(bmp);
+                bmp = EditScreenshot(bmp);
 
             if (bmp == null)
                 return;
@@ -250,84 +252,84 @@ namespace hyperdesktop2
                     GlobalFunctions.PlaySound("error.wav");
 
                     if (Settings.BalloonMessages)
-                        balloon_tip("Error uploading file!", "Error", 2000, ToolTipIcon.Error);
+                        BalloonTip("Error uploading file!", "Error", 2000, ToolTipIcon.Error);
                 }
 
-            save_screenshot(bmp);
+            SaveScreenshot(bmp);
         }
         #endregion
 
         #region Buttons
-        void Btn_browseClick(object sender, EventArgs e)
+        private void BtnBrowseClick(object sender, EventArgs e)
         {
-            var dialog = new OpenFileDialog();
+            OpenFileDialog dialog = new OpenFileDialog();
             dialog.Filter = "PNG|*.png|JPG|*.jpg|BMP|*.bmp|All Files (*.*)|*.*";
 
             if (dialog.ShowDialog() == DialogResult.OK)
             {
-                work_image(new Bitmap(Image.FromFile(dialog.FileName)));
+                WorkImage(new Bitmap(Image.FromFile(dialog.FileName)));
             }
         }
 
-        void Btn_captureClick(object sender, EventArgs e) { screen_capture("screen"); }
-        void Btn_windowClick() { screen_capture("window"); }
-        void Btn_capture_regionClick(object sender, EventArgs e) { screen_capture("region"); }
+        private void BtnCaptureClick(object sender, EventArgs e) { ScreenCapture("screen"); }
+        private void BtnWindowClick() { ScreenCapture("window"); }
+        private void BtnCaptureRegionClick(object sender, EventArgs e) { ScreenCapture("region"); }
         #endregion
 
         #region Main Menu
-        void PreferencesToolStripMenuItemClick(object sender, EventArgs e)
+        private void PreferencesToolStripMenuItemClick(object sender, EventArgs e)
         {
             new Preferences().ShowDialog();
         }
-        void ExitToolStripMenuItemClick(object sender, EventArgs e)
+        private void ExitToolStripMenuItemClick(object sender, EventArgs e)
         {
             this.Dispose();
         }
-        void AboutToolStripMenuItemClick(object sender, EventArgs e)
+        private void AboutToolStripMenuItemClick(object sender, EventArgs e)
         {
             new About().ShowDialog();
         }
-        void RegisterHotkeysToolStripMenuItemClick(object sender, System.EventArgs e)
+        private void RegisterHotkeysToolStripMenuItemClick(object sender, System.EventArgs e)
         {
-            register_hotkeys();
+            RegisterHotkeys();
         }
         #endregion
 
         #region Image Links Menu
-        void OpenToolStripMenuItemClick(object sender, EventArgs e)
+        private void OpenToolStripMenuItemClick(object sender, EventArgs e)
         {
-            if (list_image_links.SelectedItems.Count > 0)
-                Process.Start(list_image_links.SelectedItems[0].Text);
+            if (listImageLinks.SelectedItems.Count > 0)
+                Process.Start(listImageLinks.SelectedItems[0].Text);
         }
-        void CopyToolStripMenuItemClick(object sender, EventArgs e)
+        private void CopyToolStripMenuItemClick(object sender, EventArgs e)
         {
-            if (list_image_links.SelectedItems.Count > 0)
-                Clipboard.SetText(list_image_links.SelectedItems[0].Text);
+            if (listImageLinks.SelectedItems.Count > 0)
+                Clipboard.SetText(listImageLinks.SelectedItems[0].Text);
         }
-        void DeleteToolStripMenuItemClick(object sender, EventArgs e)
+        private void DeleteToolStripMenuItemClick(object sender, EventArgs e)
         {
-            if (list_image_links.SelectedItems.Count <= 0)
+            if (listImageLinks.SelectedItems.Count <= 0)
                 return;
 
-            if (Imgur.delete(list_image_links.SelectedItems[0].SubItems[1].Text))
-                list_image_links.SelectedItems[0].Remove();
+            if (Imgur.delete(listImageLinks.SelectedItems[0].SubItems[1].Text))
+                listImageLinks.SelectedItems[0].Remove();
             else
             {
                 GlobalFunctions.PlaySound("error.wav");
 
                 if (Settings.BalloonMessages)
-                    balloon_tip("Could not delete file!", "Error", 2000, ToolTipIcon.Error);
+                    BalloonTip("Could not delete file!", "Error", 2000, ToolTipIcon.Error);
             }
         }
         #endregion
 
         #region Progress Bar
-        void upload_progress_changed(object sender, UploadProgressChangedEventArgs e)
+        private void UploadProgressChanged(object sender, UploadProgressChangedEventArgs e)
         {
             try
             {
-                Int32 percent = Convert.ToInt32(e.BytesSent / e.TotalBytesToSend) * 100;
-                group_upload_progress.Text = String.Format("Upload Progress - {0}% ({1}kb/{2}kb)", percent, e.BytesSent / 1024, e.TotalBytesToSend / 1024);
+                int percent = (int)((e.BytesSent / e.TotalBytesToSend) * 100);
+                groupUploadProgress.Text = string.Format("Upload Progress - {0}% ({1}kb/{2}kb)", percent, e.BytesSent / 1024, e.TotalBytesToSend / 1024);
                 progress.Value = percent;
             }
             catch
@@ -336,27 +338,27 @@ namespace hyperdesktop2
                 // number into the ProgressPercentage
             }
         }
-        void upload_progress_complete(object sender, UploadValuesCompletedEventArgs e)
+        private void UploadProgressChanged(object sender, UploadValuesCompletedEventArgs e)
         {
-            group_upload_progress.Text = "Upload Progress";
+            groupUploadProgress.Text = "Upload Progress";
             progress.Value = 0;
 
-            String response = Encoding.UTF8.GetString(e.Result);
+            string response = Encoding.UTF8.GetString(e.Result);
 
-            String delete_hash = GlobalFunctions.get_text_inbetween(response, "deletehash\":\"", "\",\"name\"").Replace("\\", "");
-            String link = GlobalFunctions.get_text_inbetween(response, "link\":\"", "\"}").Replace("\\", "");
+            string delete_hash = GlobalFunctions.get_text_inbetween(response, "deletehash\":\"", "\",\"name\"").Replace("\\", "");
+            string link = GlobalFunctions.get_text_inbetween(response, "link\":\"", "\"}").Replace("\\", "");
 
-            list_image_links.Items.Add(
-                new ListViewItem(new String[] { link, delete_hash })
+            listImageLinks.Items.Add(
+                new ListViewItem(new string[] { link, delete_hash })
             );
 
-            list_image_links.Items[list_image_links.Items.Count - 1].EnsureVisible();
+            listImageLinks.Items[listImageLinks.Items.Count - 1].EnsureVisible();
 
             if (Settings.CopyLinksToClipboard)
                 Clipboard.SetText(link);
 
             if (Settings.BalloonMessages)
-                balloon_tip(link, "Upload Complete!", 2000);
+                BalloonTip(link, "Upload Complete!", 2000);
 
             GlobalFunctions.PlaySound("success.wav");
         }

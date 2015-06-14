@@ -25,13 +25,13 @@ namespace hyperdesktop2
         }
 
         [Obsolete]
-        public static Boolean str_to_bool(String str)
+        public static Boolean str_to_bool(string str)
         {
             return str.ToLower() == "true";
         }
 
         [Obsolete]
-        public static String get_text_inbetween(String input, String a, String b)
+        public static string get_text_inbetween(string input, string a, string b)
         {
             return input.Substring(input.IndexOf(a) + a.Length, input.IndexOf(b) - input.IndexOf(a) - a.Length);
         }

@@ -8,12 +8,12 @@ namespace hyperdesktop2
     public partial class Snipper : Form
     {
 
-        public static Rectangle get_region()
+        public static Rectangle GetRegion()
         {
             var snipper = new Snipper();
 
             if (snipper.ShowDialog() == DialogResult.OK)
-                return snipper.rect;
+                return snipper.Rect;
 
             return new Rectangle(0, 0, 0, 0);
         }
@@ -37,10 +37,10 @@ namespace hyperdesktop2
             this.Size = new Size(ScreenBounds.Bounds.Width, ScreenBounds.Bounds.Height);
         }
 
-        public Rectangle rect { get; set; }
+        public Rectangle Rect { get; set; }
 
         private Rectangle select = new Rectangle();
-        private Rectangle previous_select = new Rectangle();
+        private Rectangle previousSelect = new Rectangle();
         private Point start;
 
         protected override void OnMouseDown(MouseEventArgs e)
@@ -63,8 +63,8 @@ namespace hyperdesktop2
             int x2 = Math.Max(e.X, start.X);
             int y2 = Math.Max(e.Y, start.Y);
 
-            Invalidate(previous_select);
-            previous_select = select;
+            Invalidate(previousSelect);
+            previousSelect = select;
 
             select = new Rectangle(x1, y1, x2 - x1, y2 - y1);
             Invalidate(select);
@@ -77,7 +77,7 @@ namespace hyperdesktop2
             if (select.Width <= 0 || select.Height <= 0)
                 return;
 
-            rect = new Rectangle(
+            Rect = new Rectangle(
                 ScreenBounds.Bounds.Left + select.Left,
                 ScreenBounds.Bounds.Top + select.Top,
                 select.Width,

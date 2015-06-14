@@ -12,8 +12,6 @@ namespace hyperdesktop2
         {
             try
             {
-                
-
                 var postData = new NameValueCollection();
 
                 var imageData = GlobalFunctions.BmpToBase64(bmp, GlobalFunctions.ExtensionToImageFormat(Settings.UploadFormat));
@@ -36,7 +34,7 @@ namespace hyperdesktop2
             return true;
         }
 
-        public static Boolean delete(String delete_hash)
+        public static Boolean delete(string delete_hash)
         {
             try
             {

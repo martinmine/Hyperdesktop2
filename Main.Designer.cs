@@ -53,10 +53,10 @@ namespace hyperdesktop2
             this.group_screenshot = new System.Windows.Forms.GroupBox();
             this.btn_capture_selected_area = new System.Windows.Forms.Button();
             this.btn_capture = new System.Windows.Forms.Button();
-            this.group_upload_progress = new System.Windows.Forms.GroupBox();
+            this.groupUploadProgress = new System.Windows.Forms.GroupBox();
             this.progress = new System.Windows.Forms.ProgressBar();
             this.group_image_links = new System.Windows.Forms.GroupBox();
-            this.list_image_links = new System.Windows.Forms.ListView();
+            this.listImageLinks = new System.Windows.Forms.ListView();
             this.column_url = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.column_delete_hash = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.image_links_menu = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -75,7 +75,7 @@ namespace hyperdesktop2
             this.main_menu.SuspendLayout();
             this.group_upload.SuspendLayout();
             this.group_screenshot.SuspendLayout();
-            this.group_upload_progress.SuspendLayout();
+            this.groupUploadProgress.SuspendLayout();
             this.group_image_links.SuspendLayout();
             this.image_links_menu.SuspendLayout();
             this.tray_menu.SuspendLayout();
@@ -108,7 +108,7 @@ namespace hyperdesktop2
             this.hideWindowToolStripMenuItem.Name = "hideWindowToolStripMenuItem";
             this.hideWindowToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.hideWindowToolStripMenuItem.Text = "Hide Window";
-            this.hideWindowToolStripMenuItem.Click += new System.EventHandler(this.inverse_tray_options);
+            this.hideWindowToolStripMenuItem.Click += new System.EventHandler(this.InverseTrayOption);
             // 
             // exitToolStripMenuItem
             // 
@@ -166,8 +166,8 @@ namespace hyperdesktop2
             this.group_upload.TabIndex = 1;
             this.group_upload.TabStop = false;
             this.group_upload.Text = "Upload Images";
-            this.group_upload.DragDrop += new System.Windows.Forms.DragEventHandler(this.drag_drop);
-            this.group_upload.DragEnter += new System.Windows.Forms.DragEventHandler(this.drag_enter);
+            this.group_upload.DragDrop += new System.Windows.Forms.DragEventHandler(this.OnDragDrop);
+            this.group_upload.DragEnter += new System.Windows.Forms.DragEventHandler(this.OnDragEnter);
             // 
             // btn_browse
             // 
@@ -179,9 +179,9 @@ namespace hyperdesktop2
             this.btn_browse.TabIndex = 0;
             this.btn_browse.Text = "Browse";
             this.btn_browse.UseVisualStyleBackColor = true;
-            this.btn_browse.Click += new System.EventHandler(this.Btn_browseClick);
-            this.btn_browse.DragDrop += new System.Windows.Forms.DragEventHandler(this.drag_drop);
-            this.btn_browse.DragEnter += new System.Windows.Forms.DragEventHandler(this.drag_enter);
+            this.btn_browse.Click += new System.EventHandler(this.BtnBrowseClick);
+            this.btn_browse.DragDrop += new System.Windows.Forms.DragEventHandler(this.OnDragDrop);
+            this.btn_browse.DragEnter += new System.Windows.Forms.DragEventHandler(this.OnDragEnter);
             // 
             // lbl_instructions
             // 
@@ -192,8 +192,8 @@ namespace hyperdesktop2
             this.lbl_instructions.Size = new System.Drawing.Size(162, 34);
             this.lbl_instructions.TabIndex = 1;
             this.lbl_instructions.Text = "Drag and drop pictures here, or select them by pressing browse";
-            this.lbl_instructions.DragDrop += new System.Windows.Forms.DragEventHandler(this.drag_drop);
-            this.lbl_instructions.DragEnter += new System.Windows.Forms.DragEventHandler(this.drag_enter);
+            this.lbl_instructions.DragDrop += new System.Windows.Forms.DragEventHandler(this.OnDragDrop);
+            this.lbl_instructions.DragEnter += new System.Windows.Forms.DragEventHandler(this.OnDragEnter);
             // 
             // group_screenshot
             // 
@@ -216,7 +216,7 @@ namespace hyperdesktop2
             this.btn_capture_selected_area.TabIndex = 2;
             this.btn_capture_selected_area.Text = "Capture region";
             this.btn_capture_selected_area.UseVisualStyleBackColor = true;
-            this.btn_capture_selected_area.Click += new System.EventHandler(this.Btn_capture_regionClick);
+            this.btn_capture_selected_area.Click += new System.EventHandler(this.BtnCaptureRegionClick);
             // 
             // btn_capture
             // 
@@ -227,17 +227,17 @@ namespace hyperdesktop2
             this.btn_capture.TabIndex = 1;
             this.btn_capture.Text = "Capture";
             this.btn_capture.UseVisualStyleBackColor = true;
-            this.btn_capture.Click += new System.EventHandler(this.Btn_captureClick);
+            this.btn_capture.Click += new System.EventHandler(this.BtnCaptureClick);
             // 
             // group_upload_progress
             // 
-            this.group_upload_progress.Controls.Add(this.progress);
-            this.group_upload_progress.Location = new System.Drawing.Point(12, 144);
-            this.group_upload_progress.Name = "group_upload_progress";
-            this.group_upload_progress.Size = new System.Drawing.Size(235, 49);
-            this.group_upload_progress.TabIndex = 3;
-            this.group_upload_progress.TabStop = false;
-            this.group_upload_progress.Text = "Upload Progress";
+            this.groupUploadProgress.Controls.Add(this.progress);
+            this.groupUploadProgress.Location = new System.Drawing.Point(12, 144);
+            this.groupUploadProgress.Name = "group_upload_progress";
+            this.groupUploadProgress.Size = new System.Drawing.Size(235, 49);
+            this.groupUploadProgress.TabIndex = 3;
+            this.groupUploadProgress.TabStop = false;
+            this.groupUploadProgress.Text = "Upload Progress";
             // 
             // progress
             // 
@@ -251,38 +251,38 @@ namespace hyperdesktop2
             this.group_image_links.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.group_image_links.Controls.Add(this.list_image_links);
+            this.group_image_links.Controls.Add(this.listImageLinks);
             this.group_image_links.Location = new System.Drawing.Point(12, 199);
             this.group_image_links.Name = "group_image_links";
             this.group_image_links.Size = new System.Drawing.Size(235, 212);
             this.group_image_links.TabIndex = 4;
             this.group_image_links.TabStop = false;
             this.group_image_links.Text = "Image Links";
-            this.group_image_links.DragDrop += new System.Windows.Forms.DragEventHandler(this.drag_drop);
-            this.group_image_links.DragEnter += new System.Windows.Forms.DragEventHandler(this.drag_enter);
+            this.group_image_links.DragDrop += new System.Windows.Forms.DragEventHandler(this.OnDragDrop);
+            this.group_image_links.DragEnter += new System.Windows.Forms.DragEventHandler(this.OnDragEnter);
             // 
             // list_image_links
             // 
-            this.list_image_links.AllowDrop = true;
-            this.list_image_links.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.listImageLinks.AllowDrop = true;
+            this.listImageLinks.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.list_image_links.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.listImageLinks.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.column_url,
             this.column_delete_hash});
-            this.list_image_links.ContextMenuStrip = this.image_links_menu;
-            this.list_image_links.FullRowSelect = true;
-            this.list_image_links.GridLines = true;
-            this.list_image_links.Location = new System.Drawing.Point(6, 19);
-            this.list_image_links.MultiSelect = false;
-            this.list_image_links.Name = "list_image_links";
-            this.list_image_links.Size = new System.Drawing.Size(223, 187);
-            this.list_image_links.TabIndex = 0;
-            this.list_image_links.UseCompatibleStateImageBehavior = false;
-            this.list_image_links.View = System.Windows.Forms.View.Details;
-            this.list_image_links.DragDrop += new System.Windows.Forms.DragEventHandler(this.drag_drop);
-            this.list_image_links.DragEnter += new System.Windows.Forms.DragEventHandler(this.drag_enter);
-            this.list_image_links.DoubleClick += new System.EventHandler(this.OpenToolStripMenuItemClick);
+            this.listImageLinks.ContextMenuStrip = this.image_links_menu;
+            this.listImageLinks.FullRowSelect = true;
+            this.listImageLinks.GridLines = true;
+            this.listImageLinks.Location = new System.Drawing.Point(6, 19);
+            this.listImageLinks.MultiSelect = false;
+            this.listImageLinks.Name = "list_image_links";
+            this.listImageLinks.Size = new System.Drawing.Size(223, 187);
+            this.listImageLinks.TabIndex = 0;
+            this.listImageLinks.UseCompatibleStateImageBehavior = false;
+            this.listImageLinks.View = System.Windows.Forms.View.Details;
+            this.listImageLinks.DragDrop += new System.Windows.Forms.DragEventHandler(this.OnDragDrop);
+            this.listImageLinks.DragEnter += new System.Windows.Forms.DragEventHandler(this.OnDragEnter);
+            this.listImageLinks.DoubleClick += new System.EventHandler(this.OpenToolStripMenuItemClick);
             // 
             // column_url
             // 
@@ -347,7 +347,7 @@ namespace hyperdesktop2
             this.minimizeToTrayToolStripMenuItem.Name = "minimizeToTrayToolStripMenuItem";
             this.minimizeToTrayToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
             this.minimizeToTrayToolStripMenuItem.Text = "Minimize to tray";
-            this.minimizeToTrayToolStripMenuItem.Click += new System.EventHandler(this.inverse_tray_options);
+            this.minimizeToTrayToolStripMenuItem.Click += new System.EventHandler(this.InverseTrayOption);
             // 
             // toolStripMenuItem1
             // 
@@ -359,14 +359,14 @@ namespace hyperdesktop2
             this.takeRegionScreenshotToolStripMenuItem.Name = "takeRegionScreenshotToolStripMenuItem";
             this.takeRegionScreenshotToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
             this.takeRegionScreenshotToolStripMenuItem.Text = "Take Region Screenshot";
-            this.takeRegionScreenshotToolStripMenuItem.Click += new System.EventHandler(this.Btn_capture_regionClick);
+            this.takeRegionScreenshotToolStripMenuItem.Click += new System.EventHandler(this.BtnCaptureRegionClick);
             // 
             // takeScreenshotToolStripMenuItem
             // 
             this.takeScreenshotToolStripMenuItem.Name = "takeScreenshotToolStripMenuItem";
             this.takeScreenshotToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
             this.takeScreenshotToolStripMenuItem.Text = "Take Screenshot";
-            this.takeScreenshotToolStripMenuItem.Click += new System.EventHandler(this.Btn_captureClick);
+            this.takeScreenshotToolStripMenuItem.Click += new System.EventHandler(this.BtnCaptureClick);
             // 
             // aboutToolStripMenuItem1
             // 
@@ -388,8 +388,8 @@ namespace hyperdesktop2
             this.tray_icon.Icon = ((System.Drawing.Icon)(resources.GetObject("tray_icon.Icon")));
             this.tray_icon.Text = "Hyperdesktop2";
             this.tray_icon.Visible = true;
-            this.tray_icon.BalloonTipClicked += new System.EventHandler(this.Tray_iconBalloonTipClicked);
-            this.tray_icon.DoubleClick += new System.EventHandler(this.inverse_tray_options);
+            this.tray_icon.BalloonTipClicked += new System.EventHandler(this.TrayIconBalloonTipClicked);
+            this.tray_icon.DoubleClick += new System.EventHandler(this.InverseTrayOption);
             // 
             // Main
             // 
@@ -397,7 +397,7 @@ namespace hyperdesktop2
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(259, 417);
             this.Controls.Add(this.group_image_links);
-            this.Controls.Add(this.group_upload_progress);
+            this.Controls.Add(this.groupUploadProgress);
             this.Controls.Add(this.group_screenshot);
             this.Controls.Add(this.group_upload);
             this.Controls.Add(this.main_menu);
@@ -410,13 +410,13 @@ namespace hyperdesktop2
             this.Name = "Main";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "shikashi uploader";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Frm_MainFormClosing);
-            this.Load += new System.EventHandler(this.Frm_MainLoad);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.OnFormClosing);
+            this.Load += new System.EventHandler(this.OnLoad);
             this.main_menu.ResumeLayout(false);
             this.main_menu.PerformLayout();
             this.group_upload.ResumeLayout(false);
             this.group_screenshot.ResumeLayout(false);
-            this.group_upload_progress.ResumeLayout(false);
+            this.groupUploadProgress.ResumeLayout(false);
             this.group_image_links.ResumeLayout(false);
             this.image_links_menu.ResumeLayout(false);
             this.tray_menu.ResumeLayout(false);
@@ -440,10 +440,10 @@ namespace hyperdesktop2
 		private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem1;
 		private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem1;
 		private System.Windows.Forms.ContextMenuStrip tray_menu;
-		private System.Windows.Forms.GroupBox group_upload_progress;
+		private System.Windows.Forms.GroupBox groupUploadProgress;
 		private System.Windows.Forms.ProgressBar progress;
 		private System.Windows.Forms.GroupBox group_image_links;
-		private System.Windows.Forms.ListView list_image_links;
+		private System.Windows.Forms.ListView listImageLinks;
 		private System.Windows.Forms.GroupBox group_upload;
 		private System.Windows.Forms.Button btn_browse;
 		private System.Windows.Forms.Label lbl_instructions;

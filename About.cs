@@ -13,17 +13,17 @@ namespace hyperdesktop2
 		{
 			InitializeComponent();
 		}
-		void Btn_githubClick(object sender, System.EventArgs e)
+		private void BtnGithubClick(object sender, System.EventArgs e)
 		{
 			Process.Start("https://github.com/TheTarkus/Hyperdesktop2/");
 		}
-		void Btn_reportClick(object sender, System.EventArgs e)
+        private void BtnReportClick(object sender, System.EventArgs e)
 		{
 			Process.Start("https://github.com/TheTarkus/Hyperdesktop2/issues");
 		}
-		void Frm_AboutLoad(object sender, System.EventArgs e)
+        private void FrmAboutLoad(object sender, System.EventArgs e)
 		{
-			label_build.Text = "Build: " + Settings.BuildVersion;
+			labelBuild.Text = "Build: " + Settings.BuildVersion;
 		}
 	}
 }

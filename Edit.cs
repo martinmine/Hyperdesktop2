@@ -1,9 +1,8 @@
 ﻿using System;
-using System.IO;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Windows.Forms;
-using System.Text.RegularExpressions;
 
 namespace hyperdesktop2
 {
@@ -41,62 +40,62 @@ namespace hyperdesktop2
             undo.Add(new Bitmap(bmp));
 
             font = font ?? new Font("Arial", 16);
-            check_drop_shadow.Checked = dropShadow;
+            checkDropShadow.Checked = dropShadow;
         }
 
-        void Frm_EditLoad(object sender, EventArgs e)
+        private void Frm_EditLoad(object sender, EventArgs e)
         {
             // Set picture to the one we just recieved
-            picture_box.SizeMode = PictureBoxSizeMode.AutoSize;
-            picture_box.Image = new Bitmap(undo[0]);
-            drop_color.Text = "Red";
+            pictureBox.SizeMode = PictureBoxSizeMode.AutoSize;
+            pictureBox.Image = new Bitmap(undo[0]);
+            dropColor.Text = "Red";
 
             // Set control defaults
             drop_size.SelectedIndex = 1;
-            drop_color.SelectedIndex = 1;
+            dropColor.SelectedIndex = 1;
         }
 
         #region Controls
-        void Btn_okayClick(object sender, EventArgs e)
+        private void BtnOkClick(object sender, EventArgs e)
         {
-            Result = new Bitmap(picture_box.Image);
+            Result = new Bitmap(pictureBox.Image);
             this.Close();
-            picture_box.Image = null;
+            pictureBox.Image = null;
             undo.Clear();
         }
 
-        void Text_insertClick(object sender, EventArgs e)
+        private void TextInsertClick(object sender, EventArgs e)
         {
             if (text_insert.Text == "Insert Text")
-                text_insert.Text = String.Empty;
+                text_insert.Text = string.Empty;
         }
 
-        void Btn_penClick(object sender, EventArgs e) { usingPen = true; }
-        void Btn_insertClick(object sender, EventArgs e)
+        private void BtnPenClick(object sender, EventArgs e) { usingPen = true; }
+        private void BtnInsertClick(object sender, EventArgs e)
         {
             usingPen = false;
-            Drop_sizeSelectedIndexChanged(sender, e);
+            DropSizeSelectedIndexChanged(sender, e);
         }
 
-        void Drop_sizeSelectedIndexChanged(object sender, EventArgs e)
+        private void DropSizeSelectedIndexChanged(object sender, EventArgs e)
         {
             penSize = Convert.ToInt16(sizes[drop_size.Text]);
             font = new Font("Arial", penSize + 12);
         }
 
-        void Drop_colorSelectedIndexChanged(object sender, EventArgs e)
+        private void DropColorSelectedIndexChanged(object sender, EventArgs e)
         {
-            penColor = Color.FromName(drop_color.Text);
+            penColor = Color.FromName(dropColor.Text);
             brush = new SolidBrush(penColor);
         }
         #endregion
 
         #region Menu
-        void UndoToolStripMenuItemClick(object sender, EventArgs e)
+        private void UndoToolStripMenuItemClick(object sender, EventArgs e)
         {
             try
             {
-                picture_box.Image = new Bitmap(undo[undo.Count - 2]);
+                pictureBox.Image = new Bitmap(undo[undo.Count - 2]);
                 undo.RemoveAt(undo.Count - 1);
                 GC.Collect();
             }
@@ -106,26 +105,26 @@ namespace hyperdesktop2
             }
         }
 
-        void ResetToolStripMenuItemClick(object sender, EventArgs e)
+        private void ResetToolStripMenuItemClick(object sender, EventArgs e)
         {
-            picture_box.Image = new Bitmap(undo[0]);
+            pictureBox.Image = new Bitmap(undo[0]);
         }
 
-        void CopyToolStripMenuItemClick(object sender, System.EventArgs e)
+        private void CopyToolStripMenuItemClick(object sender, System.EventArgs e)
         {
-            Clipboard.SetImage(picture_box.Image);
+            Clipboard.SetImage(pictureBox.Image);
         }
 
-        void Picture_boxMouseDown(object sender, MouseEventArgs e)
+        private void PictureBoxMouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button != MouseButtons.Left)
                 return;
 
             if (!usingPen)
             {
-                g = Graphics.FromImage(picture_box.Image);
+                g = Graphics.FromImage(pictureBox.Image);
 
-                if (check_drop_shadow.Checked)
+                if (checkDropShadow.Checked)
                     g.DrawString(text_insert.Text, font, new SolidBrush(Color.Black), pointY.X + 1, pointY.Y + 1);
 
                 g.DrawString(text_insert.Text, font, brush, pointY.X, pointY.Y);
@@ -135,7 +134,7 @@ namespace hyperdesktop2
             pen = new Pen(penColor, penSize);
         }
 
-        void SaveAsToolStripMenuItemClick(object sender, System.EventArgs e)
+        private void SaveAsToolStripMenuItemClick(object sender, System.EventArgs e)
         {
             var dialog = new SaveFileDialog();
             dialog.FileName = DateTime.Now.ToString("yyyy-MM-dd_HHmmss");
@@ -143,7 +142,7 @@ namespace hyperdesktop2
 
             if (dialog.ShowDialog() == DialogResult.OK)
             {
-                picture_box.Image.Save(
+                pictureBox.Image.Save(
                     dialog.FileName,
                     GlobalFunctions.ExtensionToImageFormat(Path.GetExtension(dialog.FileName).Substring(1))
                 );
@@ -152,10 +151,10 @@ namespace hyperdesktop2
         #endregion
 
         #region Mouse Movements & Paint
-        void Picture_boxMouseMove(object sender, MouseEventArgs e)
+        private void PictureBoxMouseMove(object sender, MouseEventArgs e)
         {
             pointY = e.Location;
-            picture_box.Invalidate();
+            pictureBox.Invalidate();
 
             if (!(e.Button == MouseButtons.Left && usingPen))
                 return;
@@ -163,7 +162,7 @@ namespace hyperdesktop2
             // Actually drawing on the image
             try
             {
-                g = Graphics.FromImage(picture_box.Image);
+                g = Graphics.FromImage(pictureBox.Image);
                 g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
                 g.FillEllipse(
                     new SolidBrush(penColor),
@@ -180,9 +179,9 @@ namespace hyperdesktop2
             }
         }
 
-        void Picture_boxMouseUp(object sender, System.Windows.Forms.MouseEventArgs e)
+        private void PictureBoxMouseUp(object sender, System.Windows.Forms.MouseEventArgs e)
         {
-            undo.Add(new Bitmap(picture_box.Image));
+            undo.Add(new Bitmap(pictureBox.Image));
 
             if (undo.Count > 9)
                 undo.RemoveAt(1);
@@ -190,7 +189,7 @@ namespace hyperdesktop2
             GC.Collect();
         }
 
-        void Picture_boxPaint(object sender, PaintEventArgs e)
+        private void PictureBoxPaint(object sender, PaintEventArgs e)
         {
             try
             {
@@ -204,7 +203,7 @@ namespace hyperdesktop2
                     );
                 else
                 {
-                    if (check_drop_shadow.Checked)
+                    if (checkDropShadow.Checked)
                         e.Graphics.DrawString(text_insert.Text, font, new SolidBrush(Color.Black), pointY.X + 1, pointY.Y + 1);
 
                     e.Graphics.DrawString(text_insert.Text, font, brush, pointY.X, pointY.Y);
