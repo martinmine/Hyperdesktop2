@@ -1,17 +1,17 @@
-﻿using System;
+﻿using hyperdesktop2.API;
+using System;
+using System.Diagnostics;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Net;
-using System.Text;
-using System.Drawing;
-using System.Diagnostics;
+using System.Web;
 using System.Windows.Forms;
-using System.ComponentModel;
-using System.Collections.Specialized;
 
 namespace hyperdesktop2
 {
 
-    public partial class Main : Form
+    public partial class Main : Form, IUploadStatusListener
     {
         private Hotkeys hook;
         private bool snipperOpen;
@@ -80,9 +80,6 @@ namespace hyperdesktop2
 
         private void OnLoad(object sender, EventArgs e)
         {
-            Imgur.WebClient.UploadProgressChanged += UploadProgressChanged;
-            Imgur.WebClient.UploadValuesCompleted += UploadProgressChanged;
-
             Settings.ReadSettings();
             tray_icon.Visible = true;
 
@@ -97,17 +94,21 @@ namespace hyperdesktop2
         #endregion
 
         #region Tray Icon
-        private void BalloonTip(string text, string title, Int32 duration, ToolTipIcon icon = ToolTipIcon.Info)
+        private void BalloonTip(string text, string title, Int32 duration, ToolTipIcon icon = ToolTipIcon.Info, string link = null)
         {
             tray_icon.BalloonTipText = text;
             tray_icon.BalloonTipTitle = title;
             tray_icon.BalloonTipIcon = icon;
-            tray_icon.ShowBalloonTip(duration);
-        }
 
-        private void TrayIconBalloonTipClicked(object sender, System.EventArgs e)
-        {
-            Process.Start(tray_icon.BalloonTipText);
+            if (link != null)
+            {
+                tray_icon.BalloonTipClicked += (sender, e) =>
+                {
+                    System.Diagnostics.Process.Start(link);
+                };
+            }
+            
+            tray_icon.ShowBalloonTip(duration);
         }
 
         private void InverseTrayOption(object sender, EventArgs e)
@@ -185,26 +186,6 @@ namespace hyperdesktop2
             return edit.Result;
         }
 
-        void SaveScreenshot(Bitmap bmp, string name = null)
-        {
-            if (!Settings.SaveScreenshots)
-                return;
-
-            if (name == null)
-                name = DateTime.Now.ToString("yyyy-MM-dd_HHmmss");
-
-            try
-            {
-                bmp.Save(string.Format("{0}/{1}.{2}", Settings.SaveFolder, name, Settings.SaveFormat,
-                    GlobalFunctions.ExtensionToImageFormat(Settings.SaveFormat)));
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Cannot save image.");
-                Console.WriteLine(ex.Message);
-            }
-        }
-
         private void ScreenCapture(string type)
         {
             Bitmap bmp = null;
@@ -236,7 +217,7 @@ namespace hyperdesktop2
             WorkImage(bmp, true);
         }
 
-        private void WorkImage(Bitmap bmp, bool edit = false)
+        private async void WorkImage(Bitmap bmp, bool edit = false)
         {
             GlobalFunctions.PlaySound("capture.wav");
 
@@ -246,28 +227,64 @@ namespace hyperdesktop2
             if (bmp == null)
                 return;
 
-            if (Settings.UploadMethod == "imgur")
-                if (!Imgur.upload(bmp))
+            using (MemoryStream memoryStream = new MemoryStream())
+            {
+                bmp.Save(memoryStream, ImageFormat.Png);
+
+                FileUpload upload = new FileUpload(this);
+                string nameSuffix = DateTime.Now.ToString("yyyy-MM-dd_HHmmss");
+                using (StreamReader reader = new StreamReader(memoryStream))
                 {
-                    GlobalFunctions.PlaySound("error.wav");
+                    memoryStream.Position = 0;
+                    reader.DiscardBufferedData();
 
-                    if (Settings.BalloonMessages)
-                        BalloonTip("Error uploading file!", "Error", 2000, ToolTipIcon.Error);
+                    FileUploadResult result = await upload.UploadFile(memoryStream, string.Format("Screenshot {0}.png", nameSuffix), "image/png");
+                    HandleFileUploadResult(result);
                 }
+            }
+        }
 
-            SaveScreenshot(bmp);
+        private void HandleFileUploadResult(FileUploadResult result)
+        {
+            switch (result)
+            {
+                case FileUploadResult.Failed:
+                    GlobalFunctions.PlaySound("error.wav");
+                    BalloonTip("Error uploading file!", "Error", 2000, ToolTipIcon.Error);
+                    break;
+
+                case FileUploadResult.InvalidCredentials:
+                    GlobalFunctions.PlaySound("error.wav");
+                    BalloonTip("Your credentials were invalid, please sign in again", "Error", 2000, ToolTipIcon.Error);
+                    break;
+
+                case FileUploadResult.NotAuthorized:
+                    GlobalFunctions.PlaySound("error.wav");
+                    BalloonTip("You need to sign in before uploading", "Error", 2000, ToolTipIcon.Error);
+                    break;
+
+                case FileUploadResult.FileTooLarge:
+                    GlobalFunctions.PlaySound("error.wav");
+                    BalloonTip("This file was too large to be uploaded", "Error", 2000, ToolTipIcon.Error);
+                    break;
+            }
         }
         #endregion
 
         #region Buttons
-        private void BtnBrowseClick(object sender, EventArgs e)
+        private async void BtnBrowseClick(object sender, EventArgs e)
         {
             OpenFileDialog dialog = new OpenFileDialog();
-            dialog.Filter = "PNG|*.png|JPG|*.jpg|BMP|*.bmp|All Files (*.*)|*.*";
 
             if (dialog.ShowDialog() == DialogResult.OK)
             {
-                WorkImage(new Bitmap(Image.FromFile(dialog.FileName)));
+                string extension = Path.GetExtension(dialog.FileName);
+                FileUpload upload = new FileUpload(this);
+                Stream fileStream = File.OpenRead(dialog.FileName);
+                string contentType = MimeMapping.GetMimeMapping(dialog.FileName);
+
+                FileUploadResult result = await upload.UploadFile(File.OpenRead(dialog.FileName), dialog.FileName, contentType);
+                HandleFileUploadResult(result);
             }
         }
 
@@ -311,7 +328,9 @@ namespace hyperdesktop2
             if (listImageLinks.SelectedItems.Count <= 0)
                 return;
 
-            if (Imgur.delete(listImageLinks.SelectedItems[0].SubItems[1].Text))
+                // TODO
+
+            /*if (Imgur.delete(listImageLinks.SelectedItems[0].SubItems[1].Text))
                 listImageLinks.SelectedItems[0].Remove();
             else
             {
@@ -319,18 +338,37 @@ namespace hyperdesktop2
 
                 if (Settings.BalloonMessages)
                     BalloonTip("Could not delete file!", "Error", 2000, ToolTipIcon.Error);
-            }
+            }*/
         }
         #endregion
+
+        private delegate void OnProgressCallback(long a, long b);
+        private DateTime lastUpdate;
+        
+
+        public void OnProgress(long uploaded, long total)
+        {
+            if (progress.InvokeRequired)
+            {
+                OnProgressCallback callback = new OnProgressCallback(OnProgress);
+                this.Invoke(callback, new object[] {uploaded, total});
+                return;
+            }
+
+            if (lastUpdate != null && (DateTime.Now - lastUpdate).Milliseconds < 100)
+                return;
+            lastUpdate = DateTime.Now;
+
+            int percent = (int)((uploaded / (double)total) * 100);
+            groupUploadProgress.Text = string.Format("Upload Progress - {0}% ({1}kb/{2}kb)", percent, uploaded / 1024, total / 1024);
+            progress.Value = percent;
+        }
 
         #region Progress Bar
         private void UploadProgressChanged(object sender, UploadProgressChangedEventArgs e)
         {
             try
             {
-                int percent = (int)((e.BytesSent / e.TotalBytesToSend) * 100);
-                groupUploadProgress.Text = string.Format("Upload Progress - {0}% ({1}kb/{2}kb)", percent, e.BytesSent / 1024, e.TotalBytesToSend / 1024);
-                progress.Value = percent;
             }
             catch
             {
@@ -338,15 +376,14 @@ namespace hyperdesktop2
                 // number into the ProgressPercentage
             }
         }
-        private void UploadProgressChanged(object sender, UploadValuesCompletedEventArgs e)
+
+        public void ContentUplaoded(UploadedContent content)
         {
             groupUploadProgress.Text = "Upload Progress";
             progress.Value = 0;
 
-            string response = Encoding.UTF8.GetString(e.Result);
-
-            string delete_hash = GlobalFunctions.get_text_inbetween(response, "deletehash\":\"", "\",\"name\"").Replace("\\", "");
-            string link = GlobalFunctions.get_text_inbetween(response, "link\":\"", "\"}").Replace("\\", "");
+            string delete_hash = "";
+            string link = string.Format("{0}/{1}", APIConfig.BaseURL, content.Key);
 
             listImageLinks.Items.Add(
                 new ListViewItem(new string[] { link, delete_hash })
@@ -358,9 +395,13 @@ namespace hyperdesktop2
                 Clipboard.SetText(link);
 
             if (Settings.BalloonMessages)
-                BalloonTip(link, "Upload Complete!", 2000);
+                BalloonTip("Link copied to clipboard:" + Environment.NewLine + link, "Upload Completed!", 2000, ToolTipIcon.Info, link);
 
             GlobalFunctions.PlaySound("success.wav");
+        }
+
+        private void UploadProgressChanged(object sender, UploadValuesCompletedEventArgs e)
+        {
         }
         #endregion
     }

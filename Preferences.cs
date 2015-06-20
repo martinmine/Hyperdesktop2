@@ -1,4 +1,5 @@
-﻿using System;
+﻿using hyperdesktop2.API;
+using System;
 using System.Windows.Forms;
 
 namespace hyperdesktop2
@@ -9,6 +10,7 @@ namespace hyperdesktop2
         public Preferences()
         {
             InitializeComponent();
+            SetButtonsEnabled();
         }
 
         void Frm_PreferencesLoad(object sender, EventArgs e)
@@ -110,5 +112,46 @@ namespace hyperdesktop2
             numericHeight.Value = Convert.ToDecimal(screen_res[3]);
         }
         #endregion
+
+        private async void loginBtn_Click(object sender, EventArgs e)
+        {
+            LoginProvider loginProvider = new LoginProvider(emailField.Text, passwordField.Text);
+            LoginResult loginResult = await loginProvider.PerformLogin();
+
+            switch (loginResult)
+            {
+                case LoginResult.InvalidCredentials:
+                    MessageBox.Show("Unknown username/password", "Login error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    break;
+                case LoginResult.UnknownError:
+                    MessageBox.Show("Unable to connect to Shikashi", "Login error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    break;
+                case LoginResult.Success:
+                    SetButtonsEnabled();
+                    MessageBox.Show("Login successfull", "Login success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    break;
+            }
+
+            loginBtn.Enabled = true;
+        }
+
+        private void logoutBtn_Click(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.AuthKey = string.Empty;
+            Properties.Settings.Default.AuthExpirationTime = 0;
+            Properties.Settings.Default.Save();
+
+            SetButtonsEnabled();
+        }
+
+        private void SetButtonsEnabled()
+        {
+            bool loggedIn = (AuthKey.LoadKey() != null);
+
+            emailField.Enabled = !loggedIn;
+            passwordField.Enabled = !loggedIn;
+            loginBtn.Enabled = !loggedIn;
+            logoutBtn.Enabled = loggedIn;
+        }
     }
 }

@@ -86,6 +86,13 @@ namespace hyperdesktop2
             this.label_screen_y = new System.Windows.Forms.Label();
             this.numericTop = new System.Windows.Forms.NumericUpDown();
             this.label_screen_x = new System.Windows.Forms.Label();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.logoutBtn = new System.Windows.Forms.Button();
+            this.loginBtn = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.passwordField = new System.Windows.Forms.TextBox();
+            this.emailField = new System.Windows.Forms.TextBox();
             this.btn_save = new System.Windows.Forms.Button();
             this.btn_cancel = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
@@ -98,6 +105,7 @@ namespace hyperdesktop2
             ((System.ComponentModel.ISupportInitialize)(this.numericWidth)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericLeft)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericTop)).BeginInit();
+            this.tabPage1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -110,11 +118,12 @@ namespace hyperdesktop2
             this.tabControl1.Controls.Add(this.tab_uploading);
             this.tabControl1.Controls.Add(this.tab_hotkeys);
             this.tabControl1.Controls.Add(this.tab_screens);
+            this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(352, 211);
-            this.tabControl1.TabIndex = 0;
+            this.tabControl1.TabIndex = 1;
             // 
             // tab_general
             // 
@@ -133,7 +142,7 @@ namespace hyperdesktop2
             this.tab_general.Text = "General";
             this.tab_general.UseVisualStyleBackColor = true;
             // 
-            // drop_save_quality
+            // dropSaveQuality
             // 
             this.dropSaveQuality.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.dropSaveQuality.Enabled = false;
@@ -151,7 +160,7 @@ namespace hyperdesktop2
             "20",
             "10"});
             this.dropSaveQuality.Location = new System.Drawing.Point(56, 88);
-            this.dropSaveQuality.Name = "drop_save_quality";
+            this.dropSaveQuality.Name = "dropSaveQuality";
             this.dropSaveQuality.Size = new System.Drawing.Size(121, 21);
             this.dropSaveQuality.TabIndex = 6;
             // 
@@ -164,7 +173,7 @@ namespace hyperdesktop2
             this.label_save_quality.Text = "Quality:";
             this.label_save_quality.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // drop_save_format
+            // dropSaveFormat
             // 
             this.dropSaveFormat.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.dropSaveFormat.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -174,7 +183,7 @@ namespace hyperdesktop2
             "png",
             "jpg"});
             this.dropSaveFormat.Location = new System.Drawing.Point(56, 61);
-            this.dropSaveFormat.Name = "drop_save_format";
+            this.dropSaveFormat.Name = "dropSaveFormat";
             this.dropSaveFormat.Size = new System.Drawing.Size(121, 21);
             this.dropSaveFormat.TabIndex = 4;
             // 
@@ -187,32 +196,32 @@ namespace hyperdesktop2
             this.label_save_format.Text = "Format:";
             this.label_save_format.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // btn_browse_save_folder
+            // btnBrowseSaveFolder
             // 
             this.btnBrowseSaveFolder.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnBrowseSaveFolder.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnBrowseSaveFolder.Location = new System.Drawing.Point(261, 30);
-            this.btnBrowseSaveFolder.Name = "btn_browse_save_folder";
+            this.btnBrowseSaveFolder.Name = "btnBrowseSaveFolder";
             this.btnBrowseSaveFolder.Size = new System.Drawing.Size(75, 22);
             this.btnBrowseSaveFolder.TabIndex = 2;
             this.btnBrowseSaveFolder.Text = "browse";
             this.btnBrowseSaveFolder.UseVisualStyleBackColor = true;
             this.btnBrowseSaveFolder.Click += new System.EventHandler(this.BtnBrowseSaveFolderClick);
             // 
-            // txt_save_folder
+            // txtSaveFolder
             // 
             this.txtSaveFolder.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtSaveFolder.Location = new System.Drawing.Point(8, 31);
-            this.txtSaveFolder.Name = "txt_save_folder";
+            this.txtSaveFolder.Name = "txtSaveFolder";
             this.txtSaveFolder.Size = new System.Drawing.Size(254, 20);
             this.txtSaveFolder.TabIndex = 1;
             // 
-            // check_save_screenshots
+            // checkSaveScreenshots
             // 
             this.checkSaveScreenshots.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.checkSaveScreenshots.Location = new System.Drawing.Point(8, 6);
-            this.checkSaveScreenshots.Name = "check_save_screenshots";
+            this.checkSaveScreenshots.Name = "checkSaveScreenshots";
             this.checkSaveScreenshots.Size = new System.Drawing.Size(328, 19);
             this.checkSaveScreenshots.TabIndex = 0;
             this.checkSaveScreenshots.Text = "Save Screenshots Automatically";
@@ -236,71 +245,71 @@ namespace hyperdesktop2
             this.tab_behavior.Text = "Behavior";
             this.tab_behavior.UseVisualStyleBackColor = true;
             // 
-            // check_show_cursor
+            // checkShowCursor
             // 
             this.checkShowCursor.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.checkShowCursor.Location = new System.Drawing.Point(8, 56);
-            this.checkShowCursor.Name = "check_show_cursor";
+            this.checkShowCursor.Name = "checkShowCursor";
             this.checkShowCursor.Size = new System.Drawing.Size(316, 19);
             this.checkShowCursor.TabIndex = 6;
             this.checkShowCursor.Text = "Show cursor in screenshots";
             this.checkShowCursor.UseVisualStyleBackColor = true;
             // 
-            // check_edit_screenshot
+            // checkEditScreenshot
             // 
             this.checkEditScreenshot.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.checkEditScreenshot.Location = new System.Drawing.Point(8, 156);
-            this.checkEditScreenshot.Name = "check_edit_screenshot";
+            this.checkEditScreenshot.Name = "checkEditScreenshot";
             this.checkEditScreenshot.Size = new System.Drawing.Size(316, 19);
             this.checkEditScreenshot.TabIndex = 5;
             this.checkEditScreenshot.Text = "Edit screenshot after capture";
             this.checkEditScreenshot.UseVisualStyleBackColor = true;
             // 
-            // check_launch_browser
+            // checkLaunchBrowser
             // 
             this.checkLaunchBrowser.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.checkLaunchBrowser.Location = new System.Drawing.Point(8, 131);
-            this.checkLaunchBrowser.Name = "check_launch_browser";
+            this.checkLaunchBrowser.Name = "checkLaunchBrowser";
             this.checkLaunchBrowser.Size = new System.Drawing.Size(316, 19);
             this.checkLaunchBrowser.TabIndex = 4;
             this.checkLaunchBrowser.Text = "Launch browser after upload";
             this.checkLaunchBrowser.UseVisualStyleBackColor = true;
             // 
-            // check_balloon
+            // checkBalloon
             // 
             this.checkBalloon.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.checkBalloon.Location = new System.Drawing.Point(8, 106);
-            this.checkBalloon.Name = "check_balloon";
+            this.checkBalloon.Name = "checkBalloon";
             this.checkBalloon.Size = new System.Drawing.Size(316, 19);
             this.checkBalloon.TabIndex = 3;
             this.checkBalloon.Text = "Enable balloon messages";
             this.checkBalloon.UseVisualStyleBackColor = true;
             // 
-            // check_sound_effects
+            // checkSoundEffects
             // 
             this.checkSoundEffects.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.checkSoundEffects.Location = new System.Drawing.Point(8, 81);
-            this.checkSoundEffects.Name = "check_sound_effects";
+            this.checkSoundEffects.Name = "checkSoundEffects";
             this.checkSoundEffects.Size = new System.Drawing.Size(316, 19);
             this.checkSoundEffects.TabIndex = 2;
             this.checkSoundEffects.Text = "Enable sound effects";
             this.checkSoundEffects.UseVisualStyleBackColor = true;
             // 
-            // check_copy_links
+            // checkCopyLinks
             // 
             this.checkCopyLinks.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.checkCopyLinks.Location = new System.Drawing.Point(8, 31);
-            this.checkCopyLinks.Name = "check_copy_links";
+            this.checkCopyLinks.Name = "checkCopyLinks";
             this.checkCopyLinks.Size = new System.Drawing.Size(316, 19);
             this.checkCopyLinks.TabIndex = 1;
             this.checkCopyLinks.Text = "Copy links to clipboard";
             this.checkCopyLinks.UseVisualStyleBackColor = true;
             // 
-            // check_run_at_startup
+            // checkRunAtStartup
             // 
             this.checkRunAtStartup.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.checkRunAtStartup.Location = new System.Drawing.Point(8, 6);
-            this.checkRunAtStartup.Name = "check_run_at_startup";
+            this.checkRunAtStartup.Name = "checkRunAtStartup";
             this.checkRunAtStartup.Size = new System.Drawing.Size(316, 19);
             this.checkRunAtStartup.TabIndex = 0;
             this.checkRunAtStartup.Text = "Run at system startup";
@@ -320,7 +329,7 @@ namespace hyperdesktop2
             this.tab_uploading.Text = "Uploading";
             this.tab_uploading.UseVisualStyleBackColor = true;
             // 
-            // drop_upload_method
+            // dropUploadMethod
             // 
             this.dropUploadMethod.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.dropUploadMethod.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -329,7 +338,7 @@ namespace hyperdesktop2
             "do not upload",
             "imgur"});
             this.dropUploadMethod.Location = new System.Drawing.Point(64, 6);
-            this.dropUploadMethod.Name = "drop_upload_method";
+            this.dropUploadMethod.Name = "dropUploadMethod";
             this.dropUploadMethod.Size = new System.Drawing.Size(121, 21);
             this.dropUploadMethod.TabIndex = 8;
             // 
@@ -342,7 +351,7 @@ namespace hyperdesktop2
             this.label_upload_method.Text = "Method:";
             this.label_upload_method.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // drop_upload_format
+            // dropUploadFormat
             // 
             this.dropUploadFormat.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.dropUploadFormat.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -352,7 +361,7 @@ namespace hyperdesktop2
             "png",
             "jpg"});
             this.dropUploadFormat.Location = new System.Drawing.Point(64, 33);
-            this.dropUploadFormat.Name = "drop_upload_format";
+            this.dropUploadFormat.Name = "dropUploadFormat";
             this.dropUploadFormat.Size = new System.Drawing.Size(121, 21);
             this.dropUploadFormat.TabIndex = 6;
             // 
@@ -596,18 +605,18 @@ namespace hyperdesktop2
             this.tab_screens.Text = "Screen";
             this.tab_screens.UseVisualStyleBackColor = true;
             // 
-            // btn_reset_screen
+            // btnResetScreen
             // 
             this.btnResetScreen.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnResetScreen.Location = new System.Drawing.Point(51, 90);
-            this.btnResetScreen.Name = "btn_reset_screen";
+            this.btnResetScreen.Name = "btnResetScreen";
             this.btnResetScreen.Size = new System.Drawing.Size(120, 23);
             this.btnResetScreen.TabIndex = 10;
             this.btnResetScreen.Text = "Reset";
             this.btnResetScreen.UseVisualStyleBackColor = true;
             this.btnResetScreen.Click += new System.EventHandler(this.BtnResetScreenClick);
             // 
-            // numeric_height
+            // numericHeight
             // 
             this.numericHeight.Location = new System.Drawing.Point(51, 70);
             this.numericHeight.Maximum = new decimal(new int[] {
@@ -620,7 +629,7 @@ namespace hyperdesktop2
             0,
             0,
             -2147483648});
-            this.numericHeight.Name = "numeric_height";
+            this.numericHeight.Name = "numericHeight";
             this.numericHeight.Size = new System.Drawing.Size(120, 20);
             this.numericHeight.TabIndex = 9;
             this.numericHeight.Value = new decimal(new int[] {
@@ -629,7 +638,7 @@ namespace hyperdesktop2
             0,
             0});
             // 
-            // numeric_width
+            // numericWidth
             // 
             this.numericWidth.Location = new System.Drawing.Point(51, 49);
             this.numericWidth.Maximum = new decimal(new int[] {
@@ -642,7 +651,7 @@ namespace hyperdesktop2
             0,
             0,
             -2147483648});
-            this.numericWidth.Name = "numeric_width";
+            this.numericWidth.Name = "numericWidth";
             this.numericWidth.Size = new System.Drawing.Size(120, 20);
             this.numericWidth.TabIndex = 8;
             this.numericWidth.Value = new decimal(new int[] {
@@ -651,7 +660,7 @@ namespace hyperdesktop2
             0,
             0});
             // 
-            // numeric_left
+            // numericLeft
             // 
             this.numericLeft.Location = new System.Drawing.Point(51, 7);
             this.numericLeft.Maximum = new decimal(new int[] {
@@ -664,7 +673,7 @@ namespace hyperdesktop2
             0,
             0,
             -2147483648});
-            this.numericLeft.Name = "numeric_left";
+            this.numericLeft.Name = "numericLeft";
             this.numericLeft.Size = new System.Drawing.Size(120, 20);
             this.numericLeft.TabIndex = 7;
             this.numericLeft.Value = new decimal(new int[] {
@@ -700,7 +709,7 @@ namespace hyperdesktop2
             this.label_screen_y.Text = "Left:";
             this.label_screen_y.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // numeric_top
+            // numericTop
             // 
             this.numericTop.Location = new System.Drawing.Point(51, 28);
             this.numericTop.Maximum = new decimal(new int[] {
@@ -713,7 +722,7 @@ namespace hyperdesktop2
             0,
             0,
             -2147483648});
-            this.numericTop.Name = "numeric_top";
+            this.numericTop.Name = "numericTop";
             this.numericTop.Size = new System.Drawing.Size(120, 20);
             this.numericTop.TabIndex = 3;
             this.numericTop.Value = new decimal(new int[] {
@@ -730,6 +739,75 @@ namespace hyperdesktop2
             this.label_screen_x.TabIndex = 2;
             this.label_screen_x.Text = "Top:";
             this.label_screen_x.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.logoutBtn);
+            this.tabPage1.Controls.Add(this.loginBtn);
+            this.tabPage1.Controls.Add(this.label4);
+            this.tabPage1.Controls.Add(this.label1);
+            this.tabPage1.Controls.Add(this.passwordField);
+            this.tabPage1.Controls.Add(this.emailField);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(344, 185);
+            this.tabPage1.TabIndex = 5;
+            this.tabPage1.Text = "My account";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // logoutBtn
+            // 
+            this.logoutBtn.Location = new System.Drawing.Point(82, 87);
+            this.logoutBtn.Name = "logoutBtn";
+            this.logoutBtn.Size = new System.Drawing.Size(75, 23);
+            this.logoutBtn.TabIndex = 4;
+            this.logoutBtn.Text = "Logout";
+            this.logoutBtn.UseVisualStyleBackColor = true;
+            this.logoutBtn.Click += new System.EventHandler(this.logoutBtn_Click);
+            // 
+            // loginBtn
+            // 
+            this.loginBtn.Location = new System.Drawing.Point(82, 58);
+            this.loginBtn.Name = "loginBtn";
+            this.loginBtn.Size = new System.Drawing.Size(75, 23);
+            this.loginBtn.TabIndex = 3;
+            this.loginBtn.Text = "Login";
+            this.loginBtn.UseVisualStyleBackColor = true;
+            this.loginBtn.Click += new System.EventHandler(this.loginBtn_Click);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(6, 32);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(56, 13);
+            this.label4.TabIndex = 0;
+            this.label4.Text = "Password:";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(6, 6);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(35, 13);
+            this.label1.TabIndex = 5;
+            this.label1.Text = "Email:";
+            // 
+            // passwordField
+            // 
+            this.passwordField.Location = new System.Drawing.Point(82, 32);
+            this.passwordField.Name = "passwordField";
+            this.passwordField.PasswordChar = '*';
+            this.passwordField.Size = new System.Drawing.Size(147, 20);
+            this.passwordField.TabIndex = 2;
+            // 
+            // emailField
+            // 
+            this.emailField.Location = new System.Drawing.Point(82, 6);
+            this.emailField.Name = "emailField";
+            this.emailField.Size = new System.Drawing.Size(147, 20);
+            this.emailField.TabIndex = 1;
             // 
             // btn_save
             // 
@@ -755,7 +833,7 @@ namespace hyperdesktop2
             this.btn_cancel.UseVisualStyleBackColor = true;
             this.btn_cancel.Click += new System.EventHandler(this.BtnCancelClick);
             // 
-            // frm_Preferences
+            // Preferences
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -766,7 +844,7 @@ namespace hyperdesktop2
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
-            this.Name = "frm_Preferences";
+            this.Name = "Preferences";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Preferences";
             this.Load += new System.EventHandler(this.Frm_PreferencesLoad);
@@ -782,6 +860,8 @@ namespace hyperdesktop2
             ((System.ComponentModel.ISupportInitialize)(this.numericWidth)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericLeft)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericTop)).EndInit();
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
             this.ResumeLayout(false);
 
 		}
@@ -836,5 +916,12 @@ namespace hyperdesktop2
 		private System.Windows.Forms.TabPage tab_general;
 		private System.Windows.Forms.TabPage tab_behavior;
 		private System.Windows.Forms.TabPage tab_uploading;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.Button loginBtn;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox passwordField;
+        private System.Windows.Forms.TextBox emailField;
+        private System.Windows.Forms.Button logoutBtn;
 	}
 }

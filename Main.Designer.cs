@@ -388,7 +388,6 @@ namespace hyperdesktop2
             this.tray_icon.Icon = ((System.Drawing.Icon)(resources.GetObject("tray_icon.Icon")));
             this.tray_icon.Text = "Hyperdesktop2";
             this.tray_icon.Visible = true;
-            this.tray_icon.BalloonTipClicked += new System.EventHandler(this.TrayIconBalloonTipClicked);
             this.tray_icon.DoubleClick += new System.EventHandler(this.InverseTrayOption);
             // 
             // Main
