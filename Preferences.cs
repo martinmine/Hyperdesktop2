@@ -10,7 +10,6 @@ namespace hyperdesktop2
         public Preferences()
         {
             InitializeComponent();
-            SetButtonsEnabled();
         }
 
         void Frm_PreferencesLoad(object sender, EventArgs e)
@@ -19,10 +18,7 @@ namespace hyperdesktop2
             txtSaveFolder.Text = Settings.SaveFolder;
             dropSaveFormat.Text = Settings.SaveFormat;
             dropSaveQuality.Text = Settings.SaveQuality.ToString();
-
-            dropUploadMethod.Text = Settings.UploadMethod;
-            dropUploadFormat.Text = Settings.UploadFormat;
-
+            
             checkRunAtStartup.Checked = GlobalFunctions.startupRegistryKey.GetValue("Hyperdesktop2") != null;
             checkCopyLinks.Checked = Settings.CopyLinksToClipboard;
             checkSoundEffects.Checked = Settings.SoundEffects;
@@ -68,10 +64,7 @@ namespace hyperdesktop2
             Settings.SaveFolder = txtSaveFolder.Text;
             Settings.SaveFormat = dropSaveFormat.Text;
             Settings.SaveQuality = Convert.ToInt16(dropSaveQuality.Text);
-
-            Settings.UploadMethod = dropUploadMethod.Text;
-            Settings.UploadFormat = dropUploadFormat.Text;
-
+            
             Settings.CopyLinksToClipboard = checkCopyLinks.Checked;
             Settings.SoundEffects = checkSoundEffects.Checked;
             Settings.ShowCursor = checkShowCursor.Checked;
@@ -113,45 +106,10 @@ namespace hyperdesktop2
         }
         #endregion
 
-        private async void loginBtn_Click(object sender, EventArgs e)
+
+        private void tabPage1_Click(object sender, EventArgs e)
         {
-            LoginProvider loginProvider = new LoginProvider(emailField.Text, passwordField.Text);
-            LoginResult loginResult = await loginProvider.PerformLogin();
 
-            switch (loginResult)
-            {
-                case LoginResult.InvalidCredentials:
-                    MessageBox.Show("Unknown username/password", "Login error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    break;
-                case LoginResult.UnknownError:
-                    MessageBox.Show("Unable to connect to Shikashi", "Login error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    break;
-                case LoginResult.Success:
-                    SetButtonsEnabled();
-                    MessageBox.Show("Login successfull", "Login success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    break;
-            }
-
-            loginBtn.Enabled = true;
-        }
-
-        private void logoutBtn_Click(object sender, EventArgs e)
-        {
-            Properties.Settings.Default.AuthKey = string.Empty;
-            Properties.Settings.Default.AuthExpirationTime = 0;
-            Properties.Settings.Default.Save();
-
-            SetButtonsEnabled();
-        }
-
-        private void SetButtonsEnabled()
-        {
-            bool loggedIn = (AuthKey.LoadKey() != null);
-
-            emailField.Enabled = !loggedIn;
-            passwordField.Enabled = !loggedIn;
-            loginBtn.Enabled = !loggedIn;
-            logoutBtn.Enabled = loggedIn;
         }
     }
 }

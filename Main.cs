@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web;
 using System.Windows.Forms;
 
@@ -20,6 +21,7 @@ namespace hyperdesktop2
         public Main()
         {
             InitializeComponent();
+            SetButtonsEnabled();
 
             // Delete older executable on update
             try
@@ -278,14 +280,19 @@ namespace hyperdesktop2
 
             if (dialog.ShowDialog() == DialogResult.OK)
             {
-                string extension = Path.GetExtension(dialog.FileName);
-                FileUpload upload = new FileUpload(this);
-                Stream fileStream = File.OpenRead(dialog.FileName);
-                string contentType = MimeMapping.GetMimeMapping(dialog.FileName);
-
-                FileUploadResult result = await upload.UploadFile(File.OpenRead(dialog.FileName), dialog.FileName, contentType);
-                HandleFileUploadResult(result);
+                await UploadFile(dialog.FileName);
             }
+        }
+
+        private async Task UploadFile(string path)
+        {
+            string extension = Path.GetExtension(path);
+            FileUpload upload = new FileUpload(this);
+            Stream fileStream = File.OpenRead(path);
+            string contentType = MimeMapping.GetMimeMapping(path);
+
+            FileUploadResult result = await upload.UploadFile(File.OpenRead(path), path, contentType);
+            HandleFileUploadResult(result);
         }
 
         private void BtnCaptureClick(object sender, EventArgs e) { ScreenCapture("screen"); }
@@ -404,5 +411,81 @@ namespace hyperdesktop2
         {
         }
         #endregion
+
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
+        }
+        
+        private async void loginBtn_Click(object sender, EventArgs e)
+        {
+            LoginProvider loginProvider = new LoginProvider(emailField.Text, passwordField.Text);
+            LoginResult loginResult = await loginProvider.PerformLogin();
+
+            switch (loginResult)
+            {
+                case LoginResult.InvalidCredentials:
+                    MessageBox.Show("Unknown username/password", "Login error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    break;
+                case LoginResult.UnknownError:
+                    MessageBox.Show("Unable to connect to Shikashi", "Login error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    break;
+                case LoginResult.Success:
+                    SetButtonsEnabled();
+                    MessageBox.Show("Login successfull", "Login success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    break;
+            }
+
+            loginBtn.Enabled = true;
+        }
+
+        private void logoutBtn_Click(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.AuthKey = string.Empty;
+            Properties.Settings.Default.AuthExpirationTime = 0;
+            Properties.Settings.Default.Save();
+
+            SetButtonsEnabled();
+        }
+
+        private void SetButtonsEnabled()
+        {
+            bool loggedIn = (AuthKey.LoadKey() != null);
+
+            emailField.Enabled = !loggedIn;
+            passwordField.Enabled = !loggedIn;
+            loginBtn.Enabled = !loggedIn;
+            logoutBtn.Enabled = loggedIn;
+        }
+
+        private async void uploadFromClipboardToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (Clipboard.ContainsImage())
+            {
+                Image image = Clipboard.GetImage();
+                using (MemoryStream memoryStream = new MemoryStream())
+                {
+                    image.Save(memoryStream, ImageFormat.Png);
+
+                    FileUpload upload = new FileUpload(this);
+                    string nameSuffix = DateTime.Now.ToString("yyyy-MM-dd_HHmmss");
+                    using (StreamReader reader = new StreamReader(memoryStream))
+                    {
+                        memoryStream.Position = 0;
+                        reader.DiscardBufferedData();
+
+                        FileUploadResult result = await upload.UploadFile(memoryStream, string.Format("Copied image {0}.png", nameSuffix), "image/png");
+                        HandleFileUploadResult(result);
+                    }
+                }
+            }
+            else if (Clipboard.ContainsFileDropList())
+            {
+                foreach (string path in Clipboard.GetFileDropList())
+                {
+                    await UploadFile(path);
+                }
+            }
+        }
     }
 }
