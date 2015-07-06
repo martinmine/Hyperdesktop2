@@ -1,10 +1,13 @@
 ﻿using hyperdesktop2.API;
 using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Net;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using System.Windows.Forms;
@@ -75,6 +78,12 @@ namespace hyperdesktop2
                     Process.Start(Settings.ReleaseUrl);
                     Process.GetCurrentProcess().Kill();
                 }
+            }
+
+            if (!string.IsNullOrEmpty(Properties.Settings.Default.CurrentUser))
+            {
+                emailField.Text = Properties.Settings.Default.CurrentUser;
+                passwordField.Text = "**********";
             }
 
             RegisterHotkeys();
@@ -161,15 +170,15 @@ namespace hyperdesktop2
             switch (e.Key)
             {
                 case Keys.D3:
-                    ScreenCapture("screen");
+                    CaptureScreen("screen");
                     break;
 
                 case Keys.D4:
-                    ScreenCapture("region");
+                    CaptureScreen("region");
                     break;
 
                 case Keys.D5:
-                    ScreenCapture("window");
+                    CaptureScreen("window");
                     break;
             }
         }
@@ -188,18 +197,18 @@ namespace hyperdesktop2
             return edit.Result;
         }
 
-        private void ScreenCapture(string type)
+        private void CaptureScreen(string type)
         {
             Bitmap bmp = null;
 
             switch (type)
             {
                 case "screen":
-                    bmp = Screen_Capture.screen(Settings.ShowCursor);
+                    bmp = ScreenCapture.CaptureScreenArea(Settings.ShowCursor);
                     break;
 
                 case "window":
-                    bmp = Screen_Capture.window(Settings.ShowCursor);
+                    bmp = ScreenCapture.Window(Settings.ShowCursor);
                     break;
 
                 default:
@@ -212,7 +221,7 @@ namespace hyperdesktop2
                     if (rect == new Rectangle(0, 0, 0, 0))
                         return;
 
-                    bmp = Screen_Capture.region(rect);
+                    bmp = ScreenCapture.region(rect);
                     snipperOpen = false;
                     break;
             }
@@ -221,9 +230,10 @@ namespace hyperdesktop2
 
         private async void WorkImage(Bitmap bmp, bool edit = false)
         {
+            StartAnimation();
             GlobalFunctions.PlaySound("capture.wav");
 
-            if (edit)
+            if (Settings.EdiScreenshot && edit)
                 bmp = EditScreenshot(bmp);
 
             if (bmp == null)
@@ -270,6 +280,8 @@ namespace hyperdesktop2
                     BalloonTip("This file was too large to be uploaded", "Error", 2000, ToolTipIcon.Error);
                     break;
             }
+
+            StopAnimation();
         }
         #endregion
 
@@ -286,6 +298,7 @@ namespace hyperdesktop2
 
         private async Task UploadFile(string path)
         {
+            StartAnimation();
             string extension = Path.GetExtension(path);
             FileUpload upload = new FileUpload(this);
             Stream fileStream = File.OpenRead(path);
@@ -295,9 +308,9 @@ namespace hyperdesktop2
             HandleFileUploadResult(result);
         }
 
-        private void BtnCaptureClick(object sender, EventArgs e) { ScreenCapture("screen"); }
-        private void BtnWindowClick() { ScreenCapture("window"); }
-        private void BtnCaptureRegionClick(object sender, EventArgs e) { ScreenCapture("region"); }
+        private void BtnCaptureClick(object sender, EventArgs e) { CaptureScreen("screen"); }
+        private void BtnWindowClick() { CaptureScreen("window"); }
+        private void BtnCaptureRegionClick(object sender, EventArgs e) { CaptureScreen("region"); }
         #endregion
 
         #region Main Menu
@@ -328,16 +341,18 @@ namespace hyperdesktop2
         private void CopyToolStripMenuItemClick(object sender, EventArgs e)
         {
             if (listImageLinks.SelectedItems.Count > 0)
-                Clipboard.SetText(listImageLinks.SelectedItems[0].Text);
+            {
+                string link = string.Format("{0}/{1}", APIConfig.BaseURL, listImageLinks.SelectedItems[0].Text);
+                Clipboard.SetText(link);
+            }
         }
-        private void DeleteToolStripMenuItemClick(object sender, EventArgs e)
+
+        private async void DeleteToolStripMenuItemClick(object sender, EventArgs e)
         {
             if (listImageLinks.SelectedItems.Count <= 0)
                 return;
 
-                // TODO
-
-            /*if (Imgur.delete(listImageLinks.SelectedItems[0].SubItems[1].Text))
+            if (await DeleteImageRequest.RequestDeletion(listImageLinks.SelectedItems[0].SubItems[0].Text))
                 listImageLinks.SelectedItems[0].Remove();
             else
             {
@@ -345,7 +360,7 @@ namespace hyperdesktop2
 
                 if (Settings.BalloonMessages)
                     BalloonTip("Could not delete file!", "Error", 2000, ToolTipIcon.Error);
-            }*/
+            }
         }
         #endregion
 
@@ -389,13 +404,11 @@ namespace hyperdesktop2
             groupUploadProgress.Text = "Upload Progress";
             progress.Value = 0;
 
-            string delete_hash = "";
-            string link = string.Format("{0}/{1}", APIConfig.BaseURL, content.Key);
-
             listImageLinks.Items.Add(
-                new ListViewItem(new string[] { link, delete_hash })
+                new ListViewItem(new string[] { content.Key})
             );
 
+            string link = string.Format("{0}/{1}", APIConfig.BaseURL, content.Key);
             listImageLinks.Items[listImageLinks.Items.Count - 1].EnsureVisible();
 
             if (Settings.CopyLinksToClipboard)
@@ -432,11 +445,11 @@ namespace hyperdesktop2
                     break;
                 case LoginResult.Success:
                     SetButtonsEnabled();
+                    Properties.Settings.Default.CurrentUser = emailField.Text;
+                    Properties.Settings.Default.Save();
                     MessageBox.Show("Login successfull", "Login success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     break;
             }
-
-            loginBtn.Enabled = true;
         }
 
         private void logoutBtn_Click(object sender, EventArgs e)
@@ -444,6 +457,8 @@ namespace hyperdesktop2
             Properties.Settings.Default.AuthKey = string.Empty;
             Properties.Settings.Default.AuthExpirationTime = 0;
             Properties.Settings.Default.Save();
+
+            passwordField.Text = "";
 
             SetButtonsEnabled();
         }
@@ -462,6 +477,7 @@ namespace hyperdesktop2
         {
             if (Clipboard.ContainsImage())
             {
+                StartAnimation();
                 Image image = Clipboard.GetImage();
                 using (MemoryStream memoryStream = new MemoryStream())
                 {
@@ -486,6 +502,61 @@ namespace hyperdesktop2
                     await UploadFile(path);
                 }
             }
+        }
+
+        private Thread animationThread;
+        private bool animateIcon;
+
+        private void StartAnimation()
+        {
+            animateIcon = false;
+
+            if (animationThread != null && animationThread.IsAlive)
+                animationThread.Abort();
+
+            animateIcon = true;
+            animationThread = new Thread(() => {
+                try { 
+                    int iconNum = 0;
+                    ComponentResourceManager resources = new ComponentResourceManager(typeof(Main));
+                
+                    while (animateIcon)
+                    {
+                        iconNum = (iconNum++ % 19) + 1;
+                        SetTaskbarIcon(((Icon)(resources.GetObject(iconNum.ToString()))));
+
+                        Thread.Sleep(260);
+                    }
+                }
+                catch (ThreadInterruptedException) { }
+            });
+
+            animationThread.Start();
+        }
+
+        private void StopAnimation()
+        {
+            new Thread (() => 
+            {
+                animateIcon = false;
+                animationThread.Join();
+                ComponentResourceManager resources = new ComponentResourceManager(typeof(Main));
+                SetTaskbarIcon(((Icon)(resources.GetObject("$this.Icon"))));
+            }).Start();
+        }
+
+        private delegate void OnSetTaskbarCallback(Icon icon);
+
+        private void SetTaskbarIcon(Icon ico)
+        {
+            if (InvokeRequired)
+            {
+                OnSetTaskbarCallback callback = new OnSetTaskbarCallback(SetTaskbarIcon);
+                this.Invoke(callback, new object[] { ico });
+                return;
+            }
+
+            this.Icon = ico;
         }
     }
 }

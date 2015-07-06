@@ -68,6 +68,7 @@ namespace hyperdesktop2
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.takeRegionScreenshotToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.takeScreenshotToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.uploadFromClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.tray_icon = new System.Windows.Forms.NotifyIcon(this.components);
@@ -78,7 +79,6 @@ namespace hyperdesktop2
             this.label1 = new System.Windows.Forms.Label();
             this.passwordField = new System.Windows.Forms.TextBox();
             this.emailField = new System.Windows.Forms.TextBox();
-            this.uploadFromClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.main_menu.SuspendLayout();
             this.group_upload.SuspendLayout();
             this.group_screenshot.SuspendLayout();
@@ -95,12 +95,9 @@ namespace hyperdesktop2
             this.fileToolStripMenuItem,
             this.optionsToolStripMenuItem,
             this.helpToolStripMenuItem});
-            this.main_menu.Location = new System.Drawing.Point(0, 0);
+            resources.ApplyResources(this.main_menu, "main_menu");
             this.main_menu.Name = "main_menu";
             this.main_menu.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.main_menu.Size = new System.Drawing.Size(259, 24);
-            this.main_menu.TabIndex = 0;
-            this.main_menu.Text = "menuStrip1";
             // 
             // fileToolStripMenuItem
             // 
@@ -108,21 +105,18 @@ namespace hyperdesktop2
             this.hideWindowToolStripMenuItem,
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
-            this.fileToolStripMenuItem.Text = "File";
+            resources.ApplyResources(this.fileToolStripMenuItem, "fileToolStripMenuItem");
             // 
             // hideWindowToolStripMenuItem
             // 
             this.hideWindowToolStripMenuItem.Name = "hideWindowToolStripMenuItem";
-            this.hideWindowToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.hideWindowToolStripMenuItem.Text = "Hide Window";
+            resources.ApplyResources(this.hideWindowToolStripMenuItem, "hideWindowToolStripMenuItem");
             this.hideWindowToolStripMenuItem.Click += new System.EventHandler(this.InverseTrayOption);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.exitToolStripMenuItem.Text = "Exit";
+            resources.ApplyResources(this.exitToolStripMenuItem, "exitToolStripMenuItem");
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItemClick);
             // 
             // optionsToolStripMenuItem
@@ -130,14 +124,12 @@ namespace hyperdesktop2
             this.optionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.preferencesToolStripMenuItem});
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
-            this.optionsToolStripMenuItem.Text = "Options";
+            resources.ApplyResources(this.optionsToolStripMenuItem, "optionsToolStripMenuItem");
             // 
             // preferencesToolStripMenuItem
             // 
             this.preferencesToolStripMenuItem.Name = "preferencesToolStripMenuItem";
-            this.preferencesToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.preferencesToolStripMenuItem.Text = "Preferences";
+            resources.ApplyResources(this.preferencesToolStripMenuItem, "preferencesToolStripMenuItem");
             this.preferencesToolStripMenuItem.Click += new System.EventHandler(this.PreferencesToolStripMenuItemClick);
             // 
             // helpToolStripMenuItem
@@ -146,21 +138,18 @@ namespace hyperdesktop2
             this.aboutToolStripMenuItem,
             this.registerHotkeysToolStripMenuItem});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
-            this.helpToolStripMenuItem.Text = "Help";
+            resources.ApplyResources(this.helpToolStripMenuItem, "helpToolStripMenuItem");
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
-            this.aboutToolStripMenuItem.Text = "About";
+            resources.ApplyResources(this.aboutToolStripMenuItem, "aboutToolStripMenuItem");
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.AboutToolStripMenuItemClick);
             // 
             // registerHotkeysToolStripMenuItem
             // 
             this.registerHotkeysToolStripMenuItem.Name = "registerHotkeysToolStripMenuItem";
-            this.registerHotkeysToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
-            this.registerHotkeysToolStripMenuItem.Text = "Register Hotkeys";
+            resources.ApplyResources(this.registerHotkeysToolStripMenuItem, "registerHotkeysToolStripMenuItem");
             this.registerHotkeysToolStripMenuItem.Click += new System.EventHandler(this.RegisterHotkeysToolStripMenuItemClick);
             // 
             // group_upload
@@ -168,24 +157,17 @@ namespace hyperdesktop2
             this.group_upload.Controls.Add(this.btn_browse);
             this.group_upload.Controls.Add(this.lbl_instructions);
             this.group_upload.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.group_upload.Location = new System.Drawing.Point(12, 27);
+            resources.ApplyResources(this.group_upload, "group_upload");
             this.group_upload.Name = "group_upload";
-            this.group_upload.Size = new System.Drawing.Size(235, 53);
-            this.group_upload.TabIndex = 1;
             this.group_upload.TabStop = false;
-            this.group_upload.Text = "Upload Files";
             this.group_upload.DragDrop += new System.Windows.Forms.DragEventHandler(this.OnDragDrop);
             this.group_upload.DragEnter += new System.Windows.Forms.DragEventHandler(this.OnDragEnter);
             // 
             // btn_browse
             // 
             this.btn_browse.AllowDrop = true;
-            this.btn_browse.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btn_browse.Location = new System.Drawing.Point(165, 19);
+            resources.ApplyResources(this.btn_browse, "btn_browse");
             this.btn_browse.Name = "btn_browse";
-            this.btn_browse.Size = new System.Drawing.Size(64, 23);
-            this.btn_browse.TabIndex = 0;
-            this.btn_browse.Text = "Browse";
             this.btn_browse.UseVisualStyleBackColor = true;
             this.btn_browse.Click += new System.EventHandler(this.BtnBrowseClick);
             this.btn_browse.DragDrop += new System.Windows.Forms.DragEventHandler(this.OnDragDrop);
@@ -195,11 +177,8 @@ namespace hyperdesktop2
             // 
             this.lbl_instructions.AllowDrop = true;
             this.lbl_instructions.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.lbl_instructions.Location = new System.Drawing.Point(6, 17);
+            resources.ApplyResources(this.lbl_instructions, "lbl_instructions");
             this.lbl_instructions.Name = "lbl_instructions";
-            this.lbl_instructions.Size = new System.Drawing.Size(153, 34);
-            this.lbl_instructions.TabIndex = 1;
-            this.lbl_instructions.Text = "Drag and drop files here, or select them by pressing browse";
             this.lbl_instructions.DragDrop += new System.Windows.Forms.DragEventHandler(this.OnDragDrop);
             this.lbl_instructions.DragEnter += new System.Windows.Forms.DragEventHandler(this.OnDragEnter);
             // 
@@ -208,83 +187,56 @@ namespace hyperdesktop2
             this.group_screenshot.Controls.Add(this.btn_capture_selected_area);
             this.group_screenshot.Controls.Add(this.btn_capture);
             this.group_screenshot.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.group_screenshot.Location = new System.Drawing.Point(12, 86);
+            resources.ApplyResources(this.group_screenshot, "group_screenshot");
             this.group_screenshot.Name = "group_screenshot";
-            this.group_screenshot.Size = new System.Drawing.Size(235, 52);
-            this.group_screenshot.TabIndex = 2;
             this.group_screenshot.TabStop = false;
-            this.group_screenshot.Text = "Screenshot";
             // 
             // btn_capture_selected_area
             // 
-            this.btn_capture_selected_area.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btn_capture_selected_area.Location = new System.Drawing.Point(93, 19);
+            resources.ApplyResources(this.btn_capture_selected_area, "btn_capture_selected_area");
             this.btn_capture_selected_area.Name = "btn_capture_selected_area";
-            this.btn_capture_selected_area.Size = new System.Drawing.Size(136, 23);
-            this.btn_capture_selected_area.TabIndex = 2;
-            this.btn_capture_selected_area.Text = "Capture region";
             this.btn_capture_selected_area.UseVisualStyleBackColor = true;
             this.btn_capture_selected_area.Click += new System.EventHandler(this.BtnCaptureRegionClick);
             // 
             // btn_capture
             // 
-            this.btn_capture.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btn_capture.Location = new System.Drawing.Point(6, 19);
+            resources.ApplyResources(this.btn_capture, "btn_capture");
             this.btn_capture.Name = "btn_capture";
-            this.btn_capture.Size = new System.Drawing.Size(81, 23);
-            this.btn_capture.TabIndex = 1;
-            this.btn_capture.Text = "Capture";
             this.btn_capture.UseVisualStyleBackColor = true;
             this.btn_capture.Click += new System.EventHandler(this.BtnCaptureClick);
             // 
             // groupUploadProgress
             // 
             this.groupUploadProgress.Controls.Add(this.progress);
-            this.groupUploadProgress.Location = new System.Drawing.Point(12, 144);
+            resources.ApplyResources(this.groupUploadProgress, "groupUploadProgress");
             this.groupUploadProgress.Name = "groupUploadProgress";
-            this.groupUploadProgress.Size = new System.Drawing.Size(235, 49);
-            this.groupUploadProgress.TabIndex = 3;
             this.groupUploadProgress.TabStop = false;
-            this.groupUploadProgress.Text = "Upload Progress";
             // 
             // progress
             // 
-            this.progress.Location = new System.Drawing.Point(6, 19);
+            resources.ApplyResources(this.progress, "progress");
             this.progress.Name = "progress";
-            this.progress.Size = new System.Drawing.Size(223, 20);
-            this.progress.TabIndex = 0;
             // 
             // group_image_links
             // 
-            this.group_image_links.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.group_image_links, "group_image_links");
             this.group_image_links.Controls.Add(this.listImageLinks);
-            this.group_image_links.Location = new System.Drawing.Point(12, 306);
             this.group_image_links.Name = "group_image_links";
-            this.group_image_links.Size = new System.Drawing.Size(235, 221);
-            this.group_image_links.TabIndex = 4;
             this.group_image_links.TabStop = false;
-            this.group_image_links.Text = "Upload history";
             this.group_image_links.DragDrop += new System.Windows.Forms.DragEventHandler(this.OnDragDrop);
             this.group_image_links.DragEnter += new System.Windows.Forms.DragEventHandler(this.OnDragEnter);
             // 
             // listImageLinks
             // 
             this.listImageLinks.AllowDrop = true;
-            this.listImageLinks.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.listImageLinks, "listImageLinks");
             this.listImageLinks.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.column_url});
             this.listImageLinks.ContextMenuStrip = this.image_links_menu;
             this.listImageLinks.FullRowSelect = true;
             this.listImageLinks.GridLines = true;
-            this.listImageLinks.Location = new System.Drawing.Point(6, 19);
             this.listImageLinks.MultiSelect = false;
             this.listImageLinks.Name = "listImageLinks";
-            this.listImageLinks.Size = new System.Drawing.Size(223, 196);
-            this.listImageLinks.TabIndex = 0;
             this.listImageLinks.UseCompatibleStateImageBehavior = false;
             this.listImageLinks.View = System.Windows.Forms.View.Details;
             this.listImageLinks.DragDrop += new System.Windows.Forms.DragEventHandler(this.OnDragDrop);
@@ -293,8 +245,7 @@ namespace hyperdesktop2
             // 
             // column_url
             // 
-            this.column_url.Text = "File URL";
-            this.column_url.Width = 218;
+            resources.ApplyResources(this.column_url, "column_url");
             // 
             // image_links_menu
             // 
@@ -304,32 +255,29 @@ namespace hyperdesktop2
             this.toolStripMenuItem2,
             this.deleteToolStripMenuItem});
             this.image_links_menu.Name = "image_links_menu";
-            this.image_links_menu.Size = new System.Drawing.Size(108, 76);
+            resources.ApplyResources(this.image_links_menu, "image_links_menu");
             // 
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
-            this.openToolStripMenuItem.Text = "Open";
+            resources.ApplyResources(this.openToolStripMenuItem, "openToolStripMenuItem");
             this.openToolStripMenuItem.Click += new System.EventHandler(this.OpenToolStripMenuItemClick);
             // 
             // copyToolStripMenuItem
             // 
             this.copyToolStripMenuItem.Name = "copyToolStripMenuItem";
-            this.copyToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
-            this.copyToolStripMenuItem.Text = "Copy";
+            resources.ApplyResources(this.copyToolStripMenuItem, "copyToolStripMenuItem");
             this.copyToolStripMenuItem.Click += new System.EventHandler(this.CopyToolStripMenuItemClick);
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(104, 6);
+            resources.ApplyResources(this.toolStripMenuItem2, "toolStripMenuItem2");
             // 
             // deleteToolStripMenuItem
             // 
             this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
-            this.deleteToolStripMenuItem.Text = "Delete";
+            resources.ApplyResources(this.deleteToolStripMenuItem, "deleteToolStripMenuItem");
             this.deleteToolStripMenuItem.Click += new System.EventHandler(this.DeleteToolStripMenuItemClick);
             // 
             // tray_menu
@@ -343,54 +291,53 @@ namespace hyperdesktop2
             this.aboutToolStripMenuItem1,
             this.exitToolStripMenuItem1});
             this.tray_menu.Name = "tray_menu";
-            this.tray_menu.Size = new System.Drawing.Size(201, 164);
+            resources.ApplyResources(this.tray_menu, "tray_menu");
             // 
             // minimizeToTrayToolStripMenuItem
             // 
             this.minimizeToTrayToolStripMenuItem.Name = "minimizeToTrayToolStripMenuItem";
-            this.minimizeToTrayToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
-            this.minimizeToTrayToolStripMenuItem.Text = "Minimize to tray";
+            resources.ApplyResources(this.minimizeToTrayToolStripMenuItem, "minimizeToTrayToolStripMenuItem");
             this.minimizeToTrayToolStripMenuItem.Click += new System.EventHandler(this.InverseTrayOption);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(197, 6);
+            resources.ApplyResources(this.toolStripMenuItem1, "toolStripMenuItem1");
             // 
             // takeRegionScreenshotToolStripMenuItem
             // 
             this.takeRegionScreenshotToolStripMenuItem.Name = "takeRegionScreenshotToolStripMenuItem";
-            this.takeRegionScreenshotToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
-            this.takeRegionScreenshotToolStripMenuItem.Text = "Take Region Screenshot";
+            resources.ApplyResources(this.takeRegionScreenshotToolStripMenuItem, "takeRegionScreenshotToolStripMenuItem");
             this.takeRegionScreenshotToolStripMenuItem.Click += new System.EventHandler(this.BtnCaptureRegionClick);
             // 
             // takeScreenshotToolStripMenuItem
             // 
             this.takeScreenshotToolStripMenuItem.Name = "takeScreenshotToolStripMenuItem";
-            this.takeScreenshotToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
-            this.takeScreenshotToolStripMenuItem.Text = "Take Screenshot";
+            resources.ApplyResources(this.takeScreenshotToolStripMenuItem, "takeScreenshotToolStripMenuItem");
             this.takeScreenshotToolStripMenuItem.Click += new System.EventHandler(this.BtnCaptureClick);
+            // 
+            // uploadFromClipboardToolStripMenuItem
+            // 
+            this.uploadFromClipboardToolStripMenuItem.Name = "uploadFromClipboardToolStripMenuItem";
+            resources.ApplyResources(this.uploadFromClipboardToolStripMenuItem, "uploadFromClipboardToolStripMenuItem");
+            this.uploadFromClipboardToolStripMenuItem.Click += new System.EventHandler(this.uploadFromClipboardToolStripMenuItem_Click);
             // 
             // aboutToolStripMenuItem1
             // 
             this.aboutToolStripMenuItem1.Name = "aboutToolStripMenuItem1";
-            this.aboutToolStripMenuItem1.Size = new System.Drawing.Size(200, 22);
-            this.aboutToolStripMenuItem1.Text = "About";
+            resources.ApplyResources(this.aboutToolStripMenuItem1, "aboutToolStripMenuItem1");
             this.aboutToolStripMenuItem1.Click += new System.EventHandler(this.AboutToolStripMenuItemClick);
             // 
             // exitToolStripMenuItem1
             // 
             this.exitToolStripMenuItem1.Name = "exitToolStripMenuItem1";
-            this.exitToolStripMenuItem1.Size = new System.Drawing.Size(200, 22);
-            this.exitToolStripMenuItem1.Text = "Exit";
+            resources.ApplyResources(this.exitToolStripMenuItem1, "exitToolStripMenuItem1");
             this.exitToolStripMenuItem1.Click += new System.EventHandler(this.ExitToolStripMenuItemClick);
             // 
             // tray_icon
             // 
             this.tray_icon.ContextMenuStrip = this.tray_menu;
-            this.tray_icon.Icon = ((System.Drawing.Icon)(resources.GetObject("tray_icon.Icon")));
-            this.tray_icon.Text = "Hyperdesktop2";
-            this.tray_icon.Visible = true;
+            resources.ApplyResources(this.tray_icon, "tray_icon");
             this.tray_icon.DoubleClick += new System.EventHandler(this.InverseTrayOption);
             // 
             // groupBox1
@@ -401,79 +348,49 @@ namespace hyperdesktop2
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.passwordField);
             this.groupBox1.Controls.Add(this.emailField);
-            this.groupBox1.Location = new System.Drawing.Point(12, 199);
+            resources.ApplyResources(this.groupBox1, "groupBox1");
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(235, 101);
-            this.groupBox1.TabIndex = 5;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Your account";
             this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
             // logoutBtn
             // 
-            this.logoutBtn.Location = new System.Drawing.Point(149, 71);
+            resources.ApplyResources(this.logoutBtn, "logoutBtn");
             this.logoutBtn.Name = "logoutBtn";
-            this.logoutBtn.Size = new System.Drawing.Size(61, 23);
-            this.logoutBtn.TabIndex = 10;
-            this.logoutBtn.Text = "Logout";
             this.logoutBtn.UseVisualStyleBackColor = true;
             this.logoutBtn.Click += new System.EventHandler(this.logoutBtn_Click);
             // 
             // loginBtn
             // 
-            this.loginBtn.Location = new System.Drawing.Point(82, 71);
+            resources.ApplyResources(this.loginBtn, "loginBtn");
             this.loginBtn.Name = "loginBtn";
-            this.loginBtn.Size = new System.Drawing.Size(61, 23);
-            this.loginBtn.TabIndex = 9;
-            this.loginBtn.Text = "Login";
             this.loginBtn.UseVisualStyleBackColor = true;
             this.loginBtn.Click += new System.EventHandler(this.loginBtn_Click);
             // 
             // label4
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 45);
+            resources.ApplyResources(this.label4, "label4");
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(56, 13);
-            this.label4.TabIndex = 6;
-            this.label4.Text = "Password:";
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 19);
+            resources.ApplyResources(this.label1, "label1");
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 13);
-            this.label1.TabIndex = 11;
-            this.label1.Text = "Email:";
             // 
             // passwordField
             // 
-            this.passwordField.Location = new System.Drawing.Point(82, 45);
+            resources.ApplyResources(this.passwordField, "passwordField");
             this.passwordField.Name = "passwordField";
-            this.passwordField.PasswordChar = '*';
-            this.passwordField.Size = new System.Drawing.Size(147, 20);
-            this.passwordField.TabIndex = 8;
             // 
             // emailField
             // 
-            this.emailField.Location = new System.Drawing.Point(82, 19);
+            resources.ApplyResources(this.emailField, "emailField");
             this.emailField.Name = "emailField";
-            this.emailField.Size = new System.Drawing.Size(147, 20);
-            this.emailField.TabIndex = 7;
-            // 
-            // uploadFromClipboardToolStripMenuItem
-            // 
-            this.uploadFromClipboardToolStripMenuItem.Name = "uploadFromClipboardToolStripMenuItem";
-            this.uploadFromClipboardToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
-            this.uploadFromClipboardToolStripMenuItem.Text = "Upload from clipboard";
-            this.uploadFromClipboardToolStripMenuItem.Click += new System.EventHandler(this.uploadFromClipboardToolStripMenuItem_Click);
             // 
             // Main
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(259, 539);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.group_image_links);
             this.Controls.Add(this.groupUploadProgress);
@@ -481,14 +398,9 @@ namespace hyperdesktop2
             this.Controls.Add(this.group_upload);
             this.Controls.Add(this.main_menu);
             this.DoubleBuffered = true;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.main_menu;
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(275, 99999999);
-            this.MinimumSize = new System.Drawing.Size(275, 300);
             this.Name = "Main";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "shikashi uploader";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.OnFormClosing);
             this.Load += new System.EventHandler(this.OnLoad);
             this.main_menu.ResumeLayout(false);

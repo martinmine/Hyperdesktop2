@@ -46,5 +46,17 @@ namespace hyperdesktop2.Properties {
                 this["AuthExpirationTime"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string CurrentUser {
+            get {
+                return ((string)(this["CurrentUser"]));
+            }
+            set {
+                this["CurrentUser"] = value;
+            }
+        }
     }
 }

@@ -94,8 +94,12 @@ namespace hyperdesktop2
             try
             {
                 if (Settings.SoundEffects)
+                { 
                     using (SoundPlayer soundPlayer = new SoundPlayer("sounds\\" + filePath))
+                    {
                         soundPlayer.Play();
+                    }
+                }
             }
             catch
             {

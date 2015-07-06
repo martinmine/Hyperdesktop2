@@ -4,7 +4,7 @@ using System.Drawing.Imaging;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
-public static class Screen_Capture
+public static class ScreenCapture
 {
     [StructLayout(LayoutKind.Sequential)]
     struct CURSORINFO { public Int32 cbSize; public Int32 flags; public IntPtr hCursor; public POINTAPI ptScreenPos; }
@@ -57,12 +57,12 @@ public static class Screen_Capture
         return bmp;
     }
 
-    public static Bitmap screen(bool cursor = true, PixelFormat pixelFormat = PixelFormat.Format32bppRgb)
+    public static Bitmap CaptureScreenArea(bool cursor = true, PixelFormat pixelFormat = PixelFormat.Format32bppRgb)
     {
         return region(Screen.PrimaryScreen.Bounds, cursor, pixelFormat);
     }
 
-    public static Bitmap window(bool cursor = true, PixelFormat pixel_format = PixelFormat.Format32bppRgb)
+    public static Bitmap Window(bool cursor = true, PixelFormat pixel_format = PixelFormat.Format32bppRgb)
     {
         Rectangle rect = new Rectangle();
         GetWindowRect(GetForegroundWindow(), ref rect);

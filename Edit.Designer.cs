@@ -112,7 +112,7 @@ namespace hyperdesktop2
             // 
             this.copyToolStripMenuItem.Name = "copyToolStripMenuItem";
             this.copyToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
-            this.copyToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.copyToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
             this.copyToolStripMenuItem.Text = "Copy";
             this.copyToolStripMenuItem.Click += new System.EventHandler(this.CopyToolStripMenuItemClick);
             // 
@@ -120,14 +120,14 @@ namespace hyperdesktop2
             // 
             this.undoToolStripMenuItem.Name = "undoToolStripMenuItem";
             this.undoToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Z)));
-            this.undoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.undoToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
             this.undoToolStripMenuItem.Text = "Undo";
             this.undoToolStripMenuItem.Click += new System.EventHandler(this.UndoToolStripMenuItemClick);
             // 
             // resetToolStripMenuItem
             // 
             this.resetToolStripMenuItem.Name = "resetToolStripMenuItem";
-            this.resetToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.resetToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
             this.resetToolStripMenuItem.Text = "Reset";
             this.resetToolStripMenuItem.Click += new System.EventHandler(this.ResetToolStripMenuItemClick);
             // 
@@ -163,7 +163,7 @@ namespace hyperdesktop2
             this.drop_size.TabIndex = 4;
             this.drop_size.SelectedIndexChanged += new System.EventHandler(this.DropSizeSelectedIndexChanged);
             // 
-            // drop_color
+            // dropColor
             // 
             this.dropColor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.dropColor.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -177,7 +177,7 @@ namespace hyperdesktop2
             "White",
             "Yellow"});
             this.dropColor.Location = new System.Drawing.Point(238, 3);
-            this.dropColor.Name = "drop_color";
+            this.dropColor.Name = "dropColor";
             this.dropColor.Size = new System.Drawing.Size(80, 23);
             this.dropColor.TabIndex = 6;
             this.dropColor.SelectedIndexChanged += new System.EventHandler(this.DropColorSelectedIndexChanged);
@@ -241,10 +241,10 @@ namespace hyperdesktop2
             this.panel.Size = new System.Drawing.Size(788, 29);
             this.panel.TabIndex = 10;
             // 
-            // check_drop_shadow
+            // checkDropShadow
             // 
             this.checkDropShadow.Location = new System.Drawing.Point(696, 4);
-            this.checkDropShadow.Name = "check_drop_shadow";
+            this.checkDropShadow.Name = "checkDropShadow";
             this.checkDropShadow.Size = new System.Drawing.Size(92, 21);
             this.checkDropShadow.TabIndex = 10;
             this.checkDropShadow.Text = "Drop Shadow";
@@ -263,10 +263,10 @@ namespace hyperdesktop2
             this.picture_frame.Size = new System.Drawing.Size(788, 481);
             this.picture_frame.TabIndex = 0;
             // 
-            // picture_box
+            // pictureBox
             // 
             this.pictureBox.Location = new System.Drawing.Point(0, 0);
-            this.pictureBox.Name = "picture_box";
+            this.pictureBox.Name = "pictureBox";
             this.pictureBox.Size = new System.Drawing.Size(467, 240);
             this.pictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pictureBox.TabIndex = 0;
@@ -276,7 +276,7 @@ namespace hyperdesktop2
             this.pictureBox.MouseMove += new System.Windows.Forms.MouseEventHandler(this.PictureBoxMouseMove);
             this.pictureBox.MouseUp += new System.Windows.Forms.MouseEventHandler(this.PictureBoxMouseUp);
             // 
-            // frm_Edit
+            // Edit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -286,7 +286,7 @@ namespace hyperdesktop2
             this.Controls.Add(this.main_menu);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.main_menu;
-            this.Name = "frm_Edit";
+            this.Name = "Edit";
             this.Text = "Edit Screenshot";
             this.Load += new System.EventHandler(this.Frm_EditLoad);
             this.main_menu.ResumeLayout(false);

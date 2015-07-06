@@ -36,87 +36,88 @@ namespace hyperdesktop2
 		/// </summary>
 		private void InitializeComponent()
 		{
-			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(About));
-			this.label_Hyperdesktop = new System.Windows.Forms.Label();
-			this.label_motto = new System.Windows.Forms.Label();
-			this.btn_github = new System.Windows.Forms.Button();
-			this.labelBuild = new System.Windows.Forms.Label();
-			this.btn_report = new System.Windows.Forms.Button();
-			this.SuspendLayout();
-			// 
-			// label_Hyperdesktop
-			// 
-			this.label_Hyperdesktop.FlatStyle = System.Windows.Forms.FlatStyle.System;
-			this.label_Hyperdesktop.Font = new System.Drawing.Font("Arial", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label_Hyperdesktop.Location = new System.Drawing.Point(12, 0);
-			this.label_Hyperdesktop.Name = "label_Hyperdesktop";
-			this.label_Hyperdesktop.Size = new System.Drawing.Size(378, 58);
-			this.label_Hyperdesktop.TabIndex = 0;
-			this.label_Hyperdesktop.Text = "Hyperdesktop2";
-			this.label_Hyperdesktop.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-			// 
-			// label_motto
-			// 
-			this.label_motto.FlatStyle = System.Windows.Forms.FlatStyle.System;
-			this.label_motto.Font = new System.Drawing.Font("Arial", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label_motto.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-			this.label_motto.Location = new System.Drawing.Point(12, 58);
-			this.label_motto.Name = "label_motto";
-			this.label_motto.Size = new System.Drawing.Size(378, 23);
-			this.label_motto.TabIndex = 1;
-			this.label_motto.Text = "Simple, fast screenshot sharing!";
-			this.label_motto.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-			// 
-			// btn_github
-			// 
-			this.btn_github.FlatStyle = System.Windows.Forms.FlatStyle.System;
-			this.btn_github.Location = new System.Drawing.Point(293, 93);
-			this.btn_github.Name = "btn_github";
-			this.btn_github.Size = new System.Drawing.Size(97, 26);
-			this.btn_github.TabIndex = 2;
-			this.btn_github.Text = "Github";
-			this.btn_github.UseVisualStyleBackColor = true;
-			this.btn_github.Click += new System.EventHandler(this.BtnGithubClick);
-			// 
-			// label_build
-			// 
-			this.labelBuild.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.labelBuild.Location = new System.Drawing.Point(12, 94);
-			this.labelBuild.Name = "label_build";
-			this.labelBuild.Size = new System.Drawing.Size(88, 26);
-			this.labelBuild.TabIndex = 3;
-			this.labelBuild.Text = "Build: 0";
-			this.labelBuild.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-			// 
-			// btn_report
-			// 
-			this.btn_report.FlatStyle = System.Windows.Forms.FlatStyle.System;
-			this.btn_report.Location = new System.Drawing.Point(190, 94);
-			this.btn_report.Name = "btn_report";
-			this.btn_report.Size = new System.Drawing.Size(97, 26);
-			this.btn_report.TabIndex = 4;
-			this.btn_report.Text = "Report Issue";
-			this.btn_report.UseVisualStyleBackColor = true;
-			this.btn_report.Click += new System.EventHandler(this.BtnReportClick);
-			// 
-			// frm_About
-			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(402, 126);
-			this.Controls.Add(this.btn_report);
-			this.Controls.Add(this.labelBuild);
-			this.Controls.Add(this.btn_github);
-			this.Controls.Add(this.label_motto);
-			this.Controls.Add(this.label_Hyperdesktop);
-			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-			this.MaximizeBox = false;
-			this.Name = "frm_About";
-			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-			this.Text = "About Hyperdesktop2";
-			this.Load += new System.EventHandler(this.FrmAboutLoad);
-			this.ResumeLayout(false);
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(About));
+            this.label_Hyperdesktop = new System.Windows.Forms.Label();
+            this.label_motto = new System.Windows.Forms.Label();
+            this.btn_github = new System.Windows.Forms.Button();
+            this.labelBuild = new System.Windows.Forms.Label();
+            this.btn_report = new System.Windows.Forms.Button();
+            this.SuspendLayout();
+            // 
+            // label_Hyperdesktop
+            // 
+            this.label_Hyperdesktop.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.label_Hyperdesktop.Font = new System.Drawing.Font("Arial", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_Hyperdesktop.Location = new System.Drawing.Point(12, 0);
+            this.label_Hyperdesktop.Name = "label_Hyperdesktop";
+            this.label_Hyperdesktop.Size = new System.Drawing.Size(378, 58);
+            this.label_Hyperdesktop.TabIndex = 0;
+            this.label_Hyperdesktop.Text = "Hyperdesktop2";
+            this.label_Hyperdesktop.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label_motto
+            // 
+            this.label_motto.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.label_motto.Font = new System.Drawing.Font("Arial", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_motto.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.label_motto.Location = new System.Drawing.Point(12, 58);
+            this.label_motto.Name = "label_motto";
+            this.label_motto.Size = new System.Drawing.Size(378, 23);
+            this.label_motto.TabIndex = 1;
+            this.label_motto.Text = "Simple, fast screenshot sharing!";
+            this.label_motto.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // btn_github
+            // 
+            this.btn_github.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.btn_github.Location = new System.Drawing.Point(293, 93);
+            this.btn_github.Name = "btn_github";
+            this.btn_github.Size = new System.Drawing.Size(97, 26);
+            this.btn_github.TabIndex = 2;
+            this.btn_github.Text = "Github";
+            this.btn_github.UseVisualStyleBackColor = true;
+            this.btn_github.Click += new System.EventHandler(this.BtnGithubClick);
+            // 
+            // labelBuild
+            // 
+            this.labelBuild.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelBuild.Location = new System.Drawing.Point(12, 94);
+            this.labelBuild.Name = "labelBuild";
+            this.labelBuild.Size = new System.Drawing.Size(88, 26);
+            this.labelBuild.TabIndex = 3;
+            this.labelBuild.Text = "Build: 0";
+            this.labelBuild.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // btn_report
+            // 
+            this.btn_report.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.btn_report.Location = new System.Drawing.Point(190, 94);
+            this.btn_report.Name = "btn_report";
+            this.btn_report.Size = new System.Drawing.Size(97, 26);
+            this.btn_report.TabIndex = 4;
+            this.btn_report.Text = "Report Issue";
+            this.btn_report.UseVisualStyleBackColor = true;
+            this.btn_report.Click += new System.EventHandler(this.BtnReportClick);
+            // 
+            // About
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(402, 126);
+            this.Controls.Add(this.btn_report);
+            this.Controls.Add(this.labelBuild);
+            this.Controls.Add(this.btn_github);
+            this.Controls.Add(this.label_motto);
+            this.Controls.Add(this.label_Hyperdesktop);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.Name = "About";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "About Hyperdesktop2";
+            this.Load += new System.EventHandler(this.FrmAboutLoad);
+            this.ResumeLayout(false);
+
 		}
 		private System.Windows.Forms.Label labelBuild;
 		private System.Windows.Forms.Button btn_report;

@@ -56,6 +56,7 @@
   <ItemGroup>
     <Compile Include="API\APIConfig.cs" />
     <Compile Include="API\AuthKey.cs" />
+    <Compile Include="API\DeleteImageRequest.cs" />
     <Compile Include="API\FileUpload.cs" />
     <Compile Include="API\IUploadStatusListener.cs" />
     <Compile Include="API\LoginProvider.cs" />
@@ -130,6 +131,66 @@
     <EmbeddedResource Include="Snipper.resx">
       <DependentUpon>Snipper.cs</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\dong1.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\10.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\11.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\12.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\13.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\14.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\15.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\16.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\17.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\18.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\19.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\2.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\4.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\5.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\6.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\7.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\8.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\9.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

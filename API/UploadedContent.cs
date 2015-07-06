@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Runtime.Serialization;
 
 namespace hyperdesktop2.API
 {
@@ -15,5 +10,8 @@ namespace hyperdesktop2.API
 
         [DataMember(Name = "fileName")]
         public string FileName { get; set; }
+
+        [DataMember(Name = "deleteKey")]
+        public string DeleteKey { get; set; }
     }
 }
