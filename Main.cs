@@ -192,7 +192,7 @@ namespace hyperdesktop2
         private async void WorkImage(Bitmap bmp, bool edit = false)
         {
             StartAnimation();
-            GlobalFunctions.PlaySound("capture.wav");
+            GlobalFunctions.PlaySound(Properties.Resources.capture);
 
             if (Settings.EdiScreenshot && edit)
                 bmp = EditScreenshot(bmp);
@@ -222,22 +222,22 @@ namespace hyperdesktop2
             switch (result)
             {
                 case FileUploadResult.Failed:
-                    GlobalFunctions.PlaySound("error.wav");
+                    GlobalFunctions.PlaySound(Properties.Resources.error);
                     BalloonTip("Error uploading file!", "Error", 2000, ToolTipIcon.Error);
                     break;
 
                 case FileUploadResult.InvalidCredentials:
-                    GlobalFunctions.PlaySound("error.wav");
+                    GlobalFunctions.PlaySound(Properties.Resources.error);
                     BalloonTip("Your credentials were invalid, please sign in again", "Error", 2000, ToolTipIcon.Error);
                     break;
 
                 case FileUploadResult.NotAuthorized:
-                    GlobalFunctions.PlaySound("error.wav");
+                    GlobalFunctions.PlaySound(Properties.Resources.error);
                     BalloonTip("You need to sign in before uploading", "Error", 2000, ToolTipIcon.Error);
                     break;
 
                 case FileUploadResult.FileTooLarge:
-                    GlobalFunctions.PlaySound("error.wav");
+                    GlobalFunctions.PlaySound(Properties.Resources.error);
                     BalloonTip("This file was too large to be uploaded", "Error", 2000, ToolTipIcon.Error);
                     break;
             }
@@ -317,7 +317,7 @@ namespace hyperdesktop2
                 listImageLinks.SelectedItems[0].Remove();
             else
             {
-                GlobalFunctions.PlaySound("error.wav");
+                GlobalFunctions.PlaySound(Properties.Resources.error);
 
                 if (Settings.BalloonMessages)
                     BalloonTip("Could not delete file!", "Error", 2000, ToolTipIcon.Error);
@@ -378,7 +378,10 @@ namespace hyperdesktop2
             if (Settings.BalloonMessages)
                 BalloonTip("Link copied to clipboard:" + Environment.NewLine + link, "Upload Completed!", 2000, ToolTipIcon.Info, link);
 
-            GlobalFunctions.PlaySound("success.wav");
+            if (Settings.LaunchBrowser)
+                Process.Start(link);
+
+            GlobalFunctions.PlaySound(Properties.Resources.success);
         }
 
         private void UploadProgressChanged(object sender, UploadValuesCompletedEventArgs e)

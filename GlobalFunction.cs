@@ -57,13 +57,13 @@ namespace hyperdesktop2
                 startupRegistryKey.DeleteValue("Shikashi Uploader", false);
         }
 
-        public static void PlaySound(string filePath)
+        public static void PlaySound(UnmanagedMemoryStream file)
         {
             try
             {
                 if (Settings.SoundEffects)
                 { 
-                    using (SoundPlayer soundPlayer = new SoundPlayer("sounds\\" + filePath))
+                    using (SoundPlayer soundPlayer = new SoundPlayer(file))
                     {
                         soundPlayer.Play();
                     }
@@ -71,7 +71,7 @@ namespace hyperdesktop2
             }
             catch
             {
-                Console.WriteLine("Can't find audio file: " + filePath);
+                Console.WriteLine("Can't find audio file");
             }
         }
     }
