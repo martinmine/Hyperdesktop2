@@ -51,42 +51,10 @@ namespace hyperdesktop2
 
         public static void CheckRunAtStartup(bool run)
         {
-            CreateAppDataFolder();
-
             if (run)
-                startupRegistryKey.SetValue("Hyperdesktop2", Settings.ExePath);
+                startupRegistryKey.SetValue("Shikashi Uploader", Settings.ExePath);
             else
-                startupRegistryKey.DeleteValue("Hyperdesktop2", false);
-        }
-
-        public static void CreateAppDataFolder()
-        {
-            if (!Directory.Exists(Settings.AppData))
-                Directory.CreateDirectory(Settings.AppData);
-        }
-
-        public static void InstallApplicationData()
-        {
-            if (!File.Exists(Settings.ExePath))
-                File.Copy(
-                    Application.ExecutablePath,
-                    Settings.ExePath
-                );
-
-            try
-            {
-                if (!Directory.Exists(Settings.AppData + "\\sounds\\"))
-                {
-                    Directory.CreateDirectory(Settings.AppData + "\\sounds\\");
-                    foreach (var file in Directory.GetFiles(Environment.CurrentDirectory + "\\sounds"))
-                        File.Copy(file, Settings.AppData + "\\sounds\\" + Path.GetFileName(file));
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Couldn't copy sound files.");
-                Console.WriteLine(ex.Message);
-            }
+                startupRegistryKey.DeleteValue("Shikashi Uploader", false);
         }
 
         public static void PlaySound(string filePath)

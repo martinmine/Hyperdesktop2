@@ -10,9 +10,9 @@ namespace hyperdesktop2
         public const string BuildUrl = "https://raw.githubusercontent.com/TheTarkus/Hyperdesktop2/master/BUILD";
         public const string ReleaseUrl = "https://github.com/TheTarkus/Hyperdesktop2/releases";
 
-        public static readonly string AppData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\Hyperdesktop2\";
-        public static readonly string ExePath = AppData + @"hyperdesktop2.exe";
-        public static readonly string IniPath = AppData + @"hyperdesktop2.ini";
+        public static readonly string ContextRoot = AppDomain.CurrentDomain.BaseDirectory;
+        public static readonly string ExePath = ContextRoot + @"hyperdesktop2.exe";
+        public static readonly string IniPath = ContextRoot + @"hyperdesktop2.ini";
 
         public static string SettingsBuild;
 
@@ -62,7 +62,7 @@ namespace hyperdesktop2
 
         public static void ReadSettings()
         {
-            GlobalFunctions.CreateAppDataFolder();
+            //GlobalFunctions.CreateAppDataFolder();
             SettingsBuild = Exists("hyperdesktop2", "build", Convert.ToString(BuildVersion));
 
             ImgurClientId = Exists("upload", "imgur_client_id", "84c55d06b4c9686");

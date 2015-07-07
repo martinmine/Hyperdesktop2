@@ -10,7 +10,7 @@ namespace hyperdesktop2
 
         private static bool InstanceRunning()
         {
-            const string applicationName = "Hyperdesktop2";
+            const string applicationName = "Shikashi Uploader";
 
             try
             {
@@ -29,7 +29,7 @@ namespace hyperdesktop2
         {
             if (!Program.InstanceRunning())
             {
-                MessageBox.Show("Hyperdesktop2 is already running!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Shikashi Uploader is already running!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
             {

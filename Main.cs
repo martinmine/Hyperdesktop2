@@ -1,6 +1,5 @@
 ﻿using hyperdesktop2.API;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
@@ -25,34 +24,12 @@ namespace hyperdesktop2
         {
             InitializeComponent();
             SetButtonsEnabled();
-
-            // Delete older executable on update
-            try
-            {
-                if (Convert.ToInt32(Settings.Read("hyperdesktop2", "build")) < Settings.BuildVersion)
-                {
-                    File.Delete(Settings.ExePath);
-                    Settings.Write("hyperdesktop2", "build", Settings.BuildVersion.ToString());
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Couldn't delete old hyperdesktop2 executable.");
-                Console.WriteLine(ex.Message);
-            }
-
-            GlobalFunctions.CreateAppDataFolder();
-            GlobalFunctions.InstallApplicationData();
-
-            WebClient web_client = new WebClient();
-            int build = Convert.ToInt32(web_client.DownloadString(Settings.BuildUrl));
-
             // Confirm if user wants to add to system startup
             // on first run
             if (!File.Exists(Settings.IniPath))
             {
                 DialogResult result = MessageBox.Show(
-                    "Do you want to run Hyperdesktop2 at Windows startup?",
+                    "Do you want to run Shikashi Uploader at Windows startup?",
                     "First time run",
                     MessageBoxButtons.YesNo,
                     MessageBoxIcon.Question,
@@ -62,23 +39,6 @@ namespace hyperdesktop2
                 if (result == DialogResult.Yes)
                     GlobalFunctions.CheckRunAtStartup(true);
             }
-            // Update notification
-            else if (build > Settings.BuildVersion)
-            {
-                DialogResult result = MessageBox.Show(
-                    "A new version of Hyperdesktop2 has been released. Would you like to download it?",
-                    "Update available",
-                    MessageBoxButtons.YesNo,
-                    MessageBoxIcon.Question,
-                    MessageBoxDefaultButton.Button1
-                );
-
-                if (result == DialogResult.Yes)
-                {
-                    Process.Start(Settings.ReleaseUrl);
-                    Process.GetCurrentProcess().Kill();
-                }
-            }
 
             if (!string.IsNullOrEmpty(Properties.Settings.Default.CurrentUser))
             {
@@ -87,6 +47,7 @@ namespace hyperdesktop2
             }
 
             RegisterHotkeys();
+            LoadUserImages();
         }
 
         private void OnLoad(object sender, EventArgs e)
@@ -336,7 +297,7 @@ namespace hyperdesktop2
         private void OpenToolStripMenuItemClick(object sender, EventArgs e)
         {
             if (listImageLinks.SelectedItems.Count > 0)
-                Process.Start(listImageLinks.SelectedItems[0].Text);
+                Process.Start(string.Format("{0}/{1}", APIConfig.BaseURL, listImageLinks.SelectedItems[0].Text));
         }
         private void CopyToolStripMenuItemClick(object sender, EventArgs e)
         {
@@ -447,6 +408,7 @@ namespace hyperdesktop2
                     SetButtonsEnabled();
                     Properties.Settings.Default.CurrentUser = emailField.Text;
                     Properties.Settings.Default.Save();
+                    LoadUserImages();
                     MessageBox.Show("Login successfull", "Login success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     break;
             }
@@ -459,7 +421,7 @@ namespace hyperdesktop2
             Properties.Settings.Default.Save();
 
             passwordField.Text = "";
-
+            listImageLinks.Clear();
             SetButtonsEnabled();
         }
 
@@ -557,6 +519,16 @@ namespace hyperdesktop2
             }
 
             this.Icon = ico;
+        }
+
+        private async void LoadUserImages()
+        {
+            var images = await ListUploadedImagesRequest.GetImages();
+
+            foreach (UploadedContent image in images) 
+            {
+                listImageLinks.Items.Add(new ListViewItem(new string[] { image.Key }));
+            }
         }
     }
 }
