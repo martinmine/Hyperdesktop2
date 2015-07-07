@@ -140,7 +140,7 @@
     <value>File</value>
   </data>
   <data name="preferencesToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>135, 22</value>
+    <value>152, 22</value>
   </data>
   <data name="preferencesToolStripMenuItem.Text" xml:space="preserve">
     <value>Preferences</value>
@@ -568,7 +568,7 @@
     <value>True</value>
   </data>
   <data name="logoutBtn.Location" type="System.Drawing.Point, System.Drawing">
-    <value>149, 71</value>
+    <value>82, 71</value>
   </data>
   <data name="logoutBtn.Size" type="System.Drawing.Size, System.Drawing">
     <value>61, 23</value>
@@ -592,7 +592,7 @@
     <value>0</value>
   </data>
   <data name="loginBtn.Location" type="System.Drawing.Point, System.Drawing">
-    <value>82, 71</value>
+    <value>149, 71</value>
   </data>
   <data name="loginBtn.Size" type="System.Drawing.Size, System.Drawing">
     <value>61, 23</value>
