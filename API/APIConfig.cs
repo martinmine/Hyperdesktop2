@@ -2,6 +2,6 @@
 {
     class APIConfig
     {
-        internal const string BaseURL = "http://localhost:8080";
+        internal const string BaseURL = "https://i.shikashi.me";
     }
 }

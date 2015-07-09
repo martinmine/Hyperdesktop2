@@ -177,13 +177,21 @@ namespace hyperdesktop2
                         return;
 
                     snipperOpen = true;
-                    var rect = Snipper.GetRegion();
+                    
+                    try
+                    {
+                        var rect = Snipper.GetRegion();
 
-                    if (rect == new Rectangle(0, 0, 0, 0))
-                        return;
+                        if (rect == new Rectangle(0, 0, 0, 0))
+                            return;
 
-                    bmp = ScreenCapture.region(rect);
-                    snipperOpen = false;
+                        bmp = ScreenCapture.region(rect);
+                    }
+                    finally
+                    {
+                        snipperOpen = false;
+                    }
+                    
                     break;
             }
             WorkImage(bmp, true);
@@ -265,7 +273,7 @@ namespace hyperdesktop2
             Stream fileStream = File.OpenRead(path);
             string contentType = MimeMapping.GetMimeMapping(path);
 
-            FileUploadResult result = await upload.UploadFile(File.OpenRead(path), path, contentType);
+            FileUploadResult result = await upload.UploadFile(File.OpenRead(path), Path.GetFileName(path), contentType);
             HandleFileUploadResult(result);
         }
 
@@ -348,18 +356,6 @@ namespace hyperdesktop2
         }
 
         #region Progress Bar
-        private void UploadProgressChanged(object sender, UploadProgressChangedEventArgs e)
-        {
-            try
-            {
-            }
-            catch
-            {
-                // below .NET 4.0, sometimes it throws an absurd
-                // number into the ProgressPercentage
-            }
-        }
-
         public void ContentUplaoded(UploadedContent content)
         {
             groupUploadProgress.Text = "Upload Progress";

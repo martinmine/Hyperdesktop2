@@ -3,7 +3,7 @@
   <PropertyGroup>
     <ProjectView>ProjectFiles</ProjectView>
     <PublishUrlHistory>C:\inetpub\wwwroot\uploader\|C:\Users\marti_000\Desktop\publish\</PublishUrlHistory>
-    <InstallUrlHistory>http://localhost/uploader/</InstallUrlHistory>
+    <InstallUrlHistory>https://panel.shikashi.me/client/|http://localhost/uploader/</InstallUrlHistory>
     <SupportUrlHistory />
     <UpdateUrlHistory />
     <BootstrapperUrlHistory />
