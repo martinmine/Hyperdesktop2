@@ -1,13 +1,15 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Runtime.InteropServices;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace hyperdesktop2
 {
     public partial class Snipper : Form
     {
-
         public static Rectangle GetRegion()
         {
             var snipper = new Snipper();
@@ -35,6 +37,12 @@ namespace hyperdesktop2
 
             this.Location = new Point(ScreenBounds.Bounds.Left, ScreenBounds.Bounds.Top);
             this.Size = new Size(ScreenBounds.Bounds.Width, ScreenBounds.Bounds.Height);
+
+            // TODO: Find a better solution for this lol
+            new Thread(() => {
+                Thread.Sleep(100);
+                this.Invoke((MethodInvoker)delegate { Activate(); });
+            }).Start();
         }
 
         public Rectangle Rect { get; set; }
