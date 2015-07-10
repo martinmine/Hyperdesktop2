@@ -14,9 +14,8 @@ using System.Windows.Forms;
 namespace hyperdesktop2
 {
 
-    public partial class Main : Form, IUploadStatusListener
+    public partial class Main : Form, IUploadStatusListener, IHotkeyListener
     {
-        private Hotkeys hook;
         private bool snipperOpen;
 
         #region Main Form
@@ -46,7 +45,8 @@ namespace hyperdesktop2
                 passwordField.Text = "**********";
             }
 
-            RegisterHotkeys();
+            HotkeyManager.GetInstance().SetListener(this);
+            HotkeyManager.GetInstance().RegisterHotkeys();
             LoadUserImages();
         }
 
@@ -108,39 +108,20 @@ namespace hyperdesktop2
         }
         #endregion
 
-        #region Hotkeys
-        public void RegisterHotkeys()
+        #region Hotkey handling
+        public void OnKeyPress(Keys key)
         {
-            hook = new Hotkeys();
-            hook.KeyPressed += OnHotkeyPressed;
-
-            try
+            if (key == (Keys)Properties.Settings.Default.WindowedScreenshotHotkeyValue)
             {
-                hook.RegisterHotKey(hyperdesktop2.ModifierKeys.Control | hyperdesktop2.ModifierKeys.Shift, Keys.D3);
-                hook.RegisterHotKey(hyperdesktop2.ModifierKeys.Control | hyperdesktop2.ModifierKeys.Shift, Keys.D4);
-                hook.RegisterHotKey(hyperdesktop2.ModifierKeys.Control | hyperdesktop2.ModifierKeys.Shift, Keys.D5);
+                CaptureScreen("window");
             }
-            catch
+            else if (key == (Keys)Properties.Settings.Default.RegionalScreenshotHotkeyValue)
             {
-                MessageBox.Show("Couldn't register hotkeys. Perhaps they are already in use or try running as an Administrator.", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                CaptureScreen("region");
             }
-        }
-
-        void OnHotkeyPressed(object sender, KeyPressedEventArgs e)
-        {
-            switch (e.Key)
+            else if (key == (Keys)Properties.Settings.Default.FullScreenshotHotkeyValue)
             {
-                case Keys.D3:
-                    CaptureScreen("screen");
-                    break;
-
-                case Keys.D4:
-                    CaptureScreen("region");
-                    break;
-
-                case Keys.D5:
-                    CaptureScreen("window");
-                    break;
+                CaptureScreen("screen");
             }
         }
         #endregion
@@ -297,7 +278,7 @@ namespace hyperdesktop2
         }
         private void RegisterHotkeysToolStripMenuItemClick(object sender, System.EventArgs e)
         {
-            RegisterHotkeys();
+            HotkeyManager.GetInstance().RegisterHotkeys();
         }
         #endregion
 

@@ -58,5 +58,149 @@ namespace hyperdesktop2.Properties {
                 this["CurrentUser"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("2")]
+        public int FullScreenshotHotkeyFirst {
+            get {
+                return ((int)(this["FullScreenshotHotkeyFirst"]));
+            }
+            set {
+                this["FullScreenshotHotkeyFirst"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int FullScreenshotHotkeySecond {
+            get {
+                return ((int)(this["FullScreenshotHotkeySecond"]));
+            }
+            set {
+                this["FullScreenshotHotkeySecond"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("4")]
+        public int FullScreenshotHotkeyThird {
+            get {
+                return ((int)(this["FullScreenshotHotkeyThird"]));
+            }
+            set {
+                this["FullScreenshotHotkeyThird"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("51")]
+        public int FullScreenshotHotkeyValue {
+            get {
+                return ((int)(this["FullScreenshotHotkeyValue"]));
+            }
+            set {
+                this["FullScreenshotHotkeyValue"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("2")]
+        public int RegionalScreenshotHotkeyFirst {
+            get {
+                return ((int)(this["RegionalScreenshotHotkeyFirst"]));
+            }
+            set {
+                this["RegionalScreenshotHotkeyFirst"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int RegionalScreenshotHotkeySecond {
+            get {
+                return ((int)(this["RegionalScreenshotHotkeySecond"]));
+            }
+            set {
+                this["RegionalScreenshotHotkeySecond"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("4")]
+        public int RegionalScreenshotHotkeyThird {
+            get {
+                return ((int)(this["RegionalScreenshotHotkeyThird"]));
+            }
+            set {
+                this["RegionalScreenshotHotkeyThird"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("52")]
+        public int RegionalScreenshotHotkeyValue {
+            get {
+                return ((int)(this["RegionalScreenshotHotkeyValue"]));
+            }
+            set {
+                this["RegionalScreenshotHotkeyValue"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("2")]
+        public int WindowedScreenshotHotkeyFirst {
+            get {
+                return ((int)(this["WindowedScreenshotHotkeyFirst"]));
+            }
+            set {
+                this["WindowedScreenshotHotkeyFirst"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int WindowedScreenshotHotkeySecond {
+            get {
+                return ((int)(this["WindowedScreenshotHotkeySecond"]));
+            }
+            set {
+                this["WindowedScreenshotHotkeySecond"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("4")]
+        public int WindowedScreenshotHotkeyThird {
+            get {
+                return ((int)(this["WindowedScreenshotHotkeyThird"]));
+            }
+            set {
+                this["WindowedScreenshotHotkeyThird"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("53")]
+        public int WindowedScreenshotHotkeyValue {
+            get {
+                return ((int)(this["WindowedScreenshotHotkeyValue"]));
+            }
+            set {
+                this["WindowedScreenshotHotkeyValue"] = value;
+            }
+        }
     }
 }

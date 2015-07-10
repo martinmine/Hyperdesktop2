@@ -96,7 +96,9 @@
     <Compile Include="API\LoginProvider.cs" />
     <Compile Include="API\UploadedContent.cs" />
     <Compile Include="GlobalFunction.cs" />
+    <Compile Include="HotkeyManager.cs" />
     <Compile Include="Hotkeys.cs" />
+    <Compile Include="IHotkeyListener.cs" />
     <Compile Include="KeyPressedEventArgs.cs" />
     <Compile Include="ModifierKeys.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
