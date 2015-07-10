@@ -101,7 +101,7 @@ namespace hyperdesktop2
             // 
             this.btn_save.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_save.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btn_save.Location = new System.Drawing.Point(208, 192);
+            this.btn_save.Location = new System.Drawing.Point(208, 217);
             this.btn_save.Name = "btn_save";
             this.btn_save.Size = new System.Drawing.Size(75, 23);
             this.btn_save.TabIndex = 1;
@@ -113,7 +113,7 @@ namespace hyperdesktop2
             // 
             this.btn_cancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_cancel.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btn_cancel.Location = new System.Drawing.Point(290, 192);
+            this.btn_cancel.Location = new System.Drawing.Point(290, 217);
             this.btn_cancel.Name = "btn_cancel";
             this.btn_cancel.Size = new System.Drawing.Size(75, 23);
             this.btn_cancel.TabIndex = 2;
@@ -299,7 +299,7 @@ namespace hyperdesktop2
             this.tab_hotkeys.Location = new System.Drawing.Point(4, 22);
             this.tab_hotkeys.Name = "tab_hotkeys";
             this.tab_hotkeys.Padding = new System.Windows.Forms.Padding(3);
-            this.tab_hotkeys.Size = new System.Drawing.Size(361, 164);
+            this.tab_hotkeys.Size = new System.Drawing.Size(361, 182);
             this.tab_hotkeys.TabIndex = 3;
             this.tab_hotkeys.Text = "Hotkeys";
             this.tab_hotkeys.UseVisualStyleBackColor = true;
@@ -541,7 +541,7 @@ namespace hyperdesktop2
             this.tab_behavior.Location = new System.Drawing.Point(4, 22);
             this.tab_behavior.Name = "tab_behavior";
             this.tab_behavior.Padding = new System.Windows.Forms.Padding(3);
-            this.tab_behavior.Size = new System.Drawing.Size(390, 185);
+            this.tab_behavior.Size = new System.Drawing.Size(361, 189);
             this.tab_behavior.TabIndex = 1;
             this.tab_behavior.Text = "Behavior";
             this.tab_behavior.UseVisualStyleBackColor = true;
@@ -731,14 +731,14 @@ namespace hyperdesktop2
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(369, 190);
+            this.tabControl1.Size = new System.Drawing.Size(369, 215);
             this.tabControl1.TabIndex = 1;
             // 
             // Preferences
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(369, 219);
+            this.ClientSize = new System.Drawing.Size(369, 244);
             this.Controls.Add(this.btn_cancel);
             this.Controls.Add(this.btn_save);
             this.Controls.Add(this.tabControl1);
