@@ -10,6 +10,8 @@ namespace hyperdesktop2
 {
     public partial class Snipper : Form
     {
+        private static readonly Point InvalidPoint = new Point(-1, -1);
+
         public static Rectangle GetRegion()
         {
             var snipper = new Snipper();
@@ -53,6 +55,16 @@ namespace hyperdesktop2
 
         protected override void OnMouseDown(MouseEventArgs e)
         {
+            if (e.Button == MouseButtons.Right)
+            {
+                Invalidate(select);
+                select = new Rectangle();
+                start = InvalidPoint;
+                Invalidate(select);
+                return;
+            }
+                
+
             if (e.Button != MouseButtons.Left)
                 return;
 
@@ -63,8 +75,9 @@ namespace hyperdesktop2
 
         protected override void OnMouseMove(MouseEventArgs e)
         {
-            if (e.Button != MouseButtons.Left)
+            if (e.Button != MouseButtons.Left || start == InvalidPoint)
                 return;
+                Debug.WriteLine("OnMouseMove");
 
             int x1 = Math.Min(e.X, start.X);
             int y1 = Math.Min(e.Y, start.Y);
@@ -82,7 +95,7 @@ namespace hyperdesktop2
 
         protected override void OnMouseUp(MouseEventArgs e)
         {
-            if (select.Width <= 0 || select.Height <= 0)
+            if (select.Width <= 0 || select.Height <= 0 || e.Button != System.Windows.Forms.MouseButtons.Left)
                 return;
 
             Rect = new Rectangle(
@@ -96,7 +109,7 @@ namespace hyperdesktop2
         }
 
         Brush brush = new SolidBrush(Color.Black);
-        Pen pen = new Pen(Color.Red);
+        Pen pen = new Pen(Color.DarkGray);
 
         protected override void OnPaint(PaintEventArgs e)
         {
