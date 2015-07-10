@@ -249,6 +249,7 @@ namespace hyperdesktop2
         private async Task UploadFile(string path)
         {
             StartAnimation();
+            GlobalFunctions.PlaySound(Properties.Resources.capture);
             string extension = Path.GetExtension(path);
             FileUpload upload = new FileUpload(this);
             Stream fileStream = File.OpenRead(path);

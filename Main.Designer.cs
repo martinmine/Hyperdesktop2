@@ -389,6 +389,7 @@ namespace hyperdesktop2
             // 
             // Main
             // 
+            this.AcceptButton = this.loginBtn;
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.groupBox1);

@@ -276,5 +276,14 @@
   <ItemGroup>
     <None Include="bin\Debug\soundssdf\capture.wav" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\success.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\capture.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\error.wav" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
