@@ -108,7 +108,7 @@ namespace hyperdesktop2
             DialogResult = DialogResult.OK;
         }
 
-        Brush brush = new SolidBrush(Color.Black);
+        Brush brush = new SolidBrush(Color.Gray);
         Pen pen = new Pen(Color.DarkGray);
 
         protected override void OnPaint(PaintEventArgs e)
