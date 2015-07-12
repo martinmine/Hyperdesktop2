@@ -36,8 +36,10 @@ namespace hyperdesktop2
                 );
 
                 if (result == DialogResult.Yes)
-                    GlobalFunctions.CheckRunAtStartup(true);
+                    GlobalFunctions.SetRunAtStartup(true);
             }
+
+            GlobalFunctions.CheckStartupPath();
 
             if (!string.IsNullOrEmpty(Properties.Settings.Default.CurrentUser))
             {

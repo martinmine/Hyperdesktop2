@@ -20,7 +20,7 @@ namespace hyperdesktop2
             dropSaveFormat.Text = Settings.SaveFormat;
             dropSaveQuality.Text = Settings.SaveQuality.ToString();
 
-            checkRunAtStartup.Checked = GlobalFunctions.startupRegistryKey.GetValue("Hyperdesktop2") != null;
+            checkRunAtStartup.Checked = GlobalFunctions.StartupRegistryKey.GetValue(GlobalFunctions.StartupKey) != null;
             checkCopyLinks.Checked = Settings.CopyLinksToClipboard;
             checkSoundEffects.Checked = Settings.SoundEffects;
             checkShowCursor.Checked = Settings.ShowCursor;
@@ -110,7 +110,7 @@ namespace hyperdesktop2
             HotkeyManager.GetInstance().RegisterHotkeys();
 
             Settings.WriteSettings();
-            GlobalFunctions.CheckRunAtStartup(checkRunAtStartup.Checked);
+            GlobalFunctions.SetRunAtStartup(checkRunAtStartup.Checked);
             Dispose();
         }
 

@@ -47,14 +47,16 @@ namespace hyperdesktop2
             }
         }
 
-        readonly public static RegistryKey startupRegistryKey = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run", true);
+        internal static readonly RegistryKey StartupRegistryKey = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run", true);
 
-        public static void CheckRunAtStartup(bool run)
+        internal const string StartupKey = "Shikashi Uploader";
+
+        public static void SetRunAtStartup(bool shouldRun)
         {
-            if (run)
-                startupRegistryKey.SetValue("Shikashi Uploader", Settings.ExePath);
+            if (shouldRun)
+                StartupRegistryKey.SetValue(StartupKey, Settings.ExePath);
             else
-                startupRegistryKey.DeleteValue("Shikashi Uploader", false);
+                StartupRegistryKey.DeleteValue(StartupKey, false);
         }
 
         public static void PlaySound(UnmanagedMemoryStream file)
@@ -72,6 +74,14 @@ namespace hyperdesktop2
             catch
             {
                 Console.WriteLine("Can't find audio file");
+            }
+        }
+
+        internal static void CheckStartupPath()
+        {
+            if (!string.IsNullOrEmpty(StartupRegistryKey.GetValue(StartupKey) as string) && (string)StartupRegistryKey.GetValue(StartupKey) != Settings.ExePath)
+            {
+                SetRunAtStartup(true);
             }
         }
     }
