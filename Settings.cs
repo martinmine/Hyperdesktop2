@@ -6,12 +6,11 @@ namespace hyperdesktop2
 {
     public static class Settings
     {
-        public const int BuildVersion = 7;
         public const string BuildUrl = "https://raw.githubusercontent.com/TheTarkus/Hyperdesktop2/master/BUILD";
         public const string ReleaseUrl = "https://github.com/TheTarkus/Hyperdesktop2/releases";
 
         public static readonly string ContextRoot = AppDomain.CurrentDomain.BaseDirectory;
-        public static readonly string ExePath = ContextRoot + @"hyperdesktop2.exe";
+        public static readonly string ExePath = ContextRoot + AppDomain.CurrentDomain.FriendlyName;
         public static readonly string IniPath = ContextRoot + @"hyperdesktop2.ini";
 
         public static string SettingsBuild;
@@ -62,11 +61,6 @@ namespace hyperdesktop2
 
         public static void ReadSettings()
         {
-            //GlobalFunctions.CreateAppDataFolder();
-            SettingsBuild = Exists("hyperdesktop2", "build", Convert.ToString(BuildVersion));
-
-            ImgurClientId = Exists("upload", "imgur_client_id", "84c55d06b4c9686");
-
             SaveScreenshots = bool.Parse(Exists("general", "save_screenshots", "false"));
             SaveFolder = Exists("general", "save_folder", Environment.CurrentDirectory + "\\captures\\");
             SaveFormat = Exists("general", "save_format", "png");
@@ -87,8 +81,6 @@ namespace hyperdesktop2
 
         public static void WriteSettings()
         {
-            Write("upload", "imgur_client_id", ImgurClientId);
-
             Write("general", "save_screenshots", SaveScreenshots.ToString());
             Write("general", "save_folder", SaveFolder);
             Write("general", "save_format", SaveFormat);

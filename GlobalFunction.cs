@@ -4,7 +4,6 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Media;
-using System.Windows.Forms;
 
 namespace hyperdesktop2
 {
@@ -22,18 +21,6 @@ namespace hyperdesktop2
                 default:
                     return ImageFormat.Bmp;
             }
-        }
-
-        [Obsolete]
-        public static Boolean str_to_bool(string str)
-        {
-            return str.ToLower() == "true";
-        }
-
-        [Obsolete]
-        public static string get_text_inbetween(string input, string a, string b)
-        {
-            return input.Substring(input.IndexOf(a) + a.Length, input.IndexOf(b) - input.IndexOf(a) - a.Length);
         }
 
         public static string BmpToBase64(Bitmap bmp, ImageFormat format)

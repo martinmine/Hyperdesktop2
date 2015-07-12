@@ -277,7 +277,7 @@ namespace hyperdesktop2
         }
         private void ExitToolStripMenuItemClick(object sender, EventArgs e)
         {
-            this.Dispose();
+            Application.Exit();
         }
         private void AboutToolStripMenuItemClick(object sender, EventArgs e)
         {

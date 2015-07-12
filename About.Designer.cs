@@ -52,7 +52,7 @@ namespace hyperdesktop2
             this.label_Hyperdesktop.Name = "label_Hyperdesktop";
             this.label_Hyperdesktop.Size = new System.Drawing.Size(378, 58);
             this.label_Hyperdesktop.TabIndex = 0;
-            this.label_Hyperdesktop.Text = "Hyperdesktop2";
+            this.label_Hyperdesktop.Text = "Shikashi";
             this.label_Hyperdesktop.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label_motto
@@ -64,26 +64,26 @@ namespace hyperdesktop2
             this.label_motto.Name = "label_motto";
             this.label_motto.Size = new System.Drawing.Size(378, 23);
             this.label_motto.TabIndex = 1;
-            this.label_motto.Text = "Simple, fast screenshot sharing!";
+            this.label_motto.Text = "Based on hyperdesktop2";
             this.label_motto.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // btn_github
             // 
             this.btn_github.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btn_github.Location = new System.Drawing.Point(293, 93);
+            this.btn_github.Location = new System.Drawing.Point(115, 93);
             this.btn_github.Name = "btn_github";
             this.btn_github.Size = new System.Drawing.Size(97, 26);
             this.btn_github.TabIndex = 2;
-            this.btn_github.Text = "Github";
+            this.btn_github.Text = "hyperdesktop2";
             this.btn_github.UseVisualStyleBackColor = true;
-            this.btn_github.Click += new System.EventHandler(this.BtnGithubClick);
+            this.btn_github.Click += new System.EventHandler(this.BtnGithubHyperdesktopClick);
             // 
             // labelBuild
             // 
             this.labelBuild.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelBuild.Location = new System.Drawing.Point(12, 94);
+            this.labelBuild.Location = new System.Drawing.Point(222, 93);
             this.labelBuild.Name = "labelBuild";
-            this.labelBuild.Size = new System.Drawing.Size(88, 26);
+            this.labelBuild.Size = new System.Drawing.Size(168, 26);
             this.labelBuild.TabIndex = 3;
             this.labelBuild.Text = "Build: 0";
             this.labelBuild.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -91,19 +91,19 @@ namespace hyperdesktop2
             // btn_report
             // 
             this.btn_report.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btn_report.Location = new System.Drawing.Point(190, 94);
+            this.btn_report.Location = new System.Drawing.Point(12, 93);
             this.btn_report.Name = "btn_report";
             this.btn_report.Size = new System.Drawing.Size(97, 26);
             this.btn_report.TabIndex = 4;
-            this.btn_report.Text = "Report Issue";
+            this.btn_report.Text = "GitHub";
             this.btn_report.UseVisualStyleBackColor = true;
-            this.btn_report.Click += new System.EventHandler(this.BtnReportClick);
+            this.btn_report.Click += new System.EventHandler(this.BtnShikashiUploadGithubClick);
             // 
             // About
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(402, 126);
+            this.ClientSize = new System.Drawing.Size(402, 131);
             this.Controls.Add(this.btn_report);
             this.Controls.Add(this.labelBuild);
             this.Controls.Add(this.btn_github);
@@ -114,7 +114,7 @@ namespace hyperdesktop2
             this.MaximizeBox = false;
             this.Name = "About";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "About Hyperdesktop2";
+            this.Text = "About Shikashi Uploader";
             this.Load += new System.EventHandler(this.FrmAboutLoad);
             this.ResumeLayout(false);
 
