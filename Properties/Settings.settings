@@ -33,7 +33,7 @@
       <Value Profile="(Default)">4</Value>
     </Setting>
     <Setting Name="RegionalScreenshotHotkeyValue" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">52</Value>
+      <Value Profile="(Default)">49</Value>
     </Setting>
     <Setting Name="WindowedScreenshotHotkeyFirst" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">2</Value>
@@ -45,7 +45,7 @@
       <Value Profile="(Default)">4</Value>
     </Setting>
     <Setting Name="WindowedScreenshotHotkeyValue" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">53</Value>
+      <Value Profile="(Default)">50</Value>
     </Setting>
   </Settings>
 </SettingsFile>

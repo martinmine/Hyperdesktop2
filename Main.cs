@@ -187,7 +187,11 @@ namespace hyperdesktop2
                 bmp = EditScreenshot(bmp);
 
             if (bmp == null)
+            {
+                StopAnimation();
                 return;
+            }
+                
 
             using (MemoryStream memoryStream = new MemoryStream())
             {

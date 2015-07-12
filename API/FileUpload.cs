@@ -55,6 +55,7 @@ namespace hyperdesktop2.API
                             if (response.StatusCode == HttpStatusCode.BadRequest)
                                 return FileUploadResult.FileTooLarge;
                                 
+
                             return FileUploadResult.Failed;
                         }
                     }

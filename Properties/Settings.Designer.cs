@@ -145,7 +145,7 @@ namespace hyperdesktop2.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("52")]
+        [global::System.Configuration.DefaultSettingValueAttribute("49")]
         public int RegionalScreenshotHotkeyValue {
             get {
                 return ((int)(this["RegionalScreenshotHotkeyValue"]));
@@ -193,7 +193,7 @@ namespace hyperdesktop2.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("53")]
+        [global::System.Configuration.DefaultSettingValueAttribute("50")]
         public int WindowedScreenshotHotkeyValue {
             get {
                 return ((int)(this["WindowedScreenshotHotkeyValue"]));

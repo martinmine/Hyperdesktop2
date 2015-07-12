@@ -135,7 +135,7 @@ namespace hyperdesktop2
             this.tab_screens.Location = new System.Drawing.Point(4, 22);
             this.tab_screens.Name = "tab_screens";
             this.tab_screens.Padding = new System.Windows.Forms.Padding(3);
-            this.tab_screens.Size = new System.Drawing.Size(390, 185);
+            this.tab_screens.Size = new System.Drawing.Size(361, 189);
             this.tab_screens.TabIndex = 4;
             this.tab_screens.Text = "Screen";
             this.tab_screens.UseVisualStyleBackColor = true;
@@ -299,7 +299,7 @@ namespace hyperdesktop2
             this.tab_hotkeys.Location = new System.Drawing.Point(4, 22);
             this.tab_hotkeys.Name = "tab_hotkeys";
             this.tab_hotkeys.Padding = new System.Windows.Forms.Padding(3);
-            this.tab_hotkeys.Size = new System.Drawing.Size(361, 182);
+            this.tab_hotkeys.Size = new System.Drawing.Size(361, 189);
             this.tab_hotkeys.TabIndex = 3;
             this.tab_hotkeys.Text = "Hotkeys";
             this.tab_hotkeys.UseVisualStyleBackColor = true;
@@ -307,7 +307,7 @@ namespace hyperdesktop2
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(298, 98);
+            this.label5.Location = new System.Drawing.Point(296, 63);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(13, 13);
             this.label5.TabIndex = 18;
@@ -316,7 +316,7 @@ namespace hyperdesktop2
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(298, 68);
+            this.label4.Location = new System.Drawing.Point(296, 36);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(13, 13);
             this.label4.TabIndex = 18;
@@ -325,7 +325,7 @@ namespace hyperdesktop2
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(298, 38);
+            this.label1.Location = new System.Drawing.Point(296, 90);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(13, 13);
             this.label1.TabIndex = 18;
@@ -333,7 +333,7 @@ namespace hyperdesktop2
             // 
             // buttonWindowValue
             // 
-            this.buttonWindowValue.Location = new System.Drawing.Point(315, 93);
+            this.buttonWindowValue.Location = new System.Drawing.Point(313, 58);
             this.buttonWindowValue.Name = "buttonWindowValue";
             this.buttonWindowValue.Size = new System.Drawing.Size(34, 23);
             this.buttonWindowValue.TabIndex = 17;
@@ -342,7 +342,7 @@ namespace hyperdesktop2
             // 
             // buttonRegionalValue
             // 
-            this.buttonRegionalValue.Location = new System.Drawing.Point(315, 63);
+            this.buttonRegionalValue.Location = new System.Drawing.Point(313, 31);
             this.buttonRegionalValue.Name = "buttonRegionalValue";
             this.buttonRegionalValue.Size = new System.Drawing.Size(34, 23);
             this.buttonRegionalValue.TabIndex = 17;
@@ -351,7 +351,7 @@ namespace hyperdesktop2
             // 
             // buttonScreenshotKey
             // 
-            this.buttonScreenshotKey.Location = new System.Drawing.Point(315, 33);
+            this.buttonScreenshotKey.Location = new System.Drawing.Point(313, 85);
             this.buttonScreenshotKey.Name = "buttonScreenshotKey";
             this.buttonScreenshotKey.Size = new System.Drawing.Size(34, 23);
             this.buttonScreenshotKey.TabIndex = 17;
@@ -368,7 +368,7 @@ namespace hyperdesktop2
             "Alt",
             "Shift",
             "Win"});
-            this.comboBoxWindowScreenshotFirst.Location = new System.Drawing.Point(154, 94);
+            this.comboBoxWindowScreenshotFirst.Location = new System.Drawing.Point(152, 59);
             this.comboBoxWindowScreenshotFirst.Name = "comboBoxWindowScreenshotFirst";
             this.comboBoxWindowScreenshotFirst.Size = new System.Drawing.Size(42, 21);
             this.comboBoxWindowScreenshotFirst.TabIndex = 16;
@@ -383,7 +383,7 @@ namespace hyperdesktop2
             "Alt",
             "Shift",
             "Win"});
-            this.comboBoxScreenshotFirst.Location = new System.Drawing.Point(154, 34);
+            this.comboBoxScreenshotFirst.Location = new System.Drawing.Point(152, 86);
             this.comboBoxScreenshotFirst.Name = "comboBoxScreenshotFirst";
             this.comboBoxScreenshotFirst.Size = new System.Drawing.Size(42, 21);
             this.comboBoxScreenshotFirst.TabIndex = 16;
@@ -398,7 +398,7 @@ namespace hyperdesktop2
             "Alt",
             "Shift",
             "Win"});
-            this.comboBoxWindowScreenshotSecond.Location = new System.Drawing.Point(202, 94);
+            this.comboBoxWindowScreenshotSecond.Location = new System.Drawing.Point(200, 59);
             this.comboBoxWindowScreenshotSecond.Name = "comboBoxWindowScreenshotSecond";
             this.comboBoxWindowScreenshotSecond.Size = new System.Drawing.Size(42, 21);
             this.comboBoxWindowScreenshotSecond.TabIndex = 16;
@@ -413,7 +413,7 @@ namespace hyperdesktop2
             "Alt",
             "Shift",
             "Win"});
-            this.comboBoxScreenshotSecond.Location = new System.Drawing.Point(202, 34);
+            this.comboBoxScreenshotSecond.Location = new System.Drawing.Point(200, 86);
             this.comboBoxScreenshotSecond.Name = "comboBoxScreenshotSecond";
             this.comboBoxScreenshotSecond.Size = new System.Drawing.Size(42, 21);
             this.comboBoxScreenshotSecond.TabIndex = 16;
@@ -428,7 +428,7 @@ namespace hyperdesktop2
             "Alt",
             "Shift",
             "Win"});
-            this.comboBoxWindowScreenshotThird.Location = new System.Drawing.Point(250, 94);
+            this.comboBoxWindowScreenshotThird.Location = new System.Drawing.Point(248, 59);
             this.comboBoxWindowScreenshotThird.Name = "comboBoxWindowScreenshotThird";
             this.comboBoxWindowScreenshotThird.Size = new System.Drawing.Size(42, 21);
             this.comboBoxWindowScreenshotThird.TabIndex = 16;
@@ -443,7 +443,7 @@ namespace hyperdesktop2
             "Alt",
             "Shift",
             "Win"});
-            this.comboBoxRegionalThird.Location = new System.Drawing.Point(250, 64);
+            this.comboBoxRegionalThird.Location = new System.Drawing.Point(248, 32);
             this.comboBoxRegionalThird.Name = "comboBoxRegionalThird";
             this.comboBoxRegionalThird.Size = new System.Drawing.Size(42, 21);
             this.comboBoxRegionalThird.TabIndex = 16;
@@ -458,7 +458,7 @@ namespace hyperdesktop2
             "Alt",
             "Shift",
             "Win"});
-            this.comboBoxScreenshotThird.Location = new System.Drawing.Point(250, 34);
+            this.comboBoxScreenshotThird.Location = new System.Drawing.Point(248, 86);
             this.comboBoxScreenshotThird.Name = "comboBoxScreenshotThird";
             this.comboBoxScreenshotThird.Size = new System.Drawing.Size(42, 21);
             this.comboBoxScreenshotThird.TabIndex = 16;
@@ -473,7 +473,7 @@ namespace hyperdesktop2
             "Alt",
             "Shift",
             "Win"});
-            this.comboBoxRegionalSecond.Location = new System.Drawing.Point(202, 64);
+            this.comboBoxRegionalSecond.Location = new System.Drawing.Point(200, 32);
             this.comboBoxRegionalSecond.Name = "comboBoxRegionalSecond";
             this.comboBoxRegionalSecond.Size = new System.Drawing.Size(42, 21);
             this.comboBoxRegionalSecond.TabIndex = 16;
@@ -488,36 +488,36 @@ namespace hyperdesktop2
             "Alt",
             "Shift",
             "Win"});
-            this.comboBoxRegionalFirst.Location = new System.Drawing.Point(154, 64);
+            this.comboBoxRegionalFirst.Location = new System.Drawing.Point(152, 32);
             this.comboBoxRegionalFirst.Name = "comboBoxRegionalFirst";
             this.comboBoxRegionalFirst.Size = new System.Drawing.Size(42, 21);
             this.comboBoxRegionalFirst.TabIndex = 16;
             // 
             // label_window_screenshot
             // 
-            this.label_window_screenshot.Location = new System.Drawing.Point(8, 93);
+            this.label_window_screenshot.Location = new System.Drawing.Point(6, 58);
             this.label_window_screenshot.Name = "label_window_screenshot";
             this.label_window_screenshot.Size = new System.Drawing.Size(140, 23);
             this.label_window_screenshot.TabIndex = 14;
-            this.label_window_screenshot.Text = "3. Take window screenshot";
+            this.label_window_screenshot.Text = "Take window screenshot:";
             this.label_window_screenshot.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label_region_screenshot
             // 
-            this.label_region_screenshot.Location = new System.Drawing.Point(8, 63);
+            this.label_region_screenshot.Location = new System.Drawing.Point(6, 31);
             this.label_region_screenshot.Name = "label_region_screenshot";
             this.label_region_screenshot.Size = new System.Drawing.Size(140, 23);
             this.label_region_screenshot.TabIndex = 9;
-            this.label_region_screenshot.Text = "2. Take region screenshot:";
+            this.label_region_screenshot.Text = "Take region screenshot:";
             this.label_region_screenshot.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label_screenshot
             // 
-            this.label_screenshot.Location = new System.Drawing.Point(8, 33);
+            this.label_screenshot.Location = new System.Drawing.Point(6, 85);
             this.label_screenshot.Name = "label_screenshot";
             this.label_screenshot.Size = new System.Drawing.Size(140, 23);
             this.label_screenshot.TabIndex = 4;
-            this.label_screenshot.Text = "1. Take screenshot:";
+            this.label_screenshot.Text = "Take screenshot:";
             this.label_screenshot.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label_hotkeys_instructions
@@ -628,7 +628,7 @@ namespace hyperdesktop2
             this.tab_general.Location = new System.Drawing.Point(4, 22);
             this.tab_general.Name = "tab_general";
             this.tab_general.Padding = new System.Windows.Forms.Padding(3);
-            this.tab_general.Size = new System.Drawing.Size(390, 185);
+            this.tab_general.Size = new System.Drawing.Size(361, 189);
             this.tab_general.TabIndex = 0;
             this.tab_general.Text = "General";
             this.tab_general.UseVisualStyleBackColor = true;

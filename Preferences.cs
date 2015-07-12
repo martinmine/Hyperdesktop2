@@ -201,7 +201,7 @@ namespace hyperdesktop2
                     }
                 case 3:
                     {
-                        Properties.Settings.Default.FullScreenshotHotkeyValue = (int)key;
+                        Properties.Settings.Default.WindowedScreenshotHotkeyValue = (int)key;
                         buttonWindowValue.Text = key.ToString();
                         return true;
                     }
