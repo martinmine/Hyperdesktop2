@@ -10,7 +10,7 @@ namespace hyperdesktop2
         public const string ReleaseUrl = "https://github.com/TheTarkus/Hyperdesktop2/releases";
 
         public static readonly string ContextRoot = AppDomain.CurrentDomain.BaseDirectory;
-        public static readonly string ExePath = ContextRoot + AppDomain.CurrentDomain.FriendlyName;
+        public static readonly string ExePath = ContextRoot + "Shikashi Uploader.exe";
         public static readonly string IniPath = ContextRoot + @"hyperdesktop2.ini";
 
         public static string SettingsBuild;

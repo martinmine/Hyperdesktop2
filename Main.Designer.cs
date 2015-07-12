@@ -46,7 +46,6 @@ namespace hyperdesktop2
             this.preferencesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.registerHotkeysToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.group_upload = new System.Windows.Forms.GroupBox();
             this.btn_browse = new System.Windows.Forms.Button();
             this.lbl_instructions = new System.Windows.Forms.Label();
@@ -79,6 +78,7 @@ namespace hyperdesktop2
             this.label1 = new System.Windows.Forms.Label();
             this.passwordField = new System.Windows.Forms.TextBox();
             this.emailField = new System.Windows.Forms.TextBox();
+            this.registerHotkeysToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.main_menu.SuspendLayout();
             this.group_upload.SuspendLayout();
             this.group_screenshot.SuspendLayout();
@@ -122,6 +122,7 @@ namespace hyperdesktop2
             // optionsToolStripMenuItem
             // 
             this.optionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.registerHotkeysToolStripMenuItem,
             this.preferencesToolStripMenuItem});
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
             resources.ApplyResources(this.optionsToolStripMenuItem, "optionsToolStripMenuItem");
@@ -135,8 +136,7 @@ namespace hyperdesktop2
             // helpToolStripMenuItem
             // 
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.aboutToolStripMenuItem,
-            this.registerHotkeysToolStripMenuItem});
+            this.aboutToolStripMenuItem});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
             resources.ApplyResources(this.helpToolStripMenuItem, "helpToolStripMenuItem");
             // 
@@ -145,12 +145,6 @@ namespace hyperdesktop2
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
             resources.ApplyResources(this.aboutToolStripMenuItem, "aboutToolStripMenuItem");
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.AboutToolStripMenuItemClick);
-            // 
-            // registerHotkeysToolStripMenuItem
-            // 
-            this.registerHotkeysToolStripMenuItem.Name = "registerHotkeysToolStripMenuItem";
-            resources.ApplyResources(this.registerHotkeysToolStripMenuItem, "registerHotkeysToolStripMenuItem");
-            this.registerHotkeysToolStripMenuItem.Click += new System.EventHandler(this.RegisterHotkeysToolStripMenuItemClick);
             // 
             // group_upload
             // 
@@ -387,6 +381,12 @@ namespace hyperdesktop2
             resources.ApplyResources(this.emailField, "emailField");
             this.emailField.Name = "emailField";
             // 
+            // registerHotkeysToolStripMenuItem
+            // 
+            this.registerHotkeysToolStripMenuItem.Name = "registerHotkeysToolStripMenuItem";
+            resources.ApplyResources(this.registerHotkeysToolStripMenuItem, "registerHotkeysToolStripMenuItem");
+            this.registerHotkeysToolStripMenuItem.Click += new System.EventHandler(this.registerHotkeysToolStripMenuItem_Click);
+            // 
             // Main
             // 
             this.AcceptButton = this.loginBtn;
@@ -417,8 +417,7 @@ namespace hyperdesktop2
             this.ResumeLayout(false);
             this.PerformLayout();
 
-		}
-		private System.Windows.Forms.ToolStripMenuItem registerHotkeysToolStripMenuItem;
+        }
 		private System.Windows.Forms.ContextMenuStrip image_links_menu;
 		private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem copyToolStripMenuItem;
@@ -459,5 +458,6 @@ namespace hyperdesktop2
         private System.Windows.Forms.TextBox passwordField;
         private System.Windows.Forms.TextBox emailField;
         private System.Windows.Forms.ToolStripMenuItem uploadFromClipboardToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem registerHotkeysToolStripMenuItem;
 	}
 }

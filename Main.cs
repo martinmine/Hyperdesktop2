@@ -283,10 +283,6 @@ namespace hyperdesktop2
         {
             new About().ShowDialog();
         }
-        private void RegisterHotkeysToolStripMenuItemClick(object sender, System.EventArgs e)
-        {
-            HotkeyManager.GetInstance().RegisterHotkeys();
-        }
         #endregion
 
         #region Image Links Menu
@@ -516,6 +512,12 @@ namespace hyperdesktop2
             {
                 listImageLinks.Items.Add(new ListViewItem(new string[] { image.Key }));
             }
+        }
+
+        private void registerHotkeysToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            HotkeyManager.GetInstance().UnregisterHotkeys();
+            HotkeyManager.GetInstance().RegisterHotkeys();
         }
     }
 }
