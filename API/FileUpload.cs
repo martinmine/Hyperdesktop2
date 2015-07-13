@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Handlers;
@@ -43,6 +44,8 @@ namespace hyperdesktop2.API
                             DataContractJsonSerializer jsonSerializer = new DataContractJsonSerializer(typeof(UploadedContent));
                             UploadedContent upload = jsonSerializer.ReadObject(await response.Content.ReadAsStreamAsync()) as UploadedContent;
 
+                            File.AppendAllText("responses.txt", "HTTP Response: " + response.StatusCode);
+
                             if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
                                 return FileUploadResult.InvalidCredentials;
 
@@ -55,14 +58,14 @@ namespace hyperdesktop2.API
                             if (response.StatusCode == HttpStatusCode.BadRequest)
                                 return FileUploadResult.FileTooLarge;
 
-                            File.AppendAllText("error log.txt", "HTTP Respons: " + response.StatusCode);
                             return FileUploadResult.Failed;
                         }
                     }
                 }
             }
-            catch
+            catch (Exception e)
             {
+                File.AppendAllText("error.txt", e.ToString());
                 return FileUploadResult.Failed;
             }
         }
