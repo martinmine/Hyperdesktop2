@@ -122,13 +122,13 @@
   </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="hideWindowToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>152, 22</value>
+    <value>146, 22</value>
   </data>
   <data name="hideWindowToolStripMenuItem.Text" xml:space="preserve">
     <value>Hide Window</value>
   </data>
   <data name="exitToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>152, 22</value>
+    <value>146, 22</value>
   </data>
   <data name="exitToolStripMenuItem.Text" xml:space="preserve">
     <value>Exit</value>
@@ -158,7 +158,7 @@
     <value>Options</value>
   </data>
   <data name="aboutToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>152, 22</value>
+    <value>107, 22</value>
   </data>
   <data name="aboutToolStripMenuItem.Text" xml:space="preserve">
     <value>About</value>
@@ -492,6 +492,12 @@
   <data name="minimizeToTrayToolStripMenuItem.Text" xml:space="preserve">
     <value>Minimize to tray</value>
   </data>
+  <data name="dashboardToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>200, 22</value>
+  </data>
+  <data name="dashboardToolStripMenuItem.Text" xml:space="preserve">
+    <value>Dashboard</value>
+  </data>
   <data name="toolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
     <value>197, 6</value>
   </data>
@@ -526,7 +532,7 @@
     <value>Exit</value>
   </data>
   <data name="tray_menu.Size" type="System.Drawing.Size, System.Drawing">
-    <value>201, 142</value>
+    <value>201, 186</value>
   </data>
   <data name="&gt;&gt;tray_menu.Name" xml:space="preserve">
     <value>tray_menu</value>
@@ -807,6 +813,12 @@
   <data name="&gt;&gt;optionsToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="&gt;&gt;registerHotkeysToolStripMenuItem.Name" xml:space="preserve">
+    <value>registerHotkeysToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;registerHotkeysToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="&gt;&gt;preferencesToolStripMenuItem.Name" xml:space="preserve">
     <value>preferencesToolStripMenuItem</value>
   </data>
@@ -903,10 +915,10 @@
   <data name="&gt;&gt;tray_icon.Type" xml:space="preserve">
     <value>System.Windows.Forms.NotifyIcon, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;registerHotkeysToolStripMenuItem.Name" xml:space="preserve">
-    <value>registerHotkeysToolStripMenuItem</value>
+  <data name="&gt;&gt;dashboardToolStripMenuItem.Name" xml:space="preserve">
+    <value>dashboardToolStripMenuItem</value>
   </data>
-  <data name="&gt;&gt;registerHotkeysToolStripMenuItem.Type" xml:space="preserve">
+  <data name="&gt;&gt;dashboardToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">

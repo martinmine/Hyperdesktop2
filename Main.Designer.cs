@@ -43,6 +43,7 @@ namespace hyperdesktop2
             this.hideWindowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.registerHotkeysToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.preferencesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -78,7 +79,7 @@ namespace hyperdesktop2
             this.label1 = new System.Windows.Forms.Label();
             this.passwordField = new System.Windows.Forms.TextBox();
             this.emailField = new System.Windows.Forms.TextBox();
-            this.registerHotkeysToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.dashboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.main_menu.SuspendLayout();
             this.group_upload.SuspendLayout();
             this.group_screenshot.SuspendLayout();
@@ -126,6 +127,12 @@ namespace hyperdesktop2
             this.preferencesToolStripMenuItem});
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
             resources.ApplyResources(this.optionsToolStripMenuItem, "optionsToolStripMenuItem");
+            // 
+            // registerHotkeysToolStripMenuItem
+            // 
+            this.registerHotkeysToolStripMenuItem.Name = "registerHotkeysToolStripMenuItem";
+            resources.ApplyResources(this.registerHotkeysToolStripMenuItem, "registerHotkeysToolStripMenuItem");
+            this.registerHotkeysToolStripMenuItem.Click += new System.EventHandler(this.registerHotkeysToolStripMenuItem_Click);
             // 
             // preferencesToolStripMenuItem
             // 
@@ -278,6 +285,7 @@ namespace hyperdesktop2
             // 
             this.tray_menu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.minimizeToTrayToolStripMenuItem,
+            this.dashboardToolStripMenuItem,
             this.toolStripMenuItem1,
             this.takeRegionScreenshotToolStripMenuItem,
             this.takeScreenshotToolStripMenuItem,
@@ -381,11 +389,11 @@ namespace hyperdesktop2
             resources.ApplyResources(this.emailField, "emailField");
             this.emailField.Name = "emailField";
             // 
-            // registerHotkeysToolStripMenuItem
+            // dashboardToolStripMenuItem
             // 
-            this.registerHotkeysToolStripMenuItem.Name = "registerHotkeysToolStripMenuItem";
-            resources.ApplyResources(this.registerHotkeysToolStripMenuItem, "registerHotkeysToolStripMenuItem");
-            this.registerHotkeysToolStripMenuItem.Click += new System.EventHandler(this.registerHotkeysToolStripMenuItem_Click);
+            this.dashboardToolStripMenuItem.Name = "dashboardToolStripMenuItem";
+            resources.ApplyResources(this.dashboardToolStripMenuItem, "dashboardToolStripMenuItem");
+            this.dashboardToolStripMenuItem.Click += new System.EventHandler(this.dashboardToolStripMenuItem_Click);
             // 
             // Main
             // 
@@ -459,5 +467,6 @@ namespace hyperdesktop2
         private System.Windows.Forms.TextBox emailField;
         private System.Windows.Forms.ToolStripMenuItem uploadFromClipboardToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem registerHotkeysToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem dashboardToolStripMenuItem;
 	}
 }

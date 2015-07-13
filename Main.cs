@@ -268,9 +268,9 @@ namespace hyperdesktop2
             string extension = Path.GetExtension(path);
             FileUpload upload = new FileUpload(this);
             Stream fileStream = File.OpenRead(path);
-            string contentType = MimeMapping.GetMimeMapping(path);
+            string mimeType = MimeMapping.Instance.GetMimeType(extension);
 
-            FileUploadResult result = await upload.UploadFile(File.OpenRead(path), Path.GetFileName(path), contentType);
+            FileUploadResult result = await upload.UploadFile(File.OpenRead(path), Path.GetFileName(path), mimeType);
             HandleFileUploadResult(result);
         }
 
@@ -527,6 +527,11 @@ namespace hyperdesktop2
         {
             HotkeyManager.GetInstance().UnregisterHotkeys();
             HotkeyManager.GetInstance().RegisterHotkeys();
+        }
+
+        private void dashboardToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start("https://panel.shikashi.me/login");
         }
     }
 }
