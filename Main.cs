@@ -182,33 +182,40 @@ namespace hyperdesktop2
 
         private async void WorkImage(Bitmap bmp, bool edit = false)
         {
-            StartAnimation();
-            GlobalFunctions.PlaySound(Properties.Resources.capture);
-
-            if (Settings.EdiScreenshot && edit)
-                bmp = EditScreenshot(bmp);
-
-            if (bmp == null)
+            try
             {
-                StopAnimation();
-                return;
-            }
-                
+                StartAnimation();
+                GlobalFunctions.PlaySound(Properties.Resources.capture);
 
-            using (MemoryStream memoryStream = new MemoryStream())
-            {
-                bmp.Save(memoryStream, ImageFormat.Png);
+                if (Settings.EdiScreenshot && edit)
+                    bmp = EditScreenshot(bmp);
 
-                FileUpload upload = new FileUpload(this);
-                string nameSuffix = DateTime.Now.ToString("yyyy-MM-dd_HHmmss");
-                using (StreamReader reader = new StreamReader(memoryStream))
+                if (bmp == null)
                 {
-                    memoryStream.Position = 0;
-                    reader.DiscardBufferedData();
-
-                    FileUploadResult result = await upload.UploadFile(memoryStream, string.Format("Screenshot {0}.png", nameSuffix), "image/png");
-                    HandleFileUploadResult(result);
+                    StopAnimation();
+                    return;
                 }
+
+
+                using (MemoryStream memoryStream = new MemoryStream())
+                {
+                    bmp.Save(memoryStream, ImageFormat.Png);
+                    FileUpload upload = new FileUpload(this);
+                    string nameSuffix = DateTime.Now.ToString("yyyy-MM-dd_HHmmss");
+                    using (StreamReader reader = new StreamReader(memoryStream))
+                    {
+                        memoryStream.Position = 0;
+                        reader.DiscardBufferedData();
+
+                        FileUploadResult result = await upload.UploadFile(memoryStream, string.Format("Screenshot {0}.png", nameSuffix), "image/png");
+                        HandleFileUploadResult(result);
+                    }
+                }
+            }
+            finally
+            {
+                bmp.Dispose();
+                GC.Collect();
             }
         }
 
@@ -250,6 +257,8 @@ namespace hyperdesktop2
             {
                 await UploadFile(dialog.FileName);
             }
+
+            GC.Collect();
         }
 
         private async Task UploadFile(string path)

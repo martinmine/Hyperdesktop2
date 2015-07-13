@@ -37,23 +37,24 @@ public static class ScreenCapture
             bmp = new Bitmap(100, 100, pixelFormat);
         }
 
-        Graphics g = Graphics.FromImage(bmp);
-        g.CopyFromScreen(area.X, area.Y, 0, 0, bmp.Size, CopyPixelOperation.SourceCopy);
-
-        if (cursor)
+        using (Graphics g = Graphics.FromImage(bmp))
         {
-            CURSORINFO cursor_info;
-            cursor_info.cbSize = Marshal.SizeOf(typeof(CURSORINFO));
+            g.CopyFromScreen(area.X, area.Y, 0, 0, bmp.Size, CopyPixelOperation.SourceCopy);
 
-            if (GetCursorInfo(out cursor_info) && cursor_info.flags == (Int32)0x0001)
+            if (cursor)
             {
-                var hdc = g.GetHdc();
-                DrawIconEx(hdc, cursor_info.ptScreenPos.x - area.X, cursor_info.ptScreenPos.y - area.Y, cursor_info.hCursor, 0, 0, 0, IntPtr.Zero, (Int32)0x0003);
-                g.ReleaseHdc();
+                CURSORINFO cursor_info;
+                cursor_info.cbSize = Marshal.SizeOf(typeof(CURSORINFO));
+
+                if (GetCursorInfo(out cursor_info) && cursor_info.flags == (Int32)0x0001)
+                {
+                    IntPtr hdc = g.GetHdc();
+                    DrawIconEx(hdc, cursor_info.ptScreenPos.x - area.X, cursor_info.ptScreenPos.y - area.Y, cursor_info.hCursor, 0, 0, 0, IntPtr.Zero, (Int32)0x0003);
+                    g.ReleaseHdc();
+                }
             }
         }
 
-        g.Dispose();
         return bmp;
     }
 
