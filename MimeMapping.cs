@@ -394,11 +394,6 @@ namespace hyperdesktop2
 
         internal string GetMimeType(string fileExt)
         {
-            if (fileExt.Length > 1)
-            {
-                fileExt = fileExt.Substring(1).ToLower();
-            }
-
             string type;
             if (mimeMap.TryGetValue(fileExt, out type))
                 return type;

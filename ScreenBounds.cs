@@ -10,7 +10,12 @@ namespace hyperdesktop2
 
         public static void Load()
         {
-            string[] bounds_arr = Settings.ScreenResolution.Split(',');
+            string screenRes;
+            if (string.IsNullOrEmpty(Properties.Settings.Default.ScreenResolution))
+                screenRes = ScreenBounds.Reset();
+            else screenRes = Properties.Settings.Default.ScreenResolution;
+
+            string[] bounds_arr = screenRes.Split(',');
             Bounds = new Rectangle(
                 Convert.ToInt32(bounds_arr[0]),
                 Convert.ToInt32(bounds_arr[1]),

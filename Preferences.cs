@@ -15,18 +15,18 @@ namespace hyperdesktop2
 
         void Frm_PreferencesLoad(object sender, EventArgs e)
         {
-            checkSaveScreenshots.Checked = Settings.SaveScreenshots;
-            txtSaveFolder.Text = Settings.SaveFolder;
-            dropSaveFormat.Text = Settings.SaveFormat;
-            dropSaveQuality.Text = Settings.SaveQuality.ToString();
+            checkSaveScreenshots.Checked = Properties.Settings.Default.SaveScreenshots;
+            txtSaveFolder.Text = Properties.Settings.Default.SaveFolder;
+            dropSaveFormat.Text = Properties.Settings.Default.SaveFormat;
+            dropSaveQuality.Text = Properties.Settings.Default.SaveQuality.ToString();
 
             checkRunAtStartup.Checked = GlobalFunctions.StartupRegistryKey.GetValue(GlobalFunctions.StartupKey) != null;
-            checkCopyLinks.Checked = Settings.CopyLinksToClipboard;
-            checkSoundEffects.Checked = Settings.SoundEffects;
-            checkShowCursor.Checked = Settings.ShowCursor;
-            checkBalloon.Checked = Settings.BalloonMessages;
-            checkLaunchBrowser.Checked = Settings.LaunchBrowser;
-            checkEditScreenshot.Checked = Settings.EdiScreenshot;
+            checkCopyLinks.Checked = Properties.Settings.Default.CopyLinksToClipboard;
+            checkSoundEffects.Checked = Properties.Settings.Default.SoundEffects;
+            checkShowCursor.Checked = Properties.Settings.Default.SettingShowCursor;
+            checkBalloon.Checked = Properties.Settings.Default.BalloonMessages;
+            checkLaunchBrowser.Checked = Properties.Settings.Default.LaunchBrowser;
+            checkEditScreenshot.Checked = Properties.Settings.Default.SettingEdiScreenshot;
 
             numericTop.Minimum = -50000;
             numericLeft.Minimum = -50000;
@@ -46,7 +46,11 @@ namespace hyperdesktop2
 
             try
             {
-                string[] screen_res = Settings.ScreenResolution.Split(',');
+                string screenRes;
+                if (string.IsNullOrEmpty(Properties.Settings.Default.ScreenResolution))
+                    screenRes = ScreenBounds.Reset();
+                else screenRes = Properties.Settings.Default.ScreenResolution;
+                string[] screen_res = screenRes.Split(',');
                 numericLeft.Value = Convert.ToDecimal(screen_res[0]);
                 numericTop.Value = Convert.ToDecimal(screen_res[1]);
                 numericWidth.Value = Convert.ToDecimal(screen_res[2]);
@@ -72,7 +76,7 @@ namespace hyperdesktop2
         void BtnSaveClick(object sender, EventArgs e)
         {
             // Screen resolution
-            Settings.ScreenResolution = Settings.ScreenResolution = string.Format(
+            Properties.Settings.Default.ScreenResolution = string.Format(
                 "{0},{1},{2},{3}",
                 numericLeft.Value,
                 numericTop.Value,
@@ -82,17 +86,17 @@ namespace hyperdesktop2
 
             ScreenBounds.Load();
 
-            Settings.SaveScreenshots = checkSaveScreenshots.Checked;
-            Settings.SaveFolder = txtSaveFolder.Text;
-            Settings.SaveFormat = dropSaveFormat.Text;
-            Settings.SaveQuality = Convert.ToInt16(dropSaveQuality.Text);
+            Properties.Settings.Default.SaveScreenshots = checkSaveScreenshots.Checked;
+            Properties.Settings.Default.SaveFolder = txtSaveFolder.Text;
+            Properties.Settings.Default.SaveFormat = dropSaveFormat.Text;
+            Properties.Settings.Default.SaveQuality = Convert.ToInt16(dropSaveQuality.Text);
 
-            Settings.CopyLinksToClipboard = checkCopyLinks.Checked;
-            Settings.SoundEffects = checkSoundEffects.Checked;
-            Settings.ShowCursor = checkShowCursor.Checked;
-            Settings.BalloonMessages = checkBalloon.Checked;
-            Settings.LaunchBrowser = checkLaunchBrowser.Checked;
-            Settings.EdiScreenshot = checkEditScreenshot.Checked;
+            Properties.Settings.Default.CopyLinksToClipboard = checkCopyLinks.Checked;
+            Properties.Settings.Default.SoundEffects = checkSoundEffects.Checked;
+            Properties.Settings.Default.SettingShowCursor = checkShowCursor.Checked;
+            Properties.Settings.Default.BalloonMessages = checkBalloon.Checked;
+            Properties.Settings.Default.LaunchBrowser = checkLaunchBrowser.Checked;
+            Properties.Settings.Default.SettingEdiScreenshot = checkEditScreenshot.Checked;
 
             Properties.Settings.Default.RegionalScreenshotHotkeyFirst = (int)ParseValue(comboBoxRegionalFirst.Text);
             Properties.Settings.Default.WindowedScreenshotHotkeyFirst = (int)ParseValue(comboBoxWindowScreenshotFirst.Text);
@@ -109,7 +113,6 @@ namespace hyperdesktop2
             HotkeyManager.GetInstance().UnregisterHotkeys();
             HotkeyManager.GetInstance().RegisterHotkeys();
 
-            Settings.WriteSettings();
             GlobalFunctions.SetRunAtStartup(checkRunAtStartup.Checked);
             Dispose();
         }

@@ -50,7 +50,7 @@ namespace hyperdesktop2
         {
             try
             {
-                if (Settings.SoundEffects)
+                if (Properties.Settings.Default.SoundEffects)
                 { 
                     using (SoundPlayer soundPlayer = new SoundPlayer(file))
                     {

@@ -25,8 +25,10 @@ namespace hyperdesktop2
             SetButtonsEnabled();
             // Confirm if user wants to add to system startup
             // on first run
-            if (!File.Exists(Settings.IniPath))
+            if (!Properties.Settings.Default.askedForStartup)
             {
+                Properties.Settings.Default.askedForStartup = true;
+                Properties.Settings.Default.Save();
                 DialogResult result = MessageBox.Show(
                     "Do you want to run Shikashi Uploader at Windows startup?",
                     "First time run",
@@ -54,7 +56,6 @@ namespace hyperdesktop2
 
         private void OnLoad(object sender, EventArgs e)
         {
-            Settings.ReadSettings();
             tray_icon.Visible = true;
 
             ScreenBounds.Load();
@@ -132,7 +133,7 @@ namespace hyperdesktop2
 
         private Bitmap EditScreenshot(Bitmap bmp)
         {
-            if (!Settings.EdiScreenshot)
+            if (!Properties.Settings.Default.SettingEdiScreenshot)
                 return null;
 
             Edit edit = new Edit(bmp);
@@ -148,11 +149,11 @@ namespace hyperdesktop2
             switch (type)
             {
                 case "screen":
-                    bmp = ScreenCapture.CaptureScreenArea(Settings.ShowCursor);
+                    bmp = ScreenCapture.CaptureScreenArea(Properties.Settings.Default.SettingShowCursor);
                     break;
 
                 case "window":
-                    bmp = ScreenCapture.Window(Settings.ShowCursor);
+                    bmp = ScreenCapture.Window(Properties.Settings.Default.SettingShowCursor);
                     break;
 
                 default:
@@ -187,7 +188,7 @@ namespace hyperdesktop2
                 StartAnimation();
                 GlobalFunctions.PlaySound(Properties.Resources.capture);
 
-                if (Settings.EdiScreenshot && edit)
+                if (Properties.Settings.Default.SettingEdiScreenshot && edit)
                     bmp = EditScreenshot(bmp);
 
                 if (bmp == null)
@@ -320,7 +321,7 @@ namespace hyperdesktop2
             {
                 GlobalFunctions.PlaySound(Properties.Resources.error);
 
-                if (Settings.BalloonMessages)
+                if (Properties.Settings.Default.BalloonMessages)
                     BalloonTip("Could not delete file!", "Error", 2000, ToolTipIcon.Error);
             }
         }
@@ -361,13 +362,13 @@ namespace hyperdesktop2
             string link = string.Format("{0}/{1}", APIConfig.BaseURL, content.Key);
             listImageLinks.Items[listImageLinks.Items.Count - 1].EnsureVisible();
 
-            if (Settings.CopyLinksToClipboard)
+            if (Properties.Settings.Default.CopyLinksToClipboard)
                 Clipboard.SetText(link);
 
-            if (Settings.BalloonMessages)
+            if (Properties.Settings.Default.BalloonMessages)
                 BalloonTip("Link copied to clipboard:" + Environment.NewLine + link, "Upload Completed!", 2000, ToolTipIcon.Info, link);
 
-            if (Settings.LaunchBrowser)
+            if (Properties.Settings.Default.LaunchBrowser)
                 Process.Start(link);
 
             GlobalFunctions.PlaySound(Properties.Resources.success);

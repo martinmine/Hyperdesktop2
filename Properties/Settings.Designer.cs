@@ -202,5 +202,161 @@ namespace hyperdesktop2.Properties {
                 this["WindowedScreenshotHotkeyValue"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool SaveScreenshots {
+            get {
+                return ((bool)(this["SaveScreenshots"]));
+            }
+            set {
+                this["SaveScreenshots"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("\\\\captures\\\\")]
+        public string SaveFolder {
+            get {
+                return ((string)(this["SaveFolder"]));
+            }
+            set {
+                this["SaveFolder"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("png")]
+        public string SaveFormat {
+            get {
+                return ((string)(this["SaveFormat"]));
+            }
+            set {
+                this["SaveFormat"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("100")]
+        public short SaveQuality {
+            get {
+                return ((short)(this["SaveQuality"]));
+            }
+            set {
+                this["SaveQuality"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("png")]
+        public string UploadFormat {
+            get {
+                return ((string)(this["UploadFormat"]));
+            }
+            set {
+                this["UploadFormat"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool CopyLinksToClipboard {
+            get {
+                return ((bool)(this["CopyLinksToClipboard"]));
+            }
+            set {
+                this["CopyLinksToClipboard"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool SettingShowCursor {
+            get {
+                return ((bool)(this["SettingShowCursor"]));
+            }
+            set {
+                this["SettingShowCursor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool SoundEffects {
+            get {
+                return ((bool)(this["SoundEffects"]));
+            }
+            set {
+                this["SoundEffects"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool BalloonMessages {
+            get {
+                return ((bool)(this["BalloonMessages"]));
+            }
+            set {
+                this["BalloonMessages"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool LaunchBrowser {
+            get {
+                return ((bool)(this["LaunchBrowser"]));
+            }
+            set {
+                this["LaunchBrowser"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool SettingEdiScreenshot {
+            get {
+                return ((bool)(this["SettingEdiScreenshot"]));
+            }
+            set {
+                this["SettingEdiScreenshot"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string ScreenResolution {
+            get {
+                return ((string)(this["ScreenResolution"]));
+            }
+            set {
+                this["ScreenResolution"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool askedForStartup {
+            get {
+                return ((bool)(this["askedForStartup"]));
+            }
+            set {
+                this["askedForStartup"] = value;
+            }
+        }
     }
 }
