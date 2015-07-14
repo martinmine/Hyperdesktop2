@@ -212,7 +212,8 @@ namespace hyperdesktop2
             }
             finally
             {
-                bmp.Dispose();
+                if (bmp != null) 
+                    bmp.Dispose();
                 GC.Collect();
             }
         }
