@@ -6,39 +6,23 @@ namespace hyperdesktop2
 {
     class ScreenBounds
     {
-        public static Rectangle Bounds { get; private set; }
-
-        public static void Load()
+        public static Rectangle Bounds
         {
-            string screenRes;
-            if (string.IsNullOrEmpty(Properties.Settings.Default.ScreenResolution))
-                screenRes = ScreenBounds.Reset();
-            else screenRes = Properties.Settings.Default.ScreenResolution;
+            get
+            {
+                Rectangle tempScreenBounds = new Rectangle(0, 0, 0, 0);
 
-            string[] bounds_arr = screenRes.Split(',');
-            Bounds = new Rectangle(
-                Convert.ToInt32(bounds_arr[0]),
-                Convert.ToInt32(bounds_arr[1]),
-                Convert.ToInt32(bounds_arr[2]),
-                Convert.ToInt32(bounds_arr[3])
-            );
-        }
+                foreach (Screen screen in Screen.AllScreens)
+                    if (screen != Screen.PrimaryScreen)
+                        tempScreenBounds = Rectangle.Union(screen.Bounds, tempScreenBounds);
 
-        public static string Reset()
-        {
-            Rectangle tempScreenBounds = new Rectangle(0, 0, 0, 0);
-
-            foreach (Screen screen in Screen.AllScreens)
-                if (screen != Screen.PrimaryScreen)
-                    tempScreenBounds = Rectangle.Union(screen.Bounds, tempScreenBounds);
-
-            return string.Format(
-                "{0},{1},{2},{3}",
-                tempScreenBounds.Left,
-                tempScreenBounds.Top,
-                SystemInformation.VirtualScreen.Width,
-                SystemInformation.VirtualScreen.Height
-            );
+                return new Rectangle(
+                    tempScreenBounds.Left,
+                    tempScreenBounds.Top,
+                    SystemInformation.VirtualScreen.Width,
+                    SystemInformation.VirtualScreen.Height
+                );
+            }
         }
     }
 }

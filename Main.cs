@@ -5,10 +5,8 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
-using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Web;
 using System.Windows.Forms;
 
 namespace hyperdesktop2
@@ -28,6 +26,7 @@ namespace hyperdesktop2
             if (!Properties.Settings.Default.askedForStartup)
             {
                 Properties.Settings.Default.askedForStartup = true;
+                Properties.Settings.Default.SaveFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures) + "\\Captures";
                 Properties.Settings.Default.Save();
                 DialogResult result = MessageBox.Show(
                     "Do you want to run Shikashi Uploader at Windows startup?",
@@ -57,8 +56,6 @@ namespace hyperdesktop2
         private void OnLoad(object sender, EventArgs e)
         {
             tray_icon.Visible = true;
-
-            ScreenBounds.Load();
         }
 
         private void OnFormClosing(object sender, FormClosingEventArgs e)
@@ -149,7 +146,7 @@ namespace hyperdesktop2
             switch (type)
             {
                 case "screen":
-                    bmp = ScreenCapture.CaptureScreenArea(Properties.Settings.Default.SettingShowCursor);
+                    bmp = ScreenCapture.CaptureScreen(Properties.Settings.Default.SettingShowCursor);
                     break;
 
                 case "window":
@@ -169,7 +166,7 @@ namespace hyperdesktop2
                         if (rect == new Rectangle(0, 0, 0, 0))
                             return;
 
-                        bmp = ScreenCapture.region(rect);
+                        bmp = ScreenCapture.CaptureRegion(rect);
                     }
                     finally
                     {
@@ -373,10 +370,6 @@ namespace hyperdesktop2
 
             GlobalFunctions.PlaySound(Properties.Resources.success);
         }
-
-        private void UploadProgressChanged(object sender, UploadValuesCompletedEventArgs e)
-        {
-        }
         #endregion
 
         private void groupBox1_Enter(object sender, EventArgs e)
@@ -426,6 +419,9 @@ namespace hyperdesktop2
             passwordField.Enabled = !loggedIn;
             loginBtn.Enabled = !loggedIn;
             logoutBtn.Enabled = loggedIn;
+
+            if (passwordField.Enabled)
+                passwordField.Text = string.Empty;
         }
 
         private async void uploadFromClipboardToolStripMenuItem_Click(object sender, EventArgs e)

@@ -217,7 +217,7 @@ namespace hyperdesktop2.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("\\\\captures\\\\")]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string SaveFolder {
             get {
                 return ((string)(this["SaveFolder"]));
@@ -332,18 +332,6 @@ namespace hyperdesktop2.Properties {
             }
             set {
                 this["SettingEdiScreenshot"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string ScreenResolution {
-            get {
-                return ((string)(this["ScreenResolution"]));
-            }
-            set {
-                this["ScreenResolution"] = value;
             }
         }
         

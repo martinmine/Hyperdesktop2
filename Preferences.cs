@@ -28,12 +28,6 @@ namespace hyperdesktop2
             checkLaunchBrowser.Checked = Properties.Settings.Default.LaunchBrowser;
             checkEditScreenshot.Checked = Properties.Settings.Default.SettingEdiScreenshot;
 
-            numericTop.Minimum = -50000;
-            numericLeft.Minimum = -50000;
-            numericWidth.Minimum = -50000;
-            numericHeight.Minimum = -50000;
-
-
             comboBoxRegionalFirst.Text = EnumToStrong((ModifierKeys)Properties.Settings.Default.RegionalScreenshotHotkeyFirst);
             comboBoxWindowScreenshotFirst.Text = EnumToStrong((ModifierKeys)Properties.Settings.Default.WindowedScreenshotHotkeyFirst);
             comboBoxScreenshotFirst.Text = EnumToStrong((ModifierKeys)Properties.Settings.Default.FullScreenshotHotkeyFirst);
@@ -43,23 +37,6 @@ namespace hyperdesktop2
             comboBoxWindowScreenshotThird.Text = EnumToStrong((ModifierKeys)Properties.Settings.Default.WindowedScreenshotHotkeyThird);
             comboBoxRegionalThird.Text = EnumToStrong((ModifierKeys)Properties.Settings.Default.RegionalScreenshotHotkeyThird);
             comboBoxScreenshotThird.Text = EnumToStrong((ModifierKeys)Properties.Settings.Default.FullScreenshotHotkeyThird);
-
-            try
-            {
-                string screenRes;
-                if (string.IsNullOrEmpty(Properties.Settings.Default.ScreenResolution))
-                    screenRes = ScreenBounds.Reset();
-                else screenRes = Properties.Settings.Default.ScreenResolution;
-                string[] screen_res = screenRes.Split(',');
-                numericLeft.Value = Convert.ToDecimal(screen_res[0]);
-                numericTop.Value = Convert.ToDecimal(screen_res[1]);
-                numericWidth.Value = Convert.ToDecimal(screen_res[2]);
-                numericHeight.Value = Convert.ToDecimal(screen_res[3]);
-            }
-            catch
-            {
-                btnResetScreen.PerformClick();
-            }
 
             tabControl1.Selecting += tabControl1_Selecting;
 
@@ -75,17 +52,6 @@ namespace hyperdesktop2
         #region Save & Cancel
         void BtnSaveClick(object sender, EventArgs e)
         {
-            // Screen resolution
-            Properties.Settings.Default.ScreenResolution = string.Format(
-                "{0},{1},{2},{3}",
-                numericLeft.Value,
-                numericTop.Value,
-                numericWidth.Value,
-                numericHeight.Value
-            );
-
-            ScreenBounds.Load();
-
             Properties.Settings.Default.SaveScreenshots = checkSaveScreenshots.Checked;
             Properties.Settings.Default.SaveFolder = txtSaveFolder.Text;
             Properties.Settings.Default.SaveFormat = dropSaveFormat.Text;
@@ -169,14 +135,6 @@ namespace hyperdesktop2
             FolderBrowserDialog browseFolder = new FolderBrowserDialog();
             if (browseFolder.ShowDialog() == DialogResult.OK)
                 txtSaveFolder.Text = browseFolder.SelectedPath;
-        }
-        void BtnResetScreenClick(object sender, System.EventArgs e)
-        {
-            string[] screen_res = ScreenBounds.Reset().Split(',');
-            numericLeft.Value = Convert.ToDecimal(screen_res[0]);
-            numericTop.Value = Convert.ToDecimal(screen_res[1]);
-            numericWidth.Value = Convert.ToDecimal(screen_res[2]);
-            numericHeight.Value = Convert.ToDecimal(screen_res[3]);
         }
         #endregion
 

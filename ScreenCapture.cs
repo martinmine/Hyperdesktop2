@@ -1,8 +1,8 @@
-﻿using System;
+﻿using hyperdesktop2;
+using System;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Runtime.InteropServices;
-using System.Windows.Forms;
 
 public static class ScreenCapture
 {
@@ -24,7 +24,7 @@ public static class ScreenCapture
     [DllImport("user32.dll")]
     static extern bool GetWindowRect(IntPtr hwnd, ref Rectangle rectangle);
 
-    public static Bitmap region(Rectangle area, bool cursor = true, PixelFormat pixelFormat = PixelFormat.Format32bppRgb)
+    public static Bitmap CaptureRegion(Rectangle area, bool cursor = true, PixelFormat pixelFormat = PixelFormat.Format32bppRgb)
     {
         Bitmap bmp;
 
@@ -58,15 +58,17 @@ public static class ScreenCapture
         return bmp;
     }
 
-    public static Bitmap CaptureScreenArea(bool cursor = true, PixelFormat pixelFormat = PixelFormat.Format32bppRgb)
+    public static Bitmap CaptureScreen(bool cursor = true, PixelFormat pixelFormat = PixelFormat.Format32bppRgb)
     {
-        return region(Screen.PrimaryScreen.Bounds, cursor, pixelFormat);
+        return CaptureRegion(ScreenBounds.Bounds, cursor, pixelFormat);
     }
 
     public static Bitmap Window(bool cursor = true, PixelFormat pixel_format = PixelFormat.Format32bppRgb)
     {
-        Rectangle rect = new Rectangle();
+        Rectangle rect = new Rectangle(); // get rekt m8 1v1 me fgt xddddddd
         GetWindowRect(GetForegroundWindow(), ref rect);
-        return region(rect, cursor, pixel_format);
+
+        Rectangle rectangle = new Rectangle((int)rect.X, (int)rect.Y, (int)(rect.Width - rect.X), (int)(rect.Height - rect.Y));
+        return CaptureRegion(rectangle, cursor, pixel_format);
     }
 }

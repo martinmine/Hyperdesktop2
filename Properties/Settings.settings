@@ -51,7 +51,7 @@
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="SaveFolder" Type="System.String" Scope="User">
-      <Value Profile="(Default)">\\captures\\</Value>
+      <Value Profile="(Default)" />
     </Setting>
     <Setting Name="SaveFormat" Type="System.String" Scope="User">
       <Value Profile="(Default)">png</Value>
@@ -79,9 +79,6 @@
     </Setting>
     <Setting Name="SettingEdiScreenshot" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
-    </Setting>
-    <Setting Name="ScreenResolution" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
     </Setting>
     <Setting Name="askedForStartup" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
