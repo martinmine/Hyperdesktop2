@@ -45,7 +45,7 @@ namespace hyperdesktop2.API
                             DataContractJsonSerializer jsonSerializer = new DataContractJsonSerializer(typeof(UploadedContent));
                             UploadedContent upload = jsonSerializer.ReadObject(await response.Content.ReadAsStreamAsync()) as UploadedContent;
 
-                            File.AppendAllText("responses.txt", "HTTP Response: " + response.StatusCode + Environment.NewLine);
+                            File.AppendAllText(Settings.ContextRoot + "responses.txt", "HTTP Response: " + response.StatusCode + Environment.NewLine);
 
                             if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
                                 return FileUploadResult.InvalidCredentials;
@@ -66,7 +66,7 @@ namespace hyperdesktop2.API
             }
             catch (Exception e)
             {
-                File.AppendAllText("error.txt", e.ToString());
+                File.AppendAllText(Settings.ContextRoot + "error.txt", e.ToString());
                 return FileUploadResult.Failed;
             }
         }

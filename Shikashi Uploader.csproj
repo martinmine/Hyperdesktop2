@@ -24,11 +24,15 @@
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <InstallUrl>https://panel.shikashi.me/client/</InstallUrl>
-    <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
+    <SupportUrl>mailto:support%40obbahhost.com</SupportUrl>
+    <ProductName>Shikashi</ProductName>
+    <PublisherName>DONG Inc.</PublisherName>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>22</ApplicationRevision>
+    <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
+    <ApplicationRevision>25</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
+    <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -267,15 +271,6 @@
       <IncludeHash>False</IncludeHash>
       <FileType>Assembly</FileType>
     </PublishFile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="bin\Debug\soundssdf\error.wav" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="bin\Debug\soundssdf\success.wav" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="bin\Debug\soundssdf\capture.wav" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\success.wav" />

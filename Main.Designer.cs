@@ -65,6 +65,7 @@ namespace hyperdesktop2
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tray_menu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.minimizeToTrayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.dashboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.takeRegionScreenshotToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.takeScreenshotToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -79,7 +80,6 @@ namespace hyperdesktop2
             this.label1 = new System.Windows.Forms.Label();
             this.passwordField = new System.Windows.Forms.TextBox();
             this.emailField = new System.Windows.Forms.TextBox();
-            this.dashboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.main_menu.SuspendLayout();
             this.group_upload.SuspendLayout();
             this.group_screenshot.SuspendLayout();
@@ -301,6 +301,12 @@ namespace hyperdesktop2
             resources.ApplyResources(this.minimizeToTrayToolStripMenuItem, "minimizeToTrayToolStripMenuItem");
             this.minimizeToTrayToolStripMenuItem.Click += new System.EventHandler(this.InverseTrayOption);
             // 
+            // dashboardToolStripMenuItem
+            // 
+            this.dashboardToolStripMenuItem.Name = "dashboardToolStripMenuItem";
+            resources.ApplyResources(this.dashboardToolStripMenuItem, "dashboardToolStripMenuItem");
+            this.dashboardToolStripMenuItem.Click += new System.EventHandler(this.dashboardToolStripMenuItem_Click);
+            // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
@@ -388,12 +394,6 @@ namespace hyperdesktop2
             // 
             resources.ApplyResources(this.emailField, "emailField");
             this.emailField.Name = "emailField";
-            // 
-            // dashboardToolStripMenuItem
-            // 
-            this.dashboardToolStripMenuItem.Name = "dashboardToolStripMenuItem";
-            resources.ApplyResources(this.dashboardToolStripMenuItem, "dashboardToolStripMenuItem");
-            this.dashboardToolStripMenuItem.Click += new System.EventHandler(this.dashboardToolStripMenuItem_Click);
             // 
             // Main
             // 
