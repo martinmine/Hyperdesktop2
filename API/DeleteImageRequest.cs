@@ -1,7 +1,7 @@
 ﻿using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace hyperdesktop2.API
+namespace Shikashi.API
 {
     class DeleteImageRequest
     {

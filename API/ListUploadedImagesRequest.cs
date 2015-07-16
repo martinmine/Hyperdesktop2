@@ -2,7 +2,7 @@
 using System.Runtime.Serialization.Json;
 using System.Threading.Tasks;
 
-namespace hyperdesktop2.API
+namespace Shikashi.API
 {
     class ListUploadedImagesRequest
     {

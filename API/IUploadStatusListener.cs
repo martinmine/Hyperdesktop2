@@ -1,5 +1,5 @@
 ﻿
-namespace hyperdesktop2.API
+namespace Shikashi.API
 {
     interface IUploadStatusListener
     {

@@ -1,21 +1,29 @@
 ﻿using System;
 using System.Windows.Forms;
+using System.Windows.Input;
 
-namespace hyperdesktop2
+namespace Shikashi
 {
     /// <summary>
     /// Event Args for the event that is fired after the hot key has been pressed.
     /// </summary>
     public class KeyPressedEventArgs : EventArgs
     {
-        internal KeyPressedEventArgs(ModifierKeys modifier, Keys key)
+        private int virtualKeyCode;
+        internal KeyPressedEventArgs(ModifierKeys modifier, int key)
         {
             this.Modifier = modifier;
-            this.Key = key;
+            this.virtualKeyCode = key;
         }
 
         public ModifierKeys Modifier { get; private set; }
 
-        public Keys Key { get; private set; }
+        public Key Key
+        {
+            get
+            {
+                return KeyInterop.KeyFromVirtualKey(virtualKeyCode);
+            }
+        }
     }
 }

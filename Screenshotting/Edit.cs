@@ -4,7 +4,7 @@ using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 
-namespace hyperdesktop2
+namespace Shikashi
 {
     public partial class Edit : Form
     {

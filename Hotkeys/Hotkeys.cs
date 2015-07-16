@@ -6,8 +6,9 @@
 using System;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using System.Windows.Input;
 
-namespace hyperdesktop2
+namespace Shikashi
 {
     public sealed class Hotkeys : IDisposable
     {
@@ -43,7 +44,7 @@ namespace hyperdesktop2
                 if (m.Msg == WM_HOTKEY)
                 {
                     // get the keys.
-                    var key = (Keys)(((int)m.LParam >> 16) & 0xFFFF);
+                    var key = (((int)m.LParam >> 16) & 0xFFFF);
                     var modifier = (ModifierKeys)((int)m.LParam & 0xFFFF);
 
                     // invoke the event to notify the parent.
@@ -82,13 +83,13 @@ namespace hyperdesktop2
         /// </summary>
         /// <param name="modifier">The modifiers that are associated with the hot key.</param>
         /// <param name="key">The key itself that is associated with the hot key.</param>
-        public void RegisterHotKey(ModifierKeys modifier, Keys key)
+        public void RegisterHotKey(ModifierKeys modifier, uint key)
         {
             // increment the counter.
             _currentId = _currentId + 1;
 
             // register the hot key.
-            if (!RegisterHotKey(_window.Handle, _currentId, (uint)modifier, (uint)key))
+            if (!RegisterHotKey(_window.Handle, _currentId, (uint)modifier, key))
                 throw new InvalidOperationException("Couldn’t register the hot key.");
         }
 

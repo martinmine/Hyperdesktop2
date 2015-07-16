@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace hyperdesktop2.Properties {
+namespace Shikashi.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
@@ -61,7 +61,7 @@ namespace hyperdesktop2.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("2")]
+        [global::System.Configuration.DefaultSettingValueAttribute("118")]
         public int FullScreenshotHotkeyFirst {
             get {
                 return ((int)(this["FullScreenshotHotkeyFirst"]));
@@ -85,7 +85,7 @@ namespace hyperdesktop2.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("4")]
+        [global::System.Configuration.DefaultSettingValueAttribute("116")]
         public int FullScreenshotHotkeyThird {
             get {
                 return ((int)(this["FullScreenshotHotkeyThird"]));
@@ -97,7 +97,7 @@ namespace hyperdesktop2.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("51")]
+        [global::System.Configuration.DefaultSettingValueAttribute("37")]
         public int FullScreenshotHotkeyValue {
             get {
                 return ((int)(this["FullScreenshotHotkeyValue"]));
@@ -109,7 +109,7 @@ namespace hyperdesktop2.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("2")]
+        [global::System.Configuration.DefaultSettingValueAttribute("118")]
         public int RegionalScreenshotHotkeyFirst {
             get {
                 return ((int)(this["RegionalScreenshotHotkeyFirst"]));
@@ -133,7 +133,7 @@ namespace hyperdesktop2.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("4")]
+        [global::System.Configuration.DefaultSettingValueAttribute("116")]
         public int RegionalScreenshotHotkeyThird {
             get {
                 return ((int)(this["RegionalScreenshotHotkeyThird"]));
@@ -145,7 +145,7 @@ namespace hyperdesktop2.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("49")]
+        [global::System.Configuration.DefaultSettingValueAttribute("35")]
         public int RegionalScreenshotHotkeyValue {
             get {
                 return ((int)(this["RegionalScreenshotHotkeyValue"]));
@@ -157,7 +157,7 @@ namespace hyperdesktop2.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("2")]
+        [global::System.Configuration.DefaultSettingValueAttribute("118")]
         public int WindowedScreenshotHotkeyFirst {
             get {
                 return ((int)(this["WindowedScreenshotHotkeyFirst"]));
@@ -181,7 +181,7 @@ namespace hyperdesktop2.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("4")]
+        [global::System.Configuration.DefaultSettingValueAttribute("116")]
         public int WindowedScreenshotHotkeyThird {
             get {
                 return ((int)(this["WindowedScreenshotHotkeyThird"]));
@@ -193,7 +193,7 @@ namespace hyperdesktop2.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("50")]
+        [global::System.Configuration.DefaultSettingValueAttribute("36")]
         public int WindowedScreenshotHotkeyValue {
             get {
                 return ((int)(this["WindowedScreenshotHotkeyValue"]));
@@ -229,10 +229,10 @@ namespace hyperdesktop2.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("png")]
-        public string SaveFormat {
+        [global::System.Configuration.DefaultSettingValueAttribute("2")]
+        public int SaveFormat {
             get {
-                return ((string)(this["SaveFormat"]));
+                return ((int)(this["SaveFormat"]));
             }
             set {
                 this["SaveFormat"] = value;
@@ -241,10 +241,10 @@ namespace hyperdesktop2.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("100")]
-        public short SaveQuality {
+        [global::System.Configuration.DefaultSettingValueAttribute("9")]
+        public int SaveQuality {
             get {
-                return ((short)(this["SaveQuality"]));
+                return ((int)(this["SaveQuality"]));
             }
             set {
                 this["SaveQuality"] = value;
@@ -278,12 +278,12 @@ namespace hyperdesktop2.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool SettingShowCursor {
+        public bool ShowCursor {
             get {
-                return ((bool)(this["SettingShowCursor"]));
+                return ((bool)(this["ShowCursor"]));
             }
             set {
-                this["SettingShowCursor"] = value;
+                this["ShowCursor"] = value;
             }
         }
         
@@ -326,24 +326,48 @@ namespace hyperdesktop2.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool SettingEdiScreenshot {
+        public bool EditScreenshot {
             get {
-                return ((bool)(this["SettingEdiScreenshot"]));
+                return ((bool)(this["EditScreenshot"]));
             }
             set {
-                this["SettingEdiScreenshot"] = value;
+                this["EditScreenshot"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool askedForStartup {
+        public bool AskedForStartup {
             get {
-                return ((bool)(this["askedForStartup"]));
+                return ((bool)(this["AskedForStartup"]));
             }
             set {
-                this["askedForStartup"] = value;
+                this["AskedForStartup"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool RunAtStartup {
+            get {
+                return ((bool)(this["RunAtStartup"]));
+            }
+            set {
+                this["RunAtStartup"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool UseDarkTheme {
+            get {
+                return ((bool)(this["UseDarkTheme"]));
+            }
+            set {
+                this["UseDarkTheme"] = value;
             }
         }
     }

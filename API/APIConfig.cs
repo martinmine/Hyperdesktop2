@@ -1,4 +1,4 @@
-﻿namespace hyperdesktop2.API
+﻿namespace Shikashi.API
 {
     class APIConfig
     {

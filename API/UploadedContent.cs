@@ -1,6 +1,6 @@
 ﻿using System.Runtime.Serialization;
 
-namespace hyperdesktop2.API
+namespace Shikashi.API
 {
     [DataContract]
     public class UploadedContent

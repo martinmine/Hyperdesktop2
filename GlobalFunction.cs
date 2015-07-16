@@ -5,7 +5,7 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Media;
 
-namespace hyperdesktop2
+namespace Shikashi
 {
     public static class GlobalFunctions
     {

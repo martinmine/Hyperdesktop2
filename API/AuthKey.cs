@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace hyperdesktop2.API
+namespace Shikashi.API
 {
     [DataContract]
     class AuthKey
@@ -18,8 +18,8 @@ namespace hyperdesktop2.API
         {
             AuthKey key = new AuthKey() 
             {
-                Token = Properties.Settings.Default.AuthKey,
-                ExpirationTime = Properties.Settings.Default.AuthExpirationTime
+                Token = Shikashi.Properties.Settings.Default.AuthKey,
+                ExpirationTime = Shikashi.Properties.Settings.Default.AuthExpirationTime
             };
 
             if (string.IsNullOrEmpty(key.Token) || key.ExpirationTime <= GetUnixTimestamp())

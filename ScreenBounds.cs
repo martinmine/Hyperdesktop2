@@ -2,7 +2,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace hyperdesktop2
+namespace Shikashi
 {
     class ScreenBounds
     {

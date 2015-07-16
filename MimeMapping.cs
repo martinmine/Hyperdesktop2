@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace hyperdesktop2
+namespace Shikashi
 {
     class MimeMapping
     {

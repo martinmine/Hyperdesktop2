@@ -7,7 +7,7 @@ using System.Net.Http.Headers;
 using System.Runtime.Serialization.Json;
 using System.Threading.Tasks;
 
-namespace hyperdesktop2.API
+namespace Shikashi.API
 {
     class FileUpload
     {
