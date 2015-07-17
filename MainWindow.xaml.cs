@@ -9,6 +9,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -139,6 +140,7 @@ namespace Shikashi
         private async void LoadUserImages()
         {
             UploadedContent[] items = await ListUploadedImagesRequest.GetImages();
+            Array.Reverse(items, 0, items.Length);
 
             foreach (UploadedContent item in items) 
             {
@@ -279,7 +281,6 @@ namespace Shikashi
                     Process.Start(link);
                 };
             }
-            
         }
 
         private Thread animationThread;

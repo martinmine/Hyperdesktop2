@@ -7,7 +7,7 @@
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         Style="{StaticResource ModernWindow}"
         ResizeMode="NoResize"
-        Title="Shikashi Uploader" Height="604" Width="330" Icon="icon.ico" StateChanged="Window_StateChanged">
+        Title="Shikashi Uploader" Height="614" Width="330" Icon="icon.ico" StateChanged="Window_StateChanged">
     <StackPanel Orientation="Vertical">
         <DockPanel LastChildFill="True">
             <tb:TaskbarIcon x:Name="ApplicationTrayIcon"
@@ -61,10 +61,10 @@
         </GroupBox>
         <GroupBox Header="Your Account" Margin="10,0,10,0" Height="130" Style="{DynamicResource DarkThemedGroupBoxStyle}">
             <Grid>
-                <Label Content="Email:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
-                <Label Content="Password:" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top"/>
-                <TextBox x:Name="EmailField" HorizontalAlignment="Stretch" Height="23" Margin="78,13,10,0" TextWrapping="NoWrap" Text="{Binding Source={x:Static p:Settings.Default}, Path=CurrentUser, Mode=TwoWay}" VerticalAlignment="Top"/>
-                <PasswordBox x:Name="PasswordField" HorizontalAlignment="Stretch" Height="23" Margin="78,44,10,0" VerticalAlignment="Top"/>
+                <Label Content="Email:" HorizontalAlignment="Left" Margin="10,13,0,0" VerticalAlignment="Top" Height="23"/>
+                <Label Content="Password:" HorizontalAlignment="Left" Margin="10,44,0,0" VerticalAlignment="Top" Height="23"/>
+                <TextBox x:Name="EmailField" HorizontalAlignment="Stretch" Margin="78,13,10,0" TextWrapping="NoWrap" Text="{Binding Source={x:Static p:Settings.Default}, Path=CurrentUser, Mode=TwoWay}" VerticalAlignment="Top"/>
+                <PasswordBox x:Name="PasswordField" HorizontalAlignment="Stretch" Margin="78,44,10,0" VerticalAlignment="Top"/>
                 <Button x:Name="LogoutBtn" Content="Logout" HorizontalAlignment="Left" Margin="78,72,0,0" VerticalAlignment="Top" Width="75" Click="Logout"/>
                 <Button x:Name="LoginBtn" IsDefault="True" Content="Login" HorizontalAlignment="Left" Margin="158,72,0,0" VerticalAlignment="Top" Width="75" Click="Login"/>
 
