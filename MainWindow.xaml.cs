@@ -350,7 +350,7 @@ namespace Shikashi
             ProgressGroupBox.Header = "Upload Progress";
             UploadProgressBar.Value = 0;
 
-            userContent.Add(content);
+            userContent.Insert(0, content);
 
             string link = string.Format("{0}/{1}", APIConfig.BaseURL, content.Key);
 
