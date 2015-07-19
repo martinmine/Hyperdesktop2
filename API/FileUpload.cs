@@ -26,10 +26,10 @@ namespace Shikashi.API
             {
                 ProgressMessageHandler progressHandler = new ProgressMessageHandler();
                 progressHandler.HttpSendProgress += progressHandler_HttpSendProgress;
-                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
 
                 using (HttpClient client = HttpClientFactory.Create(progressHandler))
                 {
+                    client.DefaultRequestHeaders.ExpectContinue = false;
                     AuthKey key = AuthKey.LoadKey();
                     if (key == null)
                         return FileUploadResult.NotAuthorized;

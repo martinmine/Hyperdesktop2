@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Net;
 using System.Net.Http;
 using System.Runtime.Serialization.Json;
@@ -23,9 +24,10 @@ namespace Shikashi.API
             string uri = string.Format("{0}/login", APIConfig.BaseURL);
 
             try 
-            { 
+            {
                 using (HttpClient client = new HttpClient())
                 {
+                    client.DefaultRequestHeaders.ExpectContinue = false;
                     var formData = new List<KeyValuePair<string, string>>
                     {
                         new KeyValuePair<string, string>("email", email),

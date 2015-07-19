@@ -18,6 +18,7 @@ namespace Shikashi.API
                     return EmptyList;
 
                 client.DefaultRequestHeaders.Add("Authorization", key.Token);
+                client.DefaultRequestHeaders.ExpectContinue = false;
                 HttpResponseMessage response = await client.GetAsync(uri);
 
                 if (response.StatusCode != System.Net.HttpStatusCode.OK)

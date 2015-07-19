@@ -10,6 +10,7 @@ namespace Shikashi.API
             string uri = string.Format("{0}/{1}/delete", APIConfig.BaseURL, imageId);
             using (HttpClient client = new HttpClient())
             {
+                client.DefaultRequestHeaders.ExpectContinue = false;
                 AuthKey key = AuthKey.LoadKey();
                 if (key == null)
                     return false;
