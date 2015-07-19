@@ -22,7 +22,7 @@ namespace Shikashi.API
                 HttpResponseMessage response = await client.GetAsync(uri);
 
                 if (response.StatusCode != System.Net.HttpStatusCode.OK)
-                    return EmptyList;
+                    return null;
 
                 DataContractJsonSerializer jsonSerializer = new DataContractJsonSerializer(typeof(UploadedContent[]));
                 return jsonSerializer.ReadObject(await response.Content.ReadAsStreamAsync()) as UploadedContent[];

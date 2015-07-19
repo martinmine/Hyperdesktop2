@@ -140,6 +140,13 @@ namespace Shikashi
         private async void LoadUserImages()
         {
             UploadedContent[] items = await ListUploadedImagesRequest.GetImages();
+
+            if (items == null)
+            {
+                Logout(null, null);
+                return;
+            }
+
             Array.Reverse(items, 0, items.Length);
 
             foreach (UploadedContent item in items) 
