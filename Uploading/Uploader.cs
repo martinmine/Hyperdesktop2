@@ -146,7 +146,7 @@ namespace Shikashi.Uploading
             }
         }
 
-        internal void OnKeyPress(Key key)
+        void IHotkeyListener.OnKeyPress(Key key)
         {
             if (key == (Key)Properties.Settings.Default.WindowedScreenshotHotkeyValue)
             {

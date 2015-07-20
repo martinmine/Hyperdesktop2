@@ -7,7 +7,7 @@
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         Style="{StaticResource ModernWindow}"
         ResizeMode="NoResize"
-        Title="Shikashi Uploader" Height="614" Width="330" Icon="icon.ico" StateChanged="Window_StateChanged">
+        Title="Shikashi Uploader" Height="614" Width="330" Icon="icon.ico" StateChanged="Window_StateChanged" Drop="GroupBox_Drop" AllowDrop="True">
     <StackPanel Orientation="Vertical">
         <DockPanel LastChildFill="True">
             <tb:TaskbarIcon x:Name="ApplicationTrayIcon"

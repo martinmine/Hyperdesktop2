@@ -340,5 +340,15 @@ namespace Shikashi
             }
         }
         #endregion
+
+        private async void GroupBox_Drop(object sender, DragEventArgs e)
+        {
+            string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+
+            foreach (string file in files)
+            {
+                await uploader.UploadFile(file);
+            }
+        }
     }
 }
