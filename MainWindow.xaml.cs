@@ -28,6 +28,8 @@ namespace Shikashi
             if (Properties.Settings.Default.UseDarkTheme)
                 ModernTheme.ApplyTheme(ModernTheme.Theme.Dark, ModernTheme.CurrentAccent);
 
+            ModernTheme.ApplyTheme(ModernTheme.CurrentTheme.GetValueOrDefault(), new Accent("Shikashi Theme", System.Windows.Media.Color.FromRgb(255 ,255 ,255)));
+
             if (!Properties.Settings.Default.AskedForStartup)
             {
                 MessageBoxResult result = System.Windows.MessageBox.Show(
