@@ -40,6 +40,7 @@
                 </MenuItem>
                 <MenuItem Header="Help">
                     <MenuItem Header="About" Click="AboutMenuItem_Click"/>
+                    <MenuItem Header="Check for updates" Click="UpdateMenuItem_Click"/>
                 </MenuItem>
             </Menu>
             <StackPanel></StackPanel>

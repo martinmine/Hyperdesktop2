@@ -4,11 +4,14 @@
     <ProjectView>ProjectFiles</ProjectView>
     <PublishUrlHistory>C:\inetpub\wwwroot\uploader\|publish\</PublishUrlHistory>
     <InstallUrlHistory>https://panel.shikashi.me/client/</InstallUrlHistory>
-    <SupportUrlHistory />
+    <SupportUrlHistory>mailto:support%40obbahhost.com</SupportUrlHistory>
     <UpdateUrlHistory />
     <BootstrapperUrlHistory />
     <ErrorReportUrlHistory />
     <FallbackCulture>en-US</FallbackCulture>
     <VerifyUploadedFiles>false</VerifyUploadedFiles>
+  </PropertyGroup>
+  <PropertyGroup>
+    <EnableSecurityDebugging>false</EnableSecurityDebugging>
   </PropertyGroup>
 </Project>

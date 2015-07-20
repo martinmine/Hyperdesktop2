@@ -29,7 +29,7 @@
     <ProductName>Shikashi</ProductName>
     <PublisherName>DONG Inc.</PublisherName>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
-    <ApplicationRevision>7</ApplicationRevision>
+    <ApplicationRevision>8</ApplicationRevision>
     <ApplicationVersion>2.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -89,6 +89,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -120,6 +121,7 @@
     <Compile Include="AnimatedTaskbarIcon.cs" />
     <Compile Include="Hotkeys\HotkeyManager.cs" />
     <Compile Include="Hotkeys\Hotkeys.cs" />
+    <Compile Include="UpdateHelper.cs" />
     <Compile Include="Uploading\MimeMapping.cs" />
     <Compile Include="Screenshotting\ScreenBounds.cs" />
     <Compile Include="Screenshotting\ScreenCapture.cs" />

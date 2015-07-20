@@ -16,19 +16,22 @@ namespace Shikashi
     {
         private ObservableCollection<UploadedContent> userContent = new ObservableCollection<UploadedContent>();
         private Uploader uploader;
+        private UpdateHelper updateHelper;
 
         public MainWindow()
         {
             InitializeComponent();
 
-            ApplicationTrayIcon.TrayBalloonTipClicked += ApplicationTrayIcon_TrayBalloonTipClicked;
             this.uploader = new Uploader(this, new AnimatedTaskbarIcon(Dispatcher, Icon));
+            this.updateHelper = new UpdateHelper();
+
+            ApplicationTrayIcon.TrayBalloonTipClicked += ApplicationTrayIcon_TrayBalloonTipClicked;
             uploader.OnUploadCompleted += HandleFileUploadResult;
 
             if (Properties.Settings.Default.UseDarkTheme)
                 ModernTheme.ApplyTheme(ModernTheme.Theme.Dark, ModernTheme.CurrentAccent);
 
-            ModernTheme.ApplyTheme(ModernTheme.CurrentTheme.GetValueOrDefault(), new Accent("Shikashi Theme", System.Windows.Media.Color.FromRgb(255 ,255 ,255)));
+            ModernTheme.ApplyTheme(ModernTheme.CurrentTheme.GetValueOrDefault(), Accent.Orange);
 
             if (!Properties.Settings.Default.AskedForStartup)
             {
@@ -59,6 +62,7 @@ namespace Shikashi
             HotkeyManager.GetInstance().RegisterHotkeys();
             SetButtonsEnabled();
             LoadUserImages();
+            updateHelper.CheckForUpdates();
         }
 
         private void AboutMenuItem_Click(object sender, RoutedEventArgs e)
@@ -360,6 +364,11 @@ namespace Shikashi
         private void UploadList_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             OpenSelectedUpload(sender, null);
+        }
+
+        private void UpdateMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            updateHelper.CheckForUpdates();
         }
     }
 }
