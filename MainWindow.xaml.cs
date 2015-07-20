@@ -1,38 +1,29 @@
 ﻿using Microsoft.Win32;
 using ModernWPF;
-using ModernWPF.Controls;
 using Shikashi.API;
-using Shikashi.Screenshotting;
+using Shikashi.Uploading;
 using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.Drawing;
-using System.Drawing.Imaging;
-using System.IO;
-using System.Reflection;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Input;
-using System.Windows.Media.Imaging;
 
 namespace Shikashi
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window, IHotkeyListener, IUploadStatusListener
+    public partial class MainWindow : Window, IUploadStatusListener
     {
-        private bool snipperOpen;
         private ObservableCollection<UploadedContent> userContent = new ObservableCollection<UploadedContent>();
-        private AnimatedTaskbarIcon taskbarIcon;
+        private Uploader uploader;
 
         public MainWindow()
         {
             InitializeComponent();
 
             ApplicationTrayIcon.TrayBalloonTipClicked += ApplicationTrayIcon_TrayBalloonTipClicked;
-            this.taskbarIcon = new AnimatedTaskbarIcon(Dispatcher, Icon);
+            this.uploader = new Uploader(this, new AnimatedTaskbarIcon(Dispatcher, Icon));
+            uploader.OnUploadCompleted += HandleFileUploadResult;
 
             if (Properties.Settings.Default.UseDarkTheme)
                 ModernTheme.ApplyTheme(ModernTheme.Theme.Dark, ModernTheme.CurrentAccent);
@@ -62,7 +53,7 @@ namespace Shikashi
 
             UploadList.ItemsSource = userContent;
 
-            HotkeyManager.GetInstance().SetListener(this);
+            HotkeyManager.GetInstance().SetListener(uploader);
             HotkeyManager.GetInstance().RegisterHotkeys();
             SetButtonsEnabled();
             LoadUserImages();
@@ -83,12 +74,12 @@ namespace Shikashi
         #region Button event handlers
         private void Capture(object sender, RoutedEventArgs e)
         {
-            CaptureScreen("screen");
+            uploader.CaptureScreen("screen");
         }
 
         private void CaptureRegion(object sender, RoutedEventArgs e)
         {
-            CaptureScreen("region");
+            uploader.CaptureScreen("region");
         }
 
         private void Logout(object sender, RoutedEventArgs e)
@@ -119,7 +110,7 @@ namespace Shikashi
                     Properties.Settings.Default.CurrentUser = EmailField.Text;
                     Properties.Settings.Default.Save();
                     LoadUserImages();
-                    MessageBox.Show("Login successfull", "Login success", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show("Login Successful", "Login success", MessageBoxButton.OK, MessageBoxImage.Information);
                     break;
             }
         }
@@ -160,95 +151,6 @@ namespace Shikashi
         }
 
         #region Image processing
-        private Bitmap EditScreenshot(Bitmap bmp)
-        {
-            if (!Properties.Settings.Default.EditScreenshot)
-                return null;
-
-            Edit edit = new Edit(bmp);
-            edit.ShowDialog();
-
-            return edit.Result;
-        }
-
-        private void CaptureScreen(string type)
-        {
-            Bitmap bmp = null;
-
-            switch (type)
-            {
-                case "screen":
-                    bmp = ScreenCapture.CaptureScreen(Properties.Settings.Default.ShowCursor);
-                    break;
-
-                case "window":
-                    bmp = ScreenCapture.Window(Properties.Settings.Default.ShowCursor);
-                    break;
-
-                default:
-                    if (snipperOpen)
-                        return;
-
-                    snipperOpen = true;
-
-                    try
-                    {
-                         System.Drawing.Rectangle rect = Snipper.GetRegion();
-
-                         if (rect == new System.Drawing.Rectangle(0, 0, 0, 0))
-                             return;
-
-                         bmp = ScreenCapture.CaptureRegion(rect);
-                    }
-                    finally
-                    {
-                        snipperOpen = false;
-                    }
-
-                    break;
-            }
-            WorkImage(bmp, true);
-        }
-
-        private async void WorkImage(Bitmap bmp, bool edit = false)
-        {
-            try
-            {
-                taskbarIcon.StartAnimation();
-                GlobalFunctions.PlaySound(Properties.Resources.capture);
-
-                if (Properties.Settings.Default.EditScreenshot && edit)
-                    bmp = EditScreenshot(bmp);
-
-                if (bmp == null)
-                {
-                    taskbarIcon.StopAnimation();
-                    return;
-                }
-
-
-                using (MemoryStream memoryStream = new MemoryStream())
-                {
-                    bmp.Save(memoryStream, ImageFormat.Png);
-                    FileUpload upload = new FileUpload(this);
-                    string nameSuffix = DateTime.Now.ToString("yyyy-MM-dd_HHmmss");
-                    using (StreamReader reader = new StreamReader(memoryStream))
-                    {
-                        memoryStream.Position = 0;
-                        reader.DiscardBufferedData();
-
-                        FileUploadResult result = await upload.UploadFile(memoryStream, string.Format("Screenshot {0}.png", nameSuffix), "image/png");
-                        HandleFileUploadResult(result);
-                    }
-                }
-            }
-            finally
-            {
-                if (bmp != null)
-                    bmp.Dispose();
-                GC.Collect();
-            }
-        }
 
         private void HandleFileUploadResult(FileUploadResult result)
         {
@@ -274,8 +176,6 @@ namespace Shikashi
                     BalloonTip("This file was too large to be uploaded", "Error", 2000, Hardcodet.Wpf.TaskbarNotification.BalloonIcon.Error);
                     break;
             }
-
-            taskbarIcon.StopAnimation();
         }
         #endregion
 
@@ -293,13 +193,6 @@ namespace Shikashi
             {
                 Process.Start(lastViewedLink);
             }
-        }
-
-        private void SetTaskbarIcon(string imageUri)
-        {
-            Dispatcher.Invoke(() => {
-                this.Icon = new BitmapImage(new Uri(imageUri));
-            });
         }
 
         private void SetButtonsEnabled()
@@ -353,23 +246,6 @@ namespace Shikashi
                 UploadProgressBar.Value = percent;
             });
         }
-
-        public void OnKeyPress(Key key)
-        {
-            Debug.WriteLine("Keypress: " + key.ToString());
-            if (key == (Key)Properties.Settings.Default.WindowedScreenshotHotkeyValue)
-            {
-                CaptureScreen("window");
-            }
-            else if (key == (Key)Properties.Settings.Default.RegionalScreenshotHotkeyValue)
-            {
-                CaptureScreen("region");
-            }
-            else if (key == (Key)Properties.Settings.Default.FullScreenshotHotkeyValue)
-            {
-                CaptureScreen("screen");
-            }
-        }
         #endregion
 
         private void MinimizeToTray(object sender, RoutedEventArgs e)
@@ -386,44 +262,16 @@ namespace Shikashi
         {
             if (Clipboard.ContainsImage())
             {
-                taskbarIcon.StartAnimation();
                 System.Drawing.Image image = System.Windows.Forms.Clipboard.GetImage();
-                using (MemoryStream memoryStream = new MemoryStream())
-                {
-                    image.Save(memoryStream, ImageFormat.Png);
-
-                    FileUpload upload = new FileUpload(this);
-                    string nameSuffix = DateTime.Now.ToString("yyyy-MM-dd_HHmmss");
-                    using (StreamReader reader = new StreamReader(memoryStream))
-                    {
-                        memoryStream.Position = 0;
-                        reader.DiscardBufferedData();
-
-                        FileUploadResult result = await upload.UploadFile(memoryStream, string.Format("Copied image {0}.png", nameSuffix), "image/png");
-                        HandleFileUploadResult(result);
-                    }
-                }
+                await uploader.UploadImage(image);
             }
             else if (Clipboard.ContainsFileDropList())
             {
                 foreach (string path in Clipboard.GetFileDropList())
                 {
-                    await UploadFile(path);
+                    await uploader.UploadFile(path);
                 }
             }
-        }
-
-        private async Task UploadFile(string path)
-        {
-            taskbarIcon.StartAnimation();
-            GlobalFunctions.PlaySound(Properties.Resources.capture);
-            string extension = System.IO.Path.GetExtension(path);
-            FileUpload upload = new FileUpload(this);
-            Stream fileStream = File.OpenRead(path);
-            string mimeType = MimeMapping.Instance.GetMimeType(extension);
-
-            FileUploadResult result = await upload.UploadFile(File.OpenRead(path), System.IO.Path.GetFileName(path), mimeType);
-            HandleFileUploadResult(result);
         }
 
         private async void UploadFiles(object sender, RoutedEventArgs e)
@@ -436,8 +284,8 @@ namespace Shikashi
             if (result.HasValue && result.Value)
             {
                 foreach (string fileName in dialog.FileNames)
-                { 
-                    await UploadFile(fileName);
+                {
+                    await uploader.UploadFile(fileName);
                 }
             }
         }
@@ -458,9 +306,7 @@ namespace Shikashi
         private void Window_StateChanged(object sender, EventArgs e)
         {
             if (this.WindowState == System.Windows.WindowState.Minimized)
-            {
                 Hide();
-            }
         }
 
         #region Right-click handlers

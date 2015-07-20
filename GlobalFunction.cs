@@ -1,6 +1,6 @@
 ﻿using Microsoft.Win32;
 using System;
-using System.Drawing;
+using System.Diagnostics;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Media;
@@ -9,6 +9,9 @@ namespace Shikashi
 {
     public static class GlobalFunctions
     {
+        internal static readonly RegistryKey StartupRegistryKey = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run", true);
+        internal const string StartupKey = "Shikashi Uploader";
+
         public static ImageFormat ExtensionToImageFormat(string extension)
         {
             switch (extension.ToLower())
@@ -23,25 +26,10 @@ namespace Shikashi
             }
         }
 
-        public static string BmpToBase64(Bitmap bmp, ImageFormat format)
-        {
-            using (MemoryStream stream = new MemoryStream())
-            {
-                bmp.Save(stream, format);
-                Byte[] bytes = stream.ToArray();
-
-                return Convert.ToBase64String(bytes);
-            }
-        }
-
-        internal static readonly RegistryKey StartupRegistryKey = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run", true);
-
-        internal const string StartupKey = "Shikashi Uploader";
-
         public static void SetRunAtStartup(bool shouldRun)
         {
             if (shouldRun)
-                StartupRegistryKey.SetValue(StartupKey, Settings.ExePath);
+                StartupRegistryKey.SetValue(StartupKey, GetExePath());
             else
                 StartupRegistryKey.DeleteValue(StartupKey, false);
         }
@@ -66,10 +54,15 @@ namespace Shikashi
 
         internal static void CheckStartupPath()
         {
-            if (!string.IsNullOrEmpty(StartupRegistryKey.GetValue(StartupKey) as string) && (string)StartupRegistryKey.GetValue(StartupKey) != Settings.ExePath)
+            if (!string.IsNullOrEmpty(StartupRegistryKey.GetValue(StartupKey) as string) && (string)StartupRegistryKey.GetValue(StartupKey) != GetExePath())
             {
                 SetRunAtStartup(true);
             }
+        }
+
+        private static string GetExePath()
+        {
+            return Process.GetCurrentProcess().MainModule.FileName;
         }
     }
 }

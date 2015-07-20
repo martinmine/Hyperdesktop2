@@ -120,9 +120,9 @@
     <Compile Include="AnimatedTaskbarIcon.cs" />
     <Compile Include="Hotkeys\HotkeyManager.cs" />
     <Compile Include="Hotkeys\Hotkeys.cs" />
-    <Compile Include="MimeMapping.cs" />
-    <Compile Include="ScreenBounds.cs" />
-    <Compile Include="ScreenCapture.cs" />
+    <Compile Include="Uploading\MimeMapping.cs" />
+    <Compile Include="Screenshotting\ScreenBounds.cs" />
+    <Compile Include="Screenshotting\ScreenCapture.cs" />
     <Compile Include="Screenshotting\Edit.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -132,8 +132,7 @@
     <Compile Include="Screenshotting\Snipper.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Settings.cs" />
-    <Compile Include="WPFUtil.cs" />
+    <Compile Include="Uploading\Uploader.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

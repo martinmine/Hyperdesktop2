@@ -1,6 +1,6 @@
-Hyperdesktop2
+Shikashi Uploader
 =============
 
-No longer supported.
+Based on Hyperdestkop2 under the GNU license.
 
-Try ShareX -> https://getsharex.com/
+Website -> http://panel.shikashi.me
