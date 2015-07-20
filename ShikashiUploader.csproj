@@ -117,6 +117,7 @@
     <Compile Include="AboutWindow.xaml.cs">
       <DependentUpon>AboutWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AnimatedTaskbarIcon.cs" />
     <Compile Include="Hotkeys\HotkeyManager.cs" />
     <Compile Include="Hotkeys\Hotkeys.cs" />
     <Compile Include="MimeMapping.cs" />

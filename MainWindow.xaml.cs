@@ -25,10 +25,14 @@ namespace Shikashi
     {
         private bool snipperOpen;
         private ObservableCollection<UploadedContent> userContent = new ObservableCollection<UploadedContent>();
+        private AnimatedTaskbarIcon taskbarIcon;
 
         public MainWindow()
         {
             InitializeComponent();
+
+            ApplicationTrayIcon.TrayBalloonTipClicked += ApplicationTrayIcon_TrayBalloonTipClicked;
+            this.taskbarIcon = new AnimatedTaskbarIcon(Dispatcher, Icon);
 
             if (Properties.Settings.Default.UseDarkTheme)
                 ModernTheme.ApplyTheme(ModernTheme.Theme.Dark, ModernTheme.CurrentAccent);
@@ -155,9 +159,7 @@ namespace Shikashi
             }
         }
 
-
         #region Image processing
-
         private Bitmap EditScreenshot(Bitmap bmp)
         {
             if (!Properties.Settings.Default.EditScreenshot)
@@ -212,7 +214,7 @@ namespace Shikashi
         {
             try
             {
-                StartAnimation();
+                taskbarIcon.StartAnimation();
                 GlobalFunctions.PlaySound(Properties.Resources.capture);
 
                 if (Properties.Settings.Default.EditScreenshot && edit)
@@ -220,7 +222,7 @@ namespace Shikashi
 
                 if (bmp == null)
                 {
-                    StopAnimation();
+                    taskbarIcon.StopAnimation();
                     return;
                 }
 
@@ -273,62 +275,24 @@ namespace Shikashi
                     break;
             }
 
-            StopAnimation();
+            taskbarIcon.StopAnimation();
         }
         #endregion
+
+        private string lastViewedLink;
 
         private void BalloonTip(string text, string title, int duration, Hardcodet.Wpf.TaskbarNotification.BalloonIcon icon = Hardcodet.Wpf.TaskbarNotification.BalloonIcon.Info, string link = null)
         {
             ApplicationTrayIcon.ShowBalloonTip(title, text, icon);
+            lastViewedLink = link;
+        }
 
-            if (!string.IsNullOrEmpty(link))
+        private void ApplicationTrayIcon_TrayBalloonTipClicked(object sender, RoutedEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(lastViewedLink))
             {
-                ApplicationTrayIcon.TrayBalloonTipClicked += (sender, e) =>
-                {
-                    Process.Start(link);
-                };
+                Process.Start(lastViewedLink);
             }
-        }
-
-        private Thread animationThread;
-        private bool animateIcon;
-
-        private void StartAnimation()
-        {
-            animateIcon = false;
-
-            if (animationThread != null && animationThread.IsAlive)
-                animationThread.Abort();
-
-            animateIcon = true;
-            animationThread = new Thread(() =>
-            {
-                try
-                {
-                    int iconNum = 0;
-
-                    while (animateIcon)
-                    {
-                        iconNum = (iconNum++ % 19) + 1;
-                        SetTaskbarIcon("pack://application:,,,/Shikashi;component/Icons/" + iconNum + ".ico");
-
-                        Thread.Sleep(260);
-                    }
-                }
-                catch (ThreadInterruptedException) { }
-            });
-
-            animationThread.Start();
-        }
-
-        private void StopAnimation()
-        {
-            new Thread(() =>
-            {
-                animateIcon = false;
-                animationThread.Join();
-                SetTaskbarIcon("pack://application:,,,/Shikashi;component/icon.ico");
-            }).Start();
         }
 
         private void SetTaskbarIcon(string imageUri)
@@ -360,7 +324,6 @@ namespace Shikashi
             userContent.Insert(0, content);
 
             string link = string.Format("{0}/{1}", APIConfig.BaseURL, content.Key);
-
 
             if (Properties.Settings.Default.CopyLinksToClipboard)
                 Clipboard.SetText(link);
@@ -423,7 +386,7 @@ namespace Shikashi
         {
             if (Clipboard.ContainsImage())
             {
-                StartAnimation();
+                taskbarIcon.StartAnimation();
                 System.Drawing.Image image = System.Windows.Forms.Clipboard.GetImage();
                 using (MemoryStream memoryStream = new MemoryStream())
                 {
@@ -452,7 +415,7 @@ namespace Shikashi
 
         private async Task UploadFile(string path)
         {
-            StartAnimation();
+            taskbarIcon.StartAnimation();
             GlobalFunctions.PlaySound(Properties.Resources.capture);
             string extension = System.IO.Path.GetExtension(path);
             FileUpload upload = new FileUpload(this);
