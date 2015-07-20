@@ -122,6 +122,7 @@ namespace Shikashi
 
         private void ExitApplication(object sender, RoutedEventArgs e)
         {
+            ApplicationTrayIcon.Dispose();
             Environment.Exit(0);
         }
 
