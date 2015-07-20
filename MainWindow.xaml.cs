@@ -312,6 +312,9 @@ namespace Shikashi
         #region Right-click handlers
         private void OpenSelectedUpload(object sender, RoutedEventArgs e)
         {
+            if (UploadList.SelectedIndex < 0)
+                return;
+
             UploadedContent selectedItem = userContent[UploadList.SelectedIndex];
             Process.Start(string.Format("{0}/{1}", APIConfig.BaseURL, selectedItem.Key));
         }
@@ -349,6 +352,11 @@ namespace Shikashi
             {
                 await uploader.UploadFile(file);
             }
+        }
+
+        private void UploadList_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            OpenSelectedUpload(sender, null);
         }
     }
 }

@@ -71,7 +71,7 @@
             </Grid>
         </GroupBox>
         <GroupBox Header="Upload History" Margin="10,0,10,0" DockPanel.Dock="Bottom" Height="220" Style="{DynamicResource DarkThemedGroupBoxStyle}">
-            <ListView x:Name="UploadList" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10,10,10,10" ItemsSource="{Binding UploadedItems}">
+            <ListView x:Name="UploadList" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10,10,10,10" ItemsSource="{Binding UploadedItems}" MouseDoubleClick="UploadList_MouseDoubleClick">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="Link" Width="Auto" DisplayMemberBinding="{Binding Key}"/>
