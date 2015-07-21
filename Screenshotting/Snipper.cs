@@ -23,6 +23,8 @@ namespace Shikashi.Screenshotting
             if (disposing && (components != null))
             {
                 components.Dispose();
+                brush.Dispose();
+                pen.Dispose();
             }
             base.Dispose(disposing);
         }

@@ -25,7 +25,12 @@ namespace Shikashi
 				if (components != null) {
 					components.Dispose();
 				}
+
+                brush.Dispose();
+                font.Dispose();
+                pen.Dispose();
 			}
+
 			base.Dispose(disposing);
 		}
 		

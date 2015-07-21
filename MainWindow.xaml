@@ -7,28 +7,9 @@
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         Style="{StaticResource ModernWindow}"
         ResizeMode="NoResize"
-        Title="Shikashi Uploader" Height="614" Width="330" Icon="icon.ico" StateChanged="Window_StateChanged" Drop="GroupBox_Drop" AllowDrop="True">
+        Title="Shikashi Uploader" Height="614" Width="330" Icon="icon.ico" Drop="GroupBox_Drop" AllowDrop="True">
     <StackPanel Orientation="Vertical">
         <DockPanel LastChildFill="True">
-            <tb:TaskbarIcon x:Name="ApplicationTrayIcon"
-                  IconSource="icon.ico"
-                  ToolTipText="Shikashi Uploader"
-                  TrayMouseDoubleClick="TrayIconClicked"
-                  >
-                <tb:TaskbarIcon.ContextMenu>
-                    <ContextMenu>
-                        <MenuItem Header="Minimize to tray" Click="MinimizeToTray"/>
-                        <MenuItem Header="Dashboard" Click="OpenDashboard"/>
-                        <Separator />
-                        <MenuItem Header="Take Region Screenshot" Click="CaptureRegion"/>
-                        <MenuItem Header="Take Screenshot" Click="Capture"/>
-                        <MenuItem Header="Upload from clipboard" Click="UploadFromClipboard"/>
-                        <MenuItem Header="About" Click="AboutMenuItem_Click"/>
-                        <MenuItem Header="Exit" Click="ExitApplication"/>
-                    </ContextMenu>
-                </tb:TaskbarIcon.ContextMenu>
-
-            </tb:TaskbarIcon>
             <Menu DockPanel.Dock="Top">
                 <MenuItem Header="File">
                     <MenuItem Header="Hide Window" Click="HideWindow"/>

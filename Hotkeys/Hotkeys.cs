@@ -4,25 +4,16 @@
 */
 
 using System;
-using System.Runtime.InteropServices;
 using System.Windows.Forms;
-using System.Windows.Input;
 
 namespace Shikashi
 {
-    public sealed class Hotkeys : IDisposable
+    public sealed class Hotkeys
     {
-        // Registers a hot key with Windows.
-        [DllImport("user32.dll")]
-        private static extern bool RegisterHotKey(IntPtr hWnd, int id, uint fsModifiers, uint vk);
-        // Unregisters the hot key with Windows.
-        [DllImport("user32.dll")]
-        private static extern bool UnregisterHotKey(IntPtr hWnd, int id);
-
         /// <summary>
         /// Represents the window that is used internally to get the messages.
         /// </summary>
-        class Window : NativeWindow, IDisposable
+        class Window : NativeWindow
         {
             const int WM_HOTKEY = 0x0312;
 
@@ -89,7 +80,7 @@ namespace Shikashi
             _currentId = _currentId + 1;
 
             // register the hot key.
-            if (!RegisterHotKey(_window.Handle, _currentId, (uint)modifier, key))
+            if (!NativeMethods.RegisterHotKey(_window.Handle, _currentId, (uint)modifier, key))
                 throw new InvalidOperationException("Couldn’t register the hot key.");
         }
 
@@ -105,7 +96,7 @@ namespace Shikashi
             // unregister all the registered hot keys.
             for (int i = _currentId; i > 0; i--)
             {
-                UnregisterHotKey(_window.Handle, i);
+                NativeMethods.UnregisterHotKey(_window.Handle, i);
             }
 
             // dispose the inner native window.

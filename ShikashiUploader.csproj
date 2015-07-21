@@ -75,6 +75,10 @@
   <PropertyGroup>
     <SignManifests>false</SignManifests>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>
+    </StartupObject>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="CommonWin32">
       <HintPath>..\packages\CommonWin32.2.0.5.6\lib\net35-Client\CommonWin32.dll</HintPath>
@@ -120,9 +124,10 @@
     <Compile Include="AboutWindow.xaml.cs">
       <DependentUpon>AboutWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="AnimatedTaskbarIcon.cs" />
+    <Compile Include="AppServices.cs" />
     <Compile Include="Hotkeys\HotkeyManager.cs" />
     <Compile Include="Hotkeys\Hotkeys.cs" />
+    <Compile Include="NativeMethods.cs" />
     <Compile Include="UpdateHelper.cs" />
     <Compile Include="Uploading\MimeMapping.cs" />
     <Compile Include="Screenshotting\ScreenBounds.cs" />

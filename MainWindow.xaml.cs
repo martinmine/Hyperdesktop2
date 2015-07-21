@@ -1,9 +1,9 @@
 ﻿using Microsoft.Win32;
 using ModernWPF;
 using Shikashi.API;
-using Shikashi.Uploading;
 using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows;
 
@@ -15,60 +15,33 @@ namespace Shikashi
     public partial class MainWindow : Window, IUploadStatusListener
     {
         private ObservableCollection<UploadedContent> userContent = new ObservableCollection<UploadedContent>();
-        private Uploader uploader;
-        private UpdateHelper updateHelper;
+        internal bool WindowClosed { get; private set; }
 
         public MainWindow()
         {
             InitializeComponent();
 
-            this.uploader = new Uploader(this, new AnimatedTaskbarIcon(Dispatcher, Icon));
-            this.updateHelper = new UpdateHelper();
-
-            ApplicationTrayIcon.TrayBalloonTipClicked += ApplicationTrayIcon_TrayBalloonTipClicked;
-            uploader.OnUploadCompleted += HandleFileUploadResult;
-            updateHelper.OnApplicationReboot += RemoveSystrayIcon;
+            WindowClosed = false;
 
             if (Properties.Settings.Default.UseDarkTheme)
                 ModernTheme.ApplyTheme(ModernTheme.Theme.Dark, ModernTheme.CurrentAccent);
 
             ModernTheme.ApplyTheme(ModernTheme.CurrentTheme.GetValueOrDefault(), Accent.Orange);
 
-            if (!Properties.Settings.Default.AskedForStartup)
-            {
-                MessageBoxResult result = System.Windows.MessageBox.Show(
-                    "Do you want to run Shikashi Uploader at Windows startup?",
-                    "First time run",
-                    MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.Yes
-                );
-
-                if (result == MessageBoxResult.Yes)
-                {
-                    GlobalFunctions.SetRunAtStartup(true);
-                    Properties.Settings.Default.RunAtStartup = true;
-                }
-                Properties.Settings.Default.AskedForStartup = true;
-                Properties.Settings.Default.SaveFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures) + "\\Captures";
-                Properties.Settings.Default.Save();
-            }
-
-            GlobalFunctions.CheckStartupPath();
-
             if (!string.IsNullOrEmpty(Properties.Settings.Default.CurrentUser))
                 PasswordField.Password = "*********";
 
             UploadList.ItemsSource = userContent;
 
-            HotkeyManager.GetInstance().SetListener(uploader);
-            HotkeyManager.GetInstance().RegisterHotkeys();
             SetButtonsEnabled();
             LoadUserImages();
-            updateHelper.CheckForUpdates();
+
+            this.Closed += MainWindow_Closed;
         }
 
-        private void RemoveSystrayIcon()
+        private void MainWindow_Closed(object sender, EventArgs e)
         {
-            ApplicationTrayIcon.Dispose();
+            AppServices.CloseMainWindow();
         }
 
         private void AboutMenuItem_Click(object sender, RoutedEventArgs e)
@@ -86,12 +59,12 @@ namespace Shikashi
         #region Button event handlers
         private void Capture(object sender, RoutedEventArgs e)
         {
-            uploader.CaptureScreen("screen");
+            AppServices.Uploader.CaptureScreen("screen");
         }
 
         private void CaptureRegion(object sender, RoutedEventArgs e)
         {
-            uploader.CaptureScreen("region");
+            AppServices.Uploader.CaptureScreen("region");
         }
 
         private void Logout(object sender, RoutedEventArgs e)
@@ -129,13 +102,12 @@ namespace Shikashi
 
         private void HideWindow(object sender, RoutedEventArgs e)
         {
-            Hide();
+            AppServices.CloseMainWindow();
         }
 
         private void ExitApplication(object sender, RoutedEventArgs e)
         {
-            RemoveSystrayIcon();
-            Environment.Exit(0);
+            AppServices.Exit();
         }
 
         private void RegisterHotkeys(object sender, RoutedEventArgs e)
@@ -162,52 +134,7 @@ namespace Shikashi
                 userContent.Add(item);
             }
         }
-
-        #region Image processing
-
-        private void HandleFileUploadResult(FileUploadResult result)
-        {
-            switch (result)
-            {
-                case FileUploadResult.Failed:
-                    GlobalFunctions.PlaySound(Properties.Resources.error);
-                    BalloonTip("Error uploading file!", "Error", 2000, Hardcodet.Wpf.TaskbarNotification.BalloonIcon.Error);
-                    break;
-
-                case FileUploadResult.InvalidCredentials:
-                    GlobalFunctions.PlaySound(Properties.Resources.error);
-                    BalloonTip("Your credentials were invalid, please sign in again", "Error", 2000, Hardcodet.Wpf.TaskbarNotification.BalloonIcon.Error);
-                    break;
-
-                case FileUploadResult.NotAuthorized:
-                    GlobalFunctions.PlaySound(Properties.Resources.error);
-                    BalloonTip("You need to sign in before uploading", "Error", 2000, Hardcodet.Wpf.TaskbarNotification.BalloonIcon.Error);
-                    break;
-
-                case FileUploadResult.FileTooLarge:
-                    GlobalFunctions.PlaySound(Properties.Resources.error);
-                    BalloonTip("This file was too large to be uploaded", "Error", 2000, Hardcodet.Wpf.TaskbarNotification.BalloonIcon.Error);
-                    break;
-            }
-        }
-        #endregion
-
-        private string lastViewedLink;
-
-        private void BalloonTip(string text, string title, int duration, Hardcodet.Wpf.TaskbarNotification.BalloonIcon icon = Hardcodet.Wpf.TaskbarNotification.BalloonIcon.Info, string link = null)
-        {
-            ApplicationTrayIcon.ShowBalloonTip(title, text, icon);
-            lastViewedLink = link;
-        }
-
-        private void ApplicationTrayIcon_TrayBalloonTipClicked(object sender, RoutedEventArgs e)
-        {
-            if (!string.IsNullOrEmpty(lastViewedLink))
-            {
-                Process.Start(lastViewedLink);
-            }
-        }
-
+        
         private void SetButtonsEnabled()
         {
             bool loggedIn = (AuthKey.LoadKey() != null);
@@ -228,19 +155,6 @@ namespace Shikashi
             UploadProgressBar.Value = 0;
 
             userContent.Insert(0, content);
-
-            string link = string.Format("{0}/{1}", APIConfig.BaseURL, content.Key);
-
-            if (Properties.Settings.Default.CopyLinksToClipboard)
-                Clipboard.SetText(link);
-
-            if (Properties.Settings.Default.BalloonMessages)
-                BalloonTip("Link copied to clipboard:" + Environment.NewLine + link, "Upload Completed!", 2000, Hardcodet.Wpf.TaskbarNotification.BalloonIcon.Info, link);
-
-            if (Properties.Settings.Default.LaunchBrowser)
-                Process.Start(link);
-
-            GlobalFunctions.PlaySound(Properties.Resources.success);
         }
 
         private DateTime lastUpdate;
@@ -261,31 +175,6 @@ namespace Shikashi
         }
         #endregion
 
-        private void MinimizeToTray(object sender, RoutedEventArgs e)
-        {
-            this.Hide();
-        }
-
-        private void OpenDashboard(object sender, RoutedEventArgs e)
-        {
-            Process.Start("https://panel.shikashi.me/login");
-        }
-
-        private async void UploadFromClipboard(object sender, RoutedEventArgs e)
-        {
-            if (Clipboard.ContainsImage())
-            {
-                System.Drawing.Image image = System.Windows.Forms.Clipboard.GetImage();
-                await uploader.UploadImage(image);
-            }
-            else if (Clipboard.ContainsFileDropList())
-            {
-                foreach (string path in Clipboard.GetFileDropList())
-                {
-                    await uploader.UploadFile(path);
-                }
-            }
-        }
 
         private async void UploadFiles(object sender, RoutedEventArgs e)
         {
@@ -298,30 +187,11 @@ namespace Shikashi
             {
                 foreach (string fileName in dialog.FileNames)
                 {
-                    await uploader.UploadFile(fileName);
+                    await AppServices.Uploader.UploadFile(fileName);
                 }
             }
         }
-
-        private void TrayIconClicked(object sender, RoutedEventArgs e)
-        {
-            this.Show();
-            WindowState = System.Windows.WindowState.Normal;
-            Activate();
-        }
-
-        protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
-        {
-            e.Cancel = true;
-            WindowState = System.Windows.WindowState.Minimized;
-        }
-
-        private void Window_StateChanged(object sender, EventArgs e)
-        {
-            if (this.WindowState == System.Windows.WindowState.Minimized)
-                Hide();
-        }
-
+        
         #region Right-click handlers
         private void OpenSelectedUpload(object sender, RoutedEventArgs e)
         {
@@ -352,7 +222,7 @@ namespace Shikashi
                 GlobalFunctions.PlaySound(Properties.Resources.error);
 
                 if (Properties.Settings.Default.BalloonMessages)
-                    BalloonTip("Could not delete file!", "Error", 2000, Hardcodet.Wpf.TaskbarNotification.BalloonIcon.Error);
+                    AppServices.ShowBalloonTip("Could not delete file!", "Error", 2000, Hardcodet.Wpf.TaskbarNotification.BalloonIcon.Error);
             }
         }
         #endregion
@@ -363,7 +233,7 @@ namespace Shikashi
 
             foreach (string file in files)
             {
-                await uploader.UploadFile(file);
+                await AppServices.Uploader.UploadFile(file);
             }
         }
 
@@ -374,7 +244,13 @@ namespace Shikashi
 
         private void UpdateMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            updateHelper.CheckForUpdates(true);
+            AppServices.UpdateHelper.CheckForUpdates(true);
+        }
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            WindowClosed = true;
+            base.OnClosing(e);
         }
     }
 }

@@ -13,14 +13,12 @@ namespace Shikashi.Uploading
     {
         internal delegate void UploadResultReceived(FileUploadResult res);
         internal event UploadResultReceived OnUploadCompleted;
-        private AnimatedTaskbarIcon taskbarIcon;
         private IUploadStatusListener progressStatusListener;
         private bool snipperOpen;
 
-        public Uploader(IUploadStatusListener progressStatusListener, AnimatedTaskbarIcon taskbarIcon)
+        public Uploader(IUploadStatusListener progressStatusListener)
         {
             this.progressStatusListener = progressStatusListener;
-            this.taskbarIcon = taskbarIcon;
         }
 
         internal Bitmap EditScreenshot(Bitmap bmp)
@@ -77,7 +75,6 @@ namespace Shikashi.Uploading
         {
             try
             {
-                taskbarIcon.StartAnimation();
                 GlobalFunctions.PlaySound(Properties.Resources.capture);
 
                 if (Properties.Settings.Default.EditScreenshot && edit)
@@ -85,7 +82,6 @@ namespace Shikashi.Uploading
 
                 if (bmp == null)
                 {
-                    taskbarIcon.StopAnimation();
                     return;
                 }
 
@@ -115,7 +111,6 @@ namespace Shikashi.Uploading
 
         internal async Task UploadFile(string path)
         {
-            taskbarIcon.StartAnimation();
             GlobalFunctions.PlaySound(Properties.Resources.capture);
             string extension = System.IO.Path.GetExtension(path);
             FileUpload upload = new FileUpload(progressStatusListener);
@@ -128,7 +123,6 @@ namespace Shikashi.Uploading
 
         internal async Task UploadImage(System.Drawing.Image image)
         {
-            taskbarIcon.StartAnimation();
             using (MemoryStream memoryStream = new MemoryStream())
             {
                 image.Save(memoryStream, ImageFormat.Png);
