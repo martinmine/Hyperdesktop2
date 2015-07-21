@@ -1,4 +1,6 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Deployment.Application;
+using System.Diagnostics;
 using System.Windows;
 
 namespace Shikashi
@@ -11,7 +13,11 @@ namespace Shikashi
         public AboutWindow()
         {
             InitializeComponent();
-            BuildLabel.Content = "Version " + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString(); 
+            if (ApplicationDeployment.IsNetworkDeployed)
+            {
+                Version version = ApplicationDeployment.CurrentDeployment.CurrentVersion;
+                BuildLabel.Content = string.Format("Version {0}.{1}.{2}.{3}", version.Major, version.Minor, version.Build, version.Revision);
+            }
         }
 
         private void Button_Click_GitHub(object sender, RoutedEventArgs e)

@@ -27,6 +27,7 @@ namespace Shikashi
 
             ApplicationTrayIcon.TrayBalloonTipClicked += ApplicationTrayIcon_TrayBalloonTipClicked;
             uploader.OnUploadCompleted += HandleFileUploadResult;
+            updateHelper.OnApplicationReboot += RemoveSystrayIcon;
 
             if (Properties.Settings.Default.UseDarkTheme)
                 ModernTheme.ApplyTheme(ModernTheme.Theme.Dark, ModernTheme.CurrentAccent);
@@ -63,6 +64,11 @@ namespace Shikashi
             SetButtonsEnabled();
             LoadUserImages();
             updateHelper.CheckForUpdates();
+        }
+
+        private void RemoveSystrayIcon()
+        {
+            ApplicationTrayIcon.Dispose();
         }
 
         private void AboutMenuItem_Click(object sender, RoutedEventArgs e)
@@ -128,7 +134,7 @@ namespace Shikashi
 
         private void ExitApplication(object sender, RoutedEventArgs e)
         {
-            ApplicationTrayIcon.Dispose();
+            RemoveSystrayIcon();
             Environment.Exit(0);
         }
 
@@ -368,7 +374,7 @@ namespace Shikashi
 
         private void UpdateMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            updateHelper.CheckForUpdates();
+            updateHelper.CheckForUpdates(true);
         }
     }
 }

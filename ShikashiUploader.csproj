@@ -14,7 +14,7 @@
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
     <IsWebBootstrapper>true</IsWebBootstrapper>
-    <PublishUrl>C:\inetpub\wwwroot\uploader\</PublishUrl>
+    <PublishUrl>sftp://server.swooshdev.com:24577/home/shikashi/public_html/panel/client/</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Web</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
@@ -28,8 +28,10 @@
     <SupportUrl>mailto:support%40obbahhost.com</SupportUrl>
     <ProductName>Shikashi</ProductName>
     <PublisherName>DONG Inc.</PublisherName>
+    <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
+    <WebPage>publish.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
-    <ApplicationRevision>9</ApplicationRevision>
+    <ApplicationRevision>14</ApplicationRevision>
     <ApplicationVersion>2.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -154,7 +156,7 @@
     <Compile Include="GlobalFunction.cs" />
     <Compile Include="Hotkeys\KeyUtil.cs" />
     <Compile Include="Hotkeys\IHotkeyListener.cs" />
-    <Compile Include="KeyPressedEventArgs.cs" />
+    <Compile Include="Hotkeys\KeyPressedEventArgs.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

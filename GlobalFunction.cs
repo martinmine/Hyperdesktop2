@@ -60,7 +60,7 @@ namespace Shikashi
             }
         }
 
-        private static string GetExePath()
+        internal static string GetExePath()
         {
             return Process.GetCurrentProcess().MainModule.FileName;
         }
