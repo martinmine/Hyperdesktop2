@@ -9,15 +9,9 @@ namespace Shikashi
 {
     public static class ScreenCapture
     {
-        private const string TempFolder = "temp";
 
         internal static TempScreenshotFile CaptureRegion(Rectangle area, bool cursor = true, PixelFormat pixelFormat = PixelFormat.Format32bppRgb)
         {
-            if (!Directory.Exists(TempFolder))
-                Directory.CreateDirectory(TempFolder);
-
-            string fileName = Guid.NewGuid().ToString();
-               
             using (Bitmap bmp = new Bitmap(area.Width, area.Height, pixelFormat))
             {
                 using (Graphics g = Graphics.FromImage(bmp))
@@ -37,11 +31,8 @@ namespace Shikashi
                         }
                     }
                 }
-
-                bmp.Save(TempFolder + "\\" + fileName, ImageFormat.Png);
+                return new TempScreenshotFile(bmp);
             }
-
-            return new TempScreenshotFile(TempFolder + "\\" + fileName);
         }
 
         internal static TempScreenshotFile CaptureScreen(bool cursor = true, PixelFormat pixelFormat = PixelFormat.Format32bppRgb)

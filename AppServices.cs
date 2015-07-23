@@ -194,8 +194,10 @@ namespace Shikashi
         {
             if (Clipboard.ContainsImage())
             {
-                System.Drawing.Image image = System.Windows.Forms.Clipboard.GetImage();
-                await Uploader.UploadImage(image);
+                using (System.Drawing.Image image = System.Windows.Forms.Clipboard.GetImage())
+                {
+                    await Uploader.UploadImage(image);
+                }
             }
             else if (Clipboard.ContainsFileDropList())
             {

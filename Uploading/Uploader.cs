@@ -29,7 +29,7 @@ namespace Shikashi.Uploading
                 case "screen":
                     using (TempScreenshotFile screenshot = ScreenCapture.CaptureScreen(Properties.Settings.Default.ShowCursor))
                     {
-                        await HandleImageUpload(screenshot, true);
+                        await HandleImageUpload(screenshot);
                     }
 
                     break;
@@ -37,7 +37,7 @@ namespace Shikashi.Uploading
                 case "window":
                     using (TempScreenshotFile screenshot = ScreenCapture.Window(Properties.Settings.Default.ShowCursor))
                     {
-                        await HandleImageUpload(screenshot, true);
+                        await HandleImageUpload(screenshot);
                     }
 
                     break;
@@ -56,7 +56,7 @@ namespace Shikashi.Uploading
                         
                         using (TempScreenshotFile screenshot = ScreenCapture.CaptureRegion(rect))
                         {
-                            await HandleImageUpload(screenshot, true);
+                            await HandleImageUpload(screenshot);
                         }
                     }
                     finally
@@ -68,13 +68,13 @@ namespace Shikashi.Uploading
             }
         }
 
-        private async Task HandleImageUpload(TempScreenshotFile screenshot, bool edit = false)
+        private async Task HandleImageUpload(TempScreenshotFile screenshot)
         {
             GlobalFunctions.PlaySound(Properties.Resources.capture);
 
             FileUpload upload = new FileUpload(progressStatusListener);
             string nameSuffix = DateTime.Now.ToString("yyyy-MM-dd_HHmmss");
-            FileUploadResult result = await upload.UploadFile(screenshot.FileStream, string.Format("Screenshot {0}.png", nameSuffix), "image/png");
+            FileUploadResult result = await upload.UploadFile(screenshot.FileStream, string.Format("Upload {0}.png", nameSuffix), "image/png");
             OnUploadCompleted(result);
         }
 
@@ -89,24 +89,11 @@ namespace Shikashi.Uploading
             FileUploadResult result = await upload.UploadFile(File.OpenRead(path), System.IO.Path.GetFileName(path), mimeType);
             OnUploadCompleted(result);
         }
-
-        internal async Task UploadImage(System.Drawing.Image image)
+        
+        internal async Task UploadImage(Image image)
         {
-            using (MemoryStream memoryStream = new MemoryStream())
-            {
-                image.Save(memoryStream, ImageFormat.Png);
-
-                FileUpload upload = new FileUpload(progressStatusListener);
-                string nameSuffix = DateTime.Now.ToString("yyyy-MM-dd_HHmmss");
-                using (StreamReader reader = new StreamReader(memoryStream))
-                {
-                    memoryStream.Position = 0;
-                    reader.DiscardBufferedData();
-
-                    FileUploadResult result = await upload.UploadFile(memoryStream, string.Format("Copied image {0}.png", nameSuffix), "image/png");
-                    OnUploadCompleted(result);
-                }
-            }
+            using (TempScreenshotFile file = new TempScreenshotFile(image))
+                await HandleImageUpload(file);
         }
 
         void IHotkeyListener.OnKeyPress(Key key)
