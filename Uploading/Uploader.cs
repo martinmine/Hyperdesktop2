@@ -16,23 +16,30 @@ namespace Shikashi.Uploading
         private IUploadStatusListener progressStatusListener;
         private bool snipperOpen;
 
+
         public Uploader(IUploadStatusListener progressStatusListener)
         {
             this.progressStatusListener = progressStatusListener;
         }
         
-        internal void CaptureScreen(string type)
+        internal async void CaptureScreen(string type)
         {
-            Bitmap bmp = null;
-
             switch (type)
             {
                 case "screen":
-                    bmp = ScreenCapture.CaptureScreen(Properties.Settings.Default.ShowCursor);
+                    using (TempScreenshotFile screenshot = ScreenCapture.CaptureScreen(Properties.Settings.Default.ShowCursor))
+                    {
+                        await HandleImageUpload(screenshot, true);
+                    }
+
                     break;
 
                 case "window":
-                    bmp = ScreenCapture.Window(Properties.Settings.Default.ShowCursor);
+                    using (TempScreenshotFile screenshot = ScreenCapture.Window(Properties.Settings.Default.ShowCursor))
+                    {
+                        await HandleImageUpload(screenshot, true);
+                    }
+
                     break;
 
                 default:
@@ -43,12 +50,14 @@ namespace Shikashi.Uploading
 
                     try
                     {
-                        System.Drawing.Rectangle rect = Snipper.GetRegion();
-
-                        if (rect == new System.Drawing.Rectangle(0, 0, 0, 0))
+                        Rectangle rect = Snipper.GetRegion();
+                        if (rect == Rectangle.Empty)
                             return;
-
-                        bmp = ScreenCapture.CaptureRegion(rect);
+                        
+                        using (TempScreenshotFile screenshot = ScreenCapture.CaptureRegion(rect))
+                        {
+                            await HandleImageUpload(screenshot, true);
+                        }
                     }
                     finally
                     {
@@ -57,43 +66,16 @@ namespace Shikashi.Uploading
 
                     break;
             }
-            WorkImage(bmp, true);
         }
 
-        internal async void WorkImage(Bitmap bmp, bool edit = false)
+        private async Task HandleImageUpload(TempScreenshotFile screenshot, bool edit = false)
         {
-            try
-            {
-                GlobalFunctions.PlaySound(Properties.Resources.capture);
+            GlobalFunctions.PlaySound(Properties.Resources.capture);
 
-                if (bmp == null)
-                {
-                    return;
-                }
-
-
-                using (MemoryStream memoryStream = new MemoryStream())
-                {
-                    bmp.Save(memoryStream, ImageFormat.Png);
-                    FileUpload upload = new FileUpload(progressStatusListener);
-                    string nameSuffix = DateTime.Now.ToString("yyyy-MM-dd_HHmmss");
-
-                    using (StreamReader reader = new StreamReader(memoryStream))
-                    {
-                        memoryStream.Position = 0;
-                        reader.DiscardBufferedData();
-
-                        FileUploadResult result = await upload.UploadFile(memoryStream, string.Format("Screenshot {0}.png", nameSuffix), "image/png");
-                        OnUploadCompleted(result);
-                    }
-                }
-            }
-            finally
-            {
-                if (bmp != null)
-                    bmp.Dispose();
-                //GC.Collect();
-            }
+            FileUpload upload = new FileUpload(progressStatusListener);
+            string nameSuffix = DateTime.Now.ToString("yyyy-MM-dd_HHmmss");
+            FileUploadResult result = await upload.UploadFile(screenshot.FileStream, string.Format("Screenshot {0}.png", nameSuffix), "image/png");
+            OnUploadCompleted(result);
         }
 
         internal async Task UploadFile(string path)

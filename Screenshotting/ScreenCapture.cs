@@ -1,54 +1,55 @@
-﻿using System;
+﻿using Shikashi.Screenshotting;
+using System;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.IO;
 using System.Runtime.InteropServices;
 
 namespace Shikashi
 {
     public static class ScreenCapture
     {
+        private const string TempFolder = "temp";
 
-        public static Bitmap CaptureRegion(Rectangle area, bool cursor = true, PixelFormat pixelFormat = PixelFormat.Format32bppRgb)
+        internal static TempScreenshotFile CaptureRegion(Rectangle area, bool cursor = true, PixelFormat pixelFormat = PixelFormat.Format32bppRgb)
         {
-            Bitmap bmp;
+            if (!Directory.Exists(TempFolder))
+                Directory.CreateDirectory(TempFolder);
 
-            try
+            string fileName = Guid.NewGuid().ToString();
+               
+            using (Bitmap bmp = new Bitmap(area.Width, area.Height, pixelFormat))
             {
-                bmp = new Bitmap(area.Width, area.Height, pixelFormat);
-            }
-            catch
-            {
-                bmp = new Bitmap(100, 100, pixelFormat);
-            }
-
-            using (Graphics g = Graphics.FromImage(bmp))
-            {
-                g.CopyFromScreen(area.X, area.Y, 0, 0, bmp.Size, CopyPixelOperation.SourceCopy);
-
-                if (cursor)
+                using (Graphics g = Graphics.FromImage(bmp))
                 {
-                    
-                    CURSORINFO cursor_info;
-                    cursor_info.cbSize = Marshal.SizeOf(typeof(CURSORINFO));
-                    
-                    if (NativeMethods.GetCursorInfo(out cursor_info) && cursor_info.flags == (Int32)0x0001)
+                    g.CopyFromScreen(area.X, area.Y, 0, 0, bmp.Size, CopyPixelOperation.SourceCopy);
+
+                    if (cursor)
                     {
-                        IntPtr hdc = g.GetHdc();
-                        NativeMethods.DrawIconEx(hdc, cursor_info.ptScreenPos.x - area.X, cursor_info.ptScreenPos.y - area.Y, cursor_info.hCursor, 0, 0, 0, IntPtr.Zero, (Int32)0x0003);
-                        g.ReleaseHdc();
+                        CURSORINFO cursor_info;
+                        cursor_info.cbSize = Marshal.SizeOf(typeof(CURSORINFO));
+
+                        if (NativeMethods.GetCursorInfo(out cursor_info) && cursor_info.flags == (Int32)0x0001)
+                        {
+                            IntPtr hdc = g.GetHdc();
+                            NativeMethods.DrawIconEx(hdc, cursor_info.ptScreenPos.x - area.X, cursor_info.ptScreenPos.y - area.Y, cursor_info.hCursor, 0, 0, 0, IntPtr.Zero, (Int32)0x0003);
+                            g.ReleaseHdc();
+                        }
                     }
                 }
+
+                bmp.Save(TempFolder + "\\" + fileName, ImageFormat.Png);
             }
 
-            return bmp;
+            return new TempScreenshotFile(TempFolder + "\\" + fileName);
         }
 
-        public static Bitmap CaptureScreen(bool cursor = true, PixelFormat pixelFormat = PixelFormat.Format32bppRgb)
+        internal static TempScreenshotFile CaptureScreen(bool cursor = true, PixelFormat pixelFormat = PixelFormat.Format32bppRgb)
         {
             return CaptureRegion(ScreenBounds.Bounds, cursor, pixelFormat);
         }
 
-        public static Bitmap Window(bool cursor = true, PixelFormat pixel_format = PixelFormat.Format32bppRgb)
+        internal static TempScreenshotFile Window(bool cursor = true, PixelFormat pixel_format = PixelFormat.Format32bppRgb)
         {
             Rectangle rect = new Rectangle(); // get rekt m8 1v1 me fgt xddddddd
             NativeMethods.GetWindowRect(NativeMethods.GetForegroundWindow(), ref rect);

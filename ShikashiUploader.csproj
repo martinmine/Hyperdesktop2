@@ -126,6 +126,7 @@
     <Compile Include="Hotkeys\HotkeyManager.cs" />
     <Compile Include="Hotkeys\Hotkeys.cs" />
     <Compile Include="NativeMethods.cs" />
+    <Compile Include="Screenshotting\TempScreenshotFile.cs" />
     <Compile Include="UpdateHelper.cs" />
     <Compile Include="Uploading\MimeMapping.cs" />
     <Compile Include="Screenshotting\ScreenBounds.cs" />
