@@ -2,7 +2,7 @@
 <Project ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectView>ProjectFiles</ProjectView>
-    <PublishUrlHistory>sftp://server.swooshdev.com:24577/home/shikashi/public_html/panel/client/|C:\inetpub\wwwroot\uploader\|publish\</PublishUrlHistory>
+    <PublishUrlHistory>C:\inetpub\wwwroot\uploader\|sftp://server.swooshdev.com:24577/home/shikashi/public_html/panel/client/|publish\</PublishUrlHistory>
     <InstallUrlHistory>https://panel.shikashi.me/client/</InstallUrlHistory>
     <SupportUrlHistory>mailto:support%40obbahhost.com</SupportUrlHistory>
     <UpdateUrlHistory />

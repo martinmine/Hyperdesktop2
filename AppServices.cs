@@ -117,6 +117,14 @@ namespace Shikashi
             clipboardUpload.Header = "Upload from clipboard";
             clipboardUpload.Click += UploadFromClipboard;
 
+            MenuItem options = new MenuItem();
+            options.Header = "Options";
+            options.Click += OpenOptions;
+
+            MenuItem registerHotkeys = new MenuItem();
+            registerHotkeys.Header = "Register hotkeys";
+            registerHotkeys.Click += RegisterHotkeys;
+
             MenuItem about = new MenuItem();
             about.Header = "About";
             about.Click += About_Click;
@@ -130,10 +138,24 @@ namespace Shikashi
             ApplicationTrayIcon.ContextMenu.Items.Add(openDashboard);
             ApplicationTrayIcon.ContextMenu.Items.Add(regionalScreenshot);
             ApplicationTrayIcon.ContextMenu.Items.Add(screenshot);
-            ApplicationTrayIcon.ContextMenu.Items.Add(new Separator());
             ApplicationTrayIcon.ContextMenu.Items.Add(clipboardUpload);
+            ApplicationTrayIcon.ContextMenu.Items.Add(registerHotkeys);
+            ApplicationTrayIcon.ContextMenu.Items.Add(new Separator());
+            ApplicationTrayIcon.ContextMenu.Items.Add(options);
             ApplicationTrayIcon.ContextMenu.Items.Add(about);
             ApplicationTrayIcon.ContextMenu.Items.Add(exit);
+        }
+
+        private void RegisterHotkeys(object sender, RoutedEventArgs e)
+        {
+            HotkeyManager.GetInstance().UnregisterHotkeys();
+            HotkeyManager.GetInstance().RegisterHotkeys();
+        }
+
+        private void OpenOptions(object sender, RoutedEventArgs e)
+        {
+            Preferences prefs = new Preferences();
+            prefs.ShowDialog();
         }
 
         private void Exit_Click(object sender, RoutedEventArgs e)

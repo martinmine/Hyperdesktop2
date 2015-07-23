@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Deployment.Application;
 using System.Diagnostics;
+using System.Threading;
 using System.Windows;
 
 namespace Shikashi

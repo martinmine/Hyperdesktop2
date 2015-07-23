@@ -20,18 +20,7 @@ namespace Shikashi.Uploading
         {
             this.progressStatusListener = progressStatusListener;
         }
-
-        internal Bitmap EditScreenshot(Bitmap bmp)
-        {
-            if (!Properties.Settings.Default.EditScreenshot)
-                return null;
-
-            Edit edit = new Edit(bmp);
-            edit.ShowDialog();
-
-            return edit.Result;
-        }
-
+        
         internal void CaptureScreen(string type)
         {
             Bitmap bmp = null;
@@ -77,9 +66,6 @@ namespace Shikashi.Uploading
             {
                 GlobalFunctions.PlaySound(Properties.Resources.capture);
 
-                if (Properties.Settings.Default.EditScreenshot && edit)
-                    bmp = EditScreenshot(bmp);
-
                 if (bmp == null)
                 {
                     return;
@@ -91,6 +77,7 @@ namespace Shikashi.Uploading
                     bmp.Save(memoryStream, ImageFormat.Png);
                     FileUpload upload = new FileUpload(progressStatusListener);
                     string nameSuffix = DateTime.Now.ToString("yyyy-MM-dd_HHmmss");
+
                     using (StreamReader reader = new StreamReader(memoryStream))
                     {
                         memoryStream.Position = 0;
@@ -105,7 +92,7 @@ namespace Shikashi.Uploading
             {
                 if (bmp != null)
                     bmp.Dispose();
-                GC.Collect();
+                //GC.Collect();
             }
         }
 

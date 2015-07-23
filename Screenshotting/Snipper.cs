@@ -123,7 +123,6 @@ namespace Shikashi.Screenshotting
         {
             if (e.Button != MouseButtons.Left || start == InvalidPoint)
                 return;
-                Debug.WriteLine("OnMouseMove");
 
             int x1 = Math.Min(e.X, start.X);
             int y1 = Math.Min(e.Y, start.Y);
