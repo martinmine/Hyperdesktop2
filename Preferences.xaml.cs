@@ -251,5 +251,20 @@ namespace Shikashi
                 hotkeyContext = -1;
             }
         }
+
+        private void button_Click(object sender, RoutedEventArgs e)
+        {
+            AppServices.UpdateHelper.CheckForUpdates(true);
+        }
+
+        private void Button_Click_Hyperdesktop(object sender, RoutedEventArgs e)
+        {
+            Process.Start("https://github.com/TheTarkus/Hyperdesktop2/");
+        }
+
+        private void Button_Click_GitHub(object sender, RoutedEventArgs e)
+        {
+            Process.Start("https://github.com/martinmine/Shikashi-Uploader");
+        }
     }
 }

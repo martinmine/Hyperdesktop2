@@ -3,9 +3,11 @@ using ModernWPF;
 using Shikashi.API;
 using Shikashi.Uploading;
 using System;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
+using System.Linq;
 
 namespace Shikashi
 {
@@ -17,6 +19,8 @@ namespace Shikashi
         private static MainWindow mainWindow;
         private static string lastViewedLink;
         private static TaskbarIcon ApplicationTrayIcon;
+
+        internal static readonly ObservableCollection<UploadedContent> UserContent = new ObservableCollection<UploadedContent>();
 
         public void OnApplicationStartup(object sender, StartupEventArgs e)
         {
@@ -53,6 +57,21 @@ namespace Shikashi
             UpdateHelper.CheckForUpdates();
 
             ShowTaskbarIcon();
+            LoadItems();
+        }
+
+        private async void LoadItems()
+        {
+            UploadedContent[] items = await ListUploadedImagesRequest.GetImages();
+
+            Array.Reverse(items, 0, items.Length);
+
+            foreach (UploadedContent item in items)
+            {
+                UserContent.Add(item);
+            }
+
+            BuildTrayContextMenu();
         }
 
         private void Uploader_OnUploadCompleted(FileUploadResult result)
@@ -97,6 +116,12 @@ namespace Shikashi
             ApplicationTrayIcon.TrayBalloonTipClicked += ApplicationTrayIcon_TrayBalloonTipClicked;
             ApplicationTrayIcon.TrayMouseDoubleClick += ApplicationTrayIcon_TrayMouseDoubleClick;
 
+            BuildTrayContextMenu();
+        }
+
+        private void BuildTrayContextMenu()
+        {
+
             MenuItem minimizeToTray = new MenuItem();
             minimizeToTray.Header = "Minimize to tray";
             minimizeToTray.Click += MinimizeToTray;
@@ -140,6 +165,18 @@ namespace Shikashi
             ApplicationTrayIcon.ContextMenu.Items.Add(screenshot);
             ApplicationTrayIcon.ContextMenu.Items.Add(clipboardUpload);
             ApplicationTrayIcon.ContextMenu.Items.Add(registerHotkeys);
+            ApplicationTrayIcon.ContextMenu.Items.Add(new Separator());
+
+            for (int i = 0; i < 5 && i < UserContent.Count; i++)
+            {
+                UploadedContent upload = UserContent[i];
+                MenuItem uploadHistoryItem = new MenuItem();
+                uploadHistoryItem.Header = upload.FileName;
+                uploadHistoryItem.Click += (e, o) => { Process.Start(string.Format("{0}/{1}", APIConfig.BaseURL, upload.Key)); };
+
+                ApplicationTrayIcon.ContextMenu.Items.Add(uploadHistoryItem);
+            }
+
             ApplicationTrayIcon.ContextMenu.Items.Add(new Separator());
             ApplicationTrayIcon.ContextMenu.Items.Add(options);
             ApplicationTrayIcon.ContextMenu.Items.Add(about);

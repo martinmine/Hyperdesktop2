@@ -14,7 +14,7 @@ namespace Shikashi
     /// </summary>
     public partial class MainWindow : Window, IUploadStatusListener
     {
-        private ObservableCollection<UploadedContent> userContent = new ObservableCollection<UploadedContent>();
+        //private ObservableCollection<UploadedContent> userContent = new ObservableCollection<UploadedContent>();
         internal bool WindowClosed { get; private set; }
 
         public MainWindow()
@@ -31,7 +31,7 @@ namespace Shikashi
             if (!string.IsNullOrEmpty(Properties.Settings.Default.CurrentUser))
                 PasswordField.Password = "*********";
 
-            UploadList.ItemsSource = userContent;
+            UploadList.ItemsSource = AppServices.UserContent;
 
             SetButtonsEnabled();
             LoadUserImages();
@@ -73,7 +73,7 @@ namespace Shikashi
             Properties.Settings.Default.AuthExpirationTime = 0;
             Properties.Settings.Default.Save();
 
-            userContent.Clear();
+            AppServices.UserContent.Clear();
             SetButtonsEnabled();
         }
 
@@ -131,7 +131,7 @@ namespace Shikashi
 
             foreach (UploadedContent item in items) 
             {
-                userContent.Add(item);
+                AppServices.UserContent.Add(item);
             }
         }
         
@@ -154,7 +154,7 @@ namespace Shikashi
             ProgressGroupBox.Header = "Upload Progress";
             UploadProgressBar.Value = 0;
 
-            userContent.Insert(0, content);
+            AppServices.UserContent.Insert(0, content);
         }
 
         private DateTime lastUpdate;
@@ -198,24 +198,24 @@ namespace Shikashi
             if (UploadList.SelectedIndex < 0)
                 return;
 
-            UploadedContent selectedItem = userContent[UploadList.SelectedIndex];
+            UploadedContent selectedItem = AppServices.UserContent[UploadList.SelectedIndex];
             Process.Start(string.Format("{0}/{1}", APIConfig.BaseURL, selectedItem.Key));
         }
 
         private void CopySelectedUpload(object sender, RoutedEventArgs e)
         {
-            UploadedContent selectedItem = userContent[UploadList.SelectedIndex];
+            UploadedContent selectedItem = AppServices.UserContent[UploadList.SelectedIndex];
             string link = string.Format("{0}/{1}", APIConfig.BaseURL, selectedItem.Key);
             Clipboard.SetText(link);
         }
 
         private async void DeleteSelectedUpload(object sender, RoutedEventArgs e)
         {
-            UploadedContent selectedItem = userContent[UploadList.SelectedIndex];
+            UploadedContent selectedItem = AppServices.UserContent[UploadList.SelectedIndex];
 
             if (await DeleteImageRequest.RequestDeletion(selectedItem.Key))
             {
-                userContent.RemoveAt(UploadList.SelectedIndex);
+                AppServices.UserContent.RemoveAt(UploadList.SelectedIndex);
             }
             else
             {
@@ -251,6 +251,26 @@ namespace Shikashi
         {
             WindowClosed = true;
             base.OnClosing(e);
+        }
+
+        private void MinimizeToTray(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        private void OpenDashboard(object sender, RoutedEventArgs e)
+        {
+            Process.Start("https://panel.shikashi.me/login");
+        }
+
+        private void UploadFromClipboard(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Options(object sender, RoutedEventArgs e)
+        {
+            new Preferences().Show();
         }
     }
 }

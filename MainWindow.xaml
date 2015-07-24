@@ -4,42 +4,19 @@
         xmlns:p="clr-namespace:Shikashi.Properties"
         xmlns:tb="http://www.hardcodet.net/taskbar"
         xmlns:modern="http://modernwpf"
+        xmlns:shell="clr-namespace:Microsoft.Windows.Shell;assembly=Microsoft.Windows.Shell"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         Style="{StaticResource ModernWindow}"
         ResizeMode="NoResize"
-        Title="Shikashi Uploader" Height="614" Width="330" Icon="icon.ico" Drop="GroupBox_Drop" AllowDrop="True">
+        Title="Shikashi Uploader" Height="485.809" Width="330" Icon="icon.ico" Drop="GroupBox_Drop" AllowDrop="True">
     <StackPanel Orientation="Vertical">
-        <DockPanel LastChildFill="True">
-            <Menu DockPanel.Dock="Top">
-                <MenuItem Header="File">
-                    <MenuItem Header="Hide Window" Click="HideWindow"/>
-                    <MenuItem Header="Exit" Click="ExitApplication"/>
-                </MenuItem>
-                <MenuItem Header="Options">
-                    <MenuItem Header="Register Hotkeys" Click="RegisterHotkeys"/>
-                    <MenuItem Header="Preferences" Click="PreferencesMenuItem_Click"/>
-                </MenuItem>
-                <MenuItem Header="Help">
-                    <MenuItem Header="About" Click="AboutMenuItem_Click"/>
-                    <MenuItem Header="Check for updates" Click="UpdateMenuItem_Click"/>
-                </MenuItem>
-            </Menu>
-            <StackPanel></StackPanel>
-        </DockPanel>
-        <GroupBox Header="Upload Files" Margin="10,0,10,0" Height="65" Style="{DynamicResource DarkThemedGroupBoxStyle}">
+        <GroupBox x:Name="ProgressGroupBox" Header="Uploading" Margin="10,0,10,0" Height="95" Style="{DynamicResource DarkThemedGroupBoxStyle}">
             <Grid>
-                <Button Content="Browse" HorizontalAlignment="Right" Margin="0,0,10,0" VerticalAlignment="Center" Width="75" Click="UploadFiles"/>
-                <TextBlock HorizontalAlignment="Left" Height="33" Margin="10,0,0,0" TextWrapping="Wrap" Text="Drag and drop files here, or select them by pressing browse" VerticalAlignment="Center" Width="176"/>
+                <Button Content="Region" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="75" Click="CaptureRegion" Height="32"/>
+                <Button Content="Browse" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" Width="75" Click="UploadFiles" Height="32"/>
+                <Button Content="Capture" HorizontalAlignment="Right" Margin="0,10,10,0" VerticalAlignment="Top" Width="76" Click="Capture" Height="32"/>
+                <ProgressBar x:Name="UploadProgressBar" HorizontalAlignment="Stretch" Height="20" Margin="10,47,10,0" VerticalAlignment="Top"/>
             </Grid>
-        </GroupBox>
-        <GroupBox Header="Screenshot" Margin="10,0,10,0" Height="65" Style="{DynamicResource DarkThemedGroupBoxStyle}">
-            <Grid>
-                <Button Content="Capture" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center" Width="75" Click="Capture"/>
-                <Button Content="Capture region" HorizontalAlignment="Right" Margin="0,3,10,3" VerticalAlignment="Center" Width="120" Click="CaptureRegion"/>
-            </Grid>
-        </GroupBox>
-        <GroupBox x:Name="ProgressGroupBox" Header="Upload Progress" Margin="10,0,10,0" Height="64" Style="{DynamicResource DarkThemedGroupBoxStyle}">
-            <ProgressBar x:Name="UploadProgressBar" HorizontalAlignment="Stretch" Height="20" Margin="10,0,10,0" VerticalAlignment="Center"/>
         </GroupBox>
         <GroupBox Header="Your Account" Margin="10,0,10,0" Height="130" Style="{DynamicResource DarkThemedGroupBoxStyle}">
             <Grid>
@@ -56,8 +33,7 @@
             <ListView x:Name="UploadList" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10,10,10,10" ItemsSource="{Binding UploadedItems}" MouseDoubleClick="UploadList_MouseDoubleClick">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="Link" Width="Auto" DisplayMemberBinding="{Binding Key}"/>
-                        <GridViewColumn Header="Filename" Width="Auto" DisplayMemberBinding="{Binding FileName}"/>
+                        <GridViewColumn Header="Filename" DisplayMemberBinding="{Binding FileName}"/>
                     </GridView>
                 </ListView.View>
                 <ListView.ContextMenu>

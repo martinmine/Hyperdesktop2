@@ -60,6 +60,17 @@
                     <Button HorizontalAlignment="Left" Margin="149,110,0,0" VerticalAlignment="Top" Width="212" Height="32" Click="SetFullScreenshotHotkeys" x:Name="FullscreenScreenshotHotkeyBtn"/>
                 </Grid>
             </TabItem>
+            <TabItem Style="{StaticResource ModernTabItem}" Header="About" x:Name="AboutTab">
+                <Grid>
+                    <Label Content="Shikashi Uploader" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Top" FontSize="22"/>
+                    <Label Content="Based on hyperdesktop2" HorizontalAlignment="Center" Margin="0,39,0,0" VerticalAlignment="Top" FontSize="12"/>
+                    <Button Content="GitHub" HorizontalAlignment="Left" Margin="90,181,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_GitHub"/>
+                    <Button Content="hyperdesktop2" HorizontalAlignment="Left" Margin="170,181,0,0" VerticalAlignment="Top" Width="116" Click="Button_Click_Hyperdesktop"/>
+                    <Label x:Name="BuildLabel" Content="Build version goes here 123" HorizontalAlignment="Center" Margin="0,70,0,0" VerticalAlignment="Top"/>
+                    <Button x:Name="button" Content="Update" HorizontalAlignment="Left" Margin="10,181,0,0" VerticalAlignment="Top" Width="75" Click="button_Click"/>
+
+                </Grid>
+            </TabItem>
         </TabControl>
     </Grid>
 </Window>
