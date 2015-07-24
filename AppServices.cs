@@ -150,10 +150,6 @@ namespace Shikashi
             registerHotkeys.Header = "Register hotkeys";
             registerHotkeys.Click += RegisterHotkeys;
 
-            MenuItem about = new MenuItem();
-            about.Header = "About";
-            about.Click += About_Click;
-
             MenuItem exit = new MenuItem();
             exit.Header = "Exit";
             exit.Click += Exit_Click;
@@ -179,7 +175,6 @@ namespace Shikashi
 
             ApplicationTrayIcon.ContextMenu.Items.Add(new Separator());
             ApplicationTrayIcon.ContextMenu.Items.Add(options);
-            ApplicationTrayIcon.ContextMenu.Items.Add(about);
             ApplicationTrayIcon.ContextMenu.Items.Add(exit);
         }
 
@@ -198,12 +193,6 @@ namespace Shikashi
         private void Exit_Click(object sender, RoutedEventArgs e)
         {
             Exit();
-        }
-
-        private void About_Click(object sender, RoutedEventArgs e)
-        {
-            AboutWindow about = new AboutWindow();
-            about.ShowDialog();
         }
 
         private void Screenshot_Click(object sender, RoutedEventArgs e)
