@@ -1,5 +1,7 @@
 ﻿using ModernWPF;
+using System;
 using System.Collections.Generic;
+using System.Deployment.Application;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
@@ -25,7 +27,7 @@ namespace Shikashi
             InitializeComponent();
 
             if (Properties.Settings.Default.RegionalScreenshotHotkeyFirst > 0)
-                RegionalScreenshotHotkeyBtn.Content += ((Key)Properties.Settings.Default.RegionalScreenshotHotkeyFirst).ToString() + " " ;
+                RegionalScreenshotHotkeyBtn.Content += ((Key)Properties.Settings.Default.RegionalScreenshotHotkeyFirst).ToString() + " ";
 
             if (Properties.Settings.Default.RegionalScreenshotHotkeySecond > 0)
                 RegionalScreenshotHotkeyBtn.Content += ((Key)Properties.Settings.Default.RegionalScreenshotHotkeySecond).ToString() + " ";
@@ -61,7 +63,14 @@ namespace Shikashi
 
             if (Properties.Settings.Default.FullScreenshotHotkeyValue > 0)
                 FullscreenScreenshotHotkeyBtn.Content += ((Key)Properties.Settings.Default.FullScreenshotHotkeyValue).ToString() + " ";
+
             HotkeyManager.GetInstance().UnregisterHotkeys();
+
+            if (ApplicationDeployment.IsNetworkDeployed)
+            {
+                Version version = ApplicationDeployment.CurrentDeployment.CurrentVersion;
+                BuildLabel.Content = string.Format("Version {0}.{1}.{2}.{3}", version.Major, version.Minor, version.Build, version.Revision);
+            }
         }
 
         protected override void OnClosing(System.ComponentModel.CancelEventArgs e)

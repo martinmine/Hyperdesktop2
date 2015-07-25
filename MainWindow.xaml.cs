@@ -147,8 +147,6 @@ namespace Shikashi
         {
             ProgressGroupBox.Header = "Upload Progress";
             UploadProgressBar.Value = 0;
-
-            AppServices.UserContent.Insert(0, content);
         }
 
         private DateTime lastUpdate;

@@ -56,6 +56,8 @@ namespace Shikashi
             HotkeyManager.GetInstance().RegisterHotkeys();
             UpdateHelper.CheckForUpdates();
 
+
+
             ShowTaskbarIcon();
             LoadItems();
         }
@@ -270,6 +272,9 @@ namespace Shikashi
 
             GlobalFunctions.PlaySound(Shikashi.Properties.Resources.success);
 
+            AppServices.UserContent.Insert(0, content);
+
+            BuildTrayContextMenu();
             if (mainWindow != null)
                 mainWindow.ContentUplaoded(content);
         }
