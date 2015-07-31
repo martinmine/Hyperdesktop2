@@ -263,6 +263,7 @@ namespace Shikashi
 
         private void button_Click(object sender, RoutedEventArgs e)
         {
+            throw new Exception("foobar");
             AppServices.UpdateHelper.CheckForUpdates(true);
         }
 

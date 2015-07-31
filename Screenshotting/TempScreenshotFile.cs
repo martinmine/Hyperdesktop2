@@ -10,7 +10,7 @@ namespace Shikashi.Screenshotting
         private const string TempFolder = "temp";
 
         internal Stream FileStream { get; private set; }
-        private string path;
+        internal string Path { get; private set; }
 
         public TempScreenshotFile(Image image)
         {
@@ -21,14 +21,14 @@ namespace Shikashi.Screenshotting
 
             image.Save(path, ImageFormat.Png);
 
-            this.path = path;
+            this.Path = path;
             this.FileStream = File.Open(path, FileMode.Open);
         }
 
         public void Dispose()
         {
             FileStream.Dispose();
-            File.Delete(path);
+            File.Delete(Path);
         }
     }
 }

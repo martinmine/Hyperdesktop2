@@ -191,13 +191,13 @@ namespace Shikashi
                 return;
 
             UploadedContent selectedItem = AppServices.UserContent[UploadList.SelectedIndex];
-            Process.Start(string.Format("{0}/{1}", APIConfig.BaseURL, selectedItem.Key));
+            Process.Start(string.Format("{0}/{1}", APIConfig.HostURL, selectedItem.Key));
         }
 
         private void CopySelectedUpload(object sender, RoutedEventArgs e)
         {
             UploadedContent selectedItem = AppServices.UserContent[UploadList.SelectedIndex];
-            string link = string.Format("{0}/{1}", APIConfig.BaseURL, selectedItem.Key);
+            string link = string.Format("{0}/{1}", APIConfig.HostURL, selectedItem.Key);
             Clipboard.SetText(link);
         }
 

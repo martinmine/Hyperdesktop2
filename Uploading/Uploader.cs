@@ -74,8 +74,13 @@ namespace Shikashi.Uploading
 
             FileUpload upload = new FileUpload(progressStatusListener);
             string nameSuffix = DateTime.Now.ToString("yyyy-MM-dd_HHmmss");
-            FileUploadResult result = await upload.UploadFile(screenshot.FileStream, string.Format("Upload {0}.png", nameSuffix), "image/png");
+            FileUploadResult result = await upload.UploadFile(screenshot.FileStream, string.Format("Upload {0}.png", nameSuffix), "image/png", GetFileSize(screenshot.Path));
             OnUploadCompleted(result);
+        }
+
+        private long GetFileSize(string path)
+        {
+            return new FileInfo(path).Length;
         }
 
         internal async Task UploadFile(string path)
@@ -86,7 +91,7 @@ namespace Shikashi.Uploading
             Stream fileStream = File.OpenRead(path);
             string mimeType = MimeMapping.Instance.GetMimeType(extension);
 
-            FileUploadResult result = await upload.UploadFile(File.OpenRead(path), System.IO.Path.GetFileName(path), mimeType);
+            FileUploadResult result = await upload.UploadFile(File.OpenRead(path), System.IO.Path.GetFileName(path), mimeType, GetFileSize(path));
             OnUploadCompleted(result);
         }
         
