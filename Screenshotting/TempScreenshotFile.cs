@@ -16,7 +16,8 @@ namespace Shikashi.Screenshotting
         {
             if (!Directory.Exists(TempFolder))
                 Directory.CreateDirectory(TempFolder);
-
+            // Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+            // Path.GetTempPath()
             string path = TempFolder + "\\" + Guid.NewGuid().ToString();
 
             image.Save(path, ImageFormat.Png);
