@@ -18,7 +18,7 @@ namespace Shikashi.API
             this.listener = listener;
         }
 
-        internal async Task<FileUploadResult> UploadFile(Stream data, string fileName, string contentType)
+        internal async Task<FileUploadResult> UploadFile(Stream data, string fileName, string contentType, long size)
         {
             string uri = string.Format("{0}/upload", APIConfig.BaseURL);
 
@@ -35,6 +35,7 @@ namespace Shikashi.API
                         return FileUploadResult.NotAuthorized;
 
                     client.DefaultRequestHeaders.Add("Authorization", key.Token);
+                    client.DefaultRequestHeaders.Add("UploadFileSize", size.ToString());
 
                     using (MultipartFormDataContent content = new MultipartFormDataContent())
                     {

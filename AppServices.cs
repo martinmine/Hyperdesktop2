@@ -8,6 +8,8 @@ using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Linq;
+using System.Windows.Threading;
+using System.IO;
 
 namespace Shikashi
 {
@@ -56,21 +58,27 @@ namespace Shikashi
             HotkeyManager.GetInstance().RegisterHotkeys();
             UpdateHelper.CheckForUpdates();
 
-
-
             ShowTaskbarIcon();
             LoadItems();
+        }
+
+        public void OnUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs args)
+        {
+            File.AppendAllText(AppDomain.CurrentDomain.BaseDirectory + "global_errors.txt", args.Exception.ToString());
         }
 
         private async void LoadItems()
         {
             UploadedContent[] items = await ListUploadedImagesRequest.GetImages();
 
-            Array.Reverse(items, 0, items.Length);
-
-            foreach (UploadedContent item in items)
+            if (items != null)
             {
-                UserContent.Add(item);
+                Array.Reverse(items, 0, items.Length);
+
+                foreach (UploadedContent item in items)
+                {
+                    UserContent.Add(item);
+                }
             }
 
             BuildTrayContextMenu();
@@ -170,7 +178,7 @@ namespace Shikashi
                 UploadedContent upload = UserContent[i];
                 MenuItem uploadHistoryItem = new MenuItem();
                 uploadHistoryItem.Header = upload.FileName;
-                uploadHistoryItem.Click += (e, o) => { Process.Start(string.Format("{0}/{1}", APIConfig.BaseURL, upload.Key)); };
+                uploadHistoryItem.Click += (e, o) => { Process.Start(string.Format("{0}/{1}", APIConfig.HostURL, upload.Key)); };
 
                 ApplicationTrayIcon.ContextMenu.Items.Add(uploadHistoryItem);
             }
@@ -259,7 +267,7 @@ namespace Shikashi
 
         public void ContentUplaoded(UploadedContent content)
         {
-            string link = string.Format("{0}/{1}", APIConfig.BaseURL, content.Key);
+            string link = string.Format("{0}/{1}", APIConfig.HostURL, content.Key);
 
             if (Shikashi.Properties.Settings.Default.CopyLinksToClipboard)
                 Clipboard.SetText(link);
