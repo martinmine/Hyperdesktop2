@@ -7,18 +7,12 @@ namespace Shikashi.Screenshotting
 {
     class TempScreenshotFile : IDisposable
     {
-        private const string TempFolder = "temp";
-
         internal Stream FileStream { get; private set; }
         internal string Path { get; private set; }
 
         public TempScreenshotFile(Image image)
         {
-            if (!Directory.Exists(TempFolder))
-                Directory.CreateDirectory(TempFolder);
-            // Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
-            // Path.GetTempPath()
-            string path = TempFolder + "\\" + Guid.NewGuid().ToString();
+            string path = System.IO.Path.GetTempFileName();
 
             image.Save(path, ImageFormat.Png);
 

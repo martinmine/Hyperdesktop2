@@ -64,7 +64,7 @@ namespace Shikashi
 
         public void OnUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs args)
         {
-            File.AppendAllText(AppDomain.CurrentDomain.BaseDirectory + "global_errors.txt", args.Exception.ToString());
+            File.AppendAllText(AppDomain.CurrentDomain.BaseDirectory + "global_errors.txt", args.Exception.ToString() + Environment.NewLine);
         }
 
         private async void LoadItems()
