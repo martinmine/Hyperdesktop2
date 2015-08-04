@@ -38,9 +38,9 @@ namespace Shikashi.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int AuthExpirationTime {
+        public long AuthExpirationTime {
             get {
-                return ((int)(this["AuthExpirationTime"]));
+                return ((long)(this["AuthExpirationTime"]));
             }
             set {
                 this["AuthExpirationTime"] = value;
@@ -356,6 +356,18 @@ namespace Shikashi.Properties {
             }
             set {
                 this["UseDarkTheme"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool SSLEnabled {
+            get {
+                return ((bool)(this["SSLEnabled"]));
+            }
+            set {
+                this["SSLEnabled"] = value;
             }
         }
     }

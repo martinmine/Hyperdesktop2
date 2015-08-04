@@ -10,7 +10,7 @@ namespace Shikashi.API
         public string Token { get; set; }
 
         [DataMember(Name="expirationTime")]
-        public int ExpirationTime {get; set; }
+        public long ExpirationTime {get; set; }
 
         private static DateTime epoche = new DateTime(1970, 1, 1);
 

@@ -46,7 +46,7 @@
                     <CheckBox Content="Enable sound effects" HorizontalAlignment="Left" Margin="10,70,0,0" VerticalAlignment="Top" IsChecked="{Binding Source={x:Static p:Settings.Default}, Path=SoundEffects, Mode=TwoWay}"/>
                     <CheckBox Content="Enable systray notifications" HorizontalAlignment="Left" Margin="10,90,0,0" VerticalAlignment="Top" IsChecked="{Binding Source={x:Static p:Settings.Default}, Path=BalloonMessages, Mode=TwoWay}"/>
                     <CheckBox Content="Launch browser after upload" HorizontalAlignment="Left" Margin="10,110,0,0" VerticalAlignment="Top" IsChecked="{Binding Source={x:Static p:Settings.Default}, Path=LaunchBrowser, Mode=TwoWay}"/>
-                    <CheckBox Content="Edit screenshot after capture" HorizontalAlignment="Left" Margin="10,130,0,0" VerticalAlignment="Top" IsChecked="{Binding Source={x:Static p:Settings.Default}, Path=EditScreenshot, Mode=TwoWay}"/>
+                    <CheckBox Content="Always use SSL (HTTPS)" HorizontalAlignment="Left" Margin="10,130,0,0" VerticalAlignment="Top" IsChecked="{Binding Source={x:Static p:Settings.Default}, Path=SSLEnabled, Mode=TwoWay}"/>
                 </Grid>
             </TabItem>
             <TabItem Style="{StaticResource ModernTabItem}" Header="Hotkeys" x:Name="HotkeysTab">

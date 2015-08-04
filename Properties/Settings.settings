@@ -5,7 +5,7 @@
     <Setting Name="AuthKey" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="AuthExpirationTime" Type="System.Int32" Scope="User">
+    <Setting Name="AuthExpirationTime" Type="System.Int64" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
     <Setting Name="CurrentUser" Type="System.String" Scope="User">
@@ -84,6 +84,9 @@
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="UseDarkTheme" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="SSLEnabled" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
   </Settings>

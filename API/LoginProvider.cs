@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Runtime.Serialization.Json;
@@ -57,8 +58,9 @@ namespace Shikashi.API
                     }
                 }
             }
-            catch (WebException)
+            catch (Exception e)
             {
+                File.AppendAllText(AppDomain.CurrentDomain.BaseDirectory + "error.txt", e.ToString());
                 return LoginResult.UnknownError;
             }
         }

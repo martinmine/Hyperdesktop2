@@ -9,7 +9,6 @@ namespace Shikashi
     class UpdateHelper
     {
         internal delegate void ApplicationRebootingEvent();
-        internal event ApplicationRebootingEvent OnApplicationReboot;
 
         private ApplicationDeployment applicationDeployment;
         private bool alertOnDone;
@@ -35,9 +34,8 @@ namespace Shikashi
 
         private void UpdateCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
         {
-            if (!e.Cancelled)
+            if (e != null || !e.Cancelled)
             {
-                OnApplicationReboot();
                 Process.Start(GlobalFunctions.GetExePath());
                 Environment.Exit(0);
             }
