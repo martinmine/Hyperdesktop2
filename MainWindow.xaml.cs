@@ -5,6 +5,8 @@ using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.IO;
+using System.Net;
 using System.Windows;
 
 namespace Shikashi
@@ -221,11 +223,28 @@ namespace Shikashi
 
         private async void GroupBox_Drop(object sender, DragEventArgs e)
         {
-            string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
-
-            foreach (string file in files)
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
-                await AppServices.Uploader.UploadFile(file);
+                string[] files = e.Data.GetData(DataFormats.FileDrop) as string[];
+
+                foreach (string file in files)
+                {
+                    await AppServices.Uploader.UploadFile(file);
+                }
+            }
+            else if (e.Data.GetDataPresent(DataFormats.Text))
+            {
+                string data = e.Data.GetData(DataFormats.Text) as string;
+                string fileName = data.Substring(data.LastIndexOf('/') + 1);
+
+                using (WebClient client = new WebClient())
+                {
+                    client.DownloadFile(new Uri(data), fileName);
+                }
+
+                await AppServices.Uploader.UploadFile(fileName);
+
+                File.Delete(fileName);
             }
         }
 

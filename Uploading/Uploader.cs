@@ -2,7 +2,6 @@
 using Shikashi.Screenshotting;
 using System;
 using System.Drawing;
-using System.Drawing.Imaging;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -88,11 +87,13 @@ namespace Shikashi.Uploading
             GlobalFunctions.PlaySound(Properties.Resources.capture);
             string extension = System.IO.Path.GetExtension(path);
             FileUpload upload = new FileUpload(progressStatusListener);
-            Stream fileStream = File.OpenRead(path);
-            string mimeType = MimeMapping.Instance.GetMimeType(extension);
+            using (Stream fileStream = File.OpenRead(path))
+            {
+                string mimeType = MimeMapping.Instance.GetMimeType(extension);
 
-            FileUploadResult result = await upload.UploadFile(File.OpenRead(path), System.IO.Path.GetFileName(path), mimeType, GetFileSize(path));
-            OnUploadCompleted(result);
+                FileUploadResult result = await upload.UploadFile(fileStream, System.IO.Path.GetFileName(path), mimeType, GetFileSize(path));
+                OnUploadCompleted(result);
+            }
         }
         
         internal async Task UploadImage(Image image)
