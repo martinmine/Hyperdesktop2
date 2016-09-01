@@ -8,7 +8,7 @@
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         Style="{StaticResource ModernWindow}"
         ResizeMode="NoResize"
-        Title="Shikashi Uploader" Height="485.809" Width="330" Icon="icon.ico" Drop="GroupBox_Drop" AllowDrop="True">
+        Title="Shikashi Uploader" Height="485" Width="330" Icon="icon.ico" Drop="GroupBox_Drop" AllowDrop="True">
     <StackPanel Orientation="Vertical">
         <GroupBox x:Name="ProgressGroupBox" Header="Uploading" Margin="10,0,10,0" Height="95" Style="{DynamicResource DarkThemedGroupBoxStyle}">
             <Grid>
@@ -18,7 +18,7 @@
                 <ProgressBar x:Name="UploadProgressBar" HorizontalAlignment="Stretch" Height="20" Margin="10,47,10,0" VerticalAlignment="Top"/>
             </Grid>
         </GroupBox>
-        <GroupBox Header="Your Account" Margin="10,0,10,0" Height="130" Style="{DynamicResource DarkThemedGroupBoxStyle}">
+        <GroupBox x:Name="AccountGroupBox" Header="Your Account" Margin="10,0,10,0" Height="130" Style="{DynamicResource DarkThemedGroupBoxStyle}">
             <Grid>
                 <Label Content="Email:" HorizontalAlignment="Left" Margin="10,13,0,0" VerticalAlignment="Top" Height="23"/>
                 <Label Content="Password:" HorizontalAlignment="Left" Margin="10,44,0,0" VerticalAlignment="Top" Height="23"/>
@@ -26,7 +26,7 @@
                 <PasswordBox x:Name="PasswordField" HorizontalAlignment="Stretch" Margin="78,44,10,0" VerticalAlignment="Top"/>
                 <Button x:Name="LogoutBtn" Content="Logout" HorizontalAlignment="Left" Margin="78,72,0,0" VerticalAlignment="Top" Width="75" Click="Logout"/>
                 <Button x:Name="LoginBtn" IsDefault="True" Content="Login" HorizontalAlignment="Left" Margin="158,72,0,0" VerticalAlignment="Top" Width="75" Click="Login"/>
-
+                <Label x:Name="LoginError" HorizontalAlignment="Left" Margin="78,100,0,0" VerticalAlignment="Top" Height="27" Grid.ColumnSpan="2" Width="auto" Visibility="Visible" Foreground="#FFA40F0F"/>
             </Grid>
         </GroupBox>
         <GroupBox Header="Upload History" Margin="10,0,10,0" DockPanel.Dock="Bottom" Height="220" Style="{DynamicResource DarkThemedGroupBoxStyle}">

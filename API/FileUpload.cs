@@ -44,6 +44,7 @@ namespace Shikashi.API
                         using (HttpResponseMessage response = await client.PostAsync(uri, content))
                         {
                             DataContractJsonSerializer jsonSerializer = new DataContractJsonSerializer(typeof(UploadedContent));
+                            string response2 = await response.Content.ReadAsStringAsync();
                             UploadedContent upload = jsonSerializer.ReadObject(await response.Content.ReadAsStreamAsync()) as UploadedContent;
 
                             File.AppendAllText(AppDomain.CurrentDomain.BaseDirectory + "responses.txt", "HTTP Response: " + response.StatusCode + Environment.NewLine);

@@ -81,19 +81,29 @@ namespace Shikashi
             switch (loginResult)
             {
                 case LoginResult.InvalidCredentials:
-                    MessageBox.Show("Unknown username/password", "Login error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    SetLoginErrorMessage("Unknown username/password");
                     break;
                 case LoginResult.UnknownError:
-                    MessageBox.Show("Unable to connect to Shikashi", "Login error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    SetLoginErrorMessage("Unable to connect to Shikashi");
                     break;
                 case LoginResult.Success:
                     SetButtonsEnabled();
                     Properties.Settings.Default.CurrentUser = EmailField.Text;
                     Properties.Settings.Default.Save();
                     LoadUserImages();
-                    MessageBox.Show("Login Successful", "Login success", MessageBoxButton.OK, MessageBoxImage.Information);
+                    LoginError.Visibility = Visibility.Hidden;
+                    AccountGroupBox.Height = 130;
+                    Height = 485;
                     break;
             }
+        }
+
+        private void SetLoginErrorMessage(string text)
+        {
+            LoginError.Content = text;
+            LoginError.Visibility = Visibility.Visible;
+            AccountGroupBox.Height = 150;
+            Height = 506;
         }
 
         private void HideWindow(object sender, RoutedEventArgs e)
