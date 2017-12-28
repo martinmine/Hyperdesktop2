@@ -12,13 +12,12 @@ namespace Shikashi.Uploading
     {
         internal delegate void UploadResultReceived(FileUploadResult res);
         internal event UploadResultReceived OnUploadCompleted;
-        private IUploadStatusListener progressStatusListener;
         private bool snipperOpen;
-
+        private FileUpload uploadHelper;
 
         public Uploader(IUploadStatusListener progressStatusListener)
         {
-            this.progressStatusListener = progressStatusListener;
+            this.uploadHelper = new FileUpload(progressStatusListener);
         }
         
         internal async void CaptureScreen(string type)
@@ -71,9 +70,8 @@ namespace Shikashi.Uploading
         {
             GlobalFunctions.PlaySound(Properties.Resources.capture);
 
-            FileUpload upload = new FileUpload(progressStatusListener);
             string nameSuffix = DateTime.Now.ToString("yyyy-MM-dd_HHmmss");
-            FileUploadResult result = await upload.UploadFile(screenshot.FileStream, string.Format("Upload {0}.png", nameSuffix), "image/png", GetFileSize(screenshot.Path));
+            FileUploadResult result = await uploadHelper.UploadFile(screenshot.FileStream, string.Format("Upload {0}.png", nameSuffix), "image/png", GetFileSize(screenshot.Path));
             OnUploadCompleted(result);
         }
 
@@ -86,12 +84,11 @@ namespace Shikashi.Uploading
         {
             GlobalFunctions.PlaySound(Properties.Resources.capture);
             string extension = System.IO.Path.GetExtension(path);
-            FileUpload upload = new FileUpload(progressStatusListener);
             using (Stream fileStream = File.OpenRead(path))
             {
                 string mimeType = MimeMapping.Instance.GetMimeType(extension);
 
-                FileUploadResult result = await upload.UploadFile(fileStream, System.IO.Path.GetFileName(path), mimeType, GetFileSize(path));
+                FileUploadResult result = await uploadHelper.UploadFile(fileStream, System.IO.Path.GetFileName(path), mimeType, GetFileSize(path));
                 OnUploadCompleted(result);
             }
         }

@@ -12,63 +12,69 @@ namespace Shikashi.API
     class FileUpload
     {
         private IUploadStatusListener listener;
+        private HttpClient client;
 
         public FileUpload(IUploadStatusListener listener)
         {
             this.listener = listener;
+
+            ProgressMessageHandler progressHandler = new ProgressMessageHandler();
+            progressHandler.HttpSendProgress += (o, sender) => { listener.OnProgress(sender.BytesTransferred, sender.TotalBytes.Value); };
+
+            client = HttpClientFactory.Create(progressHandler);
         }
 
         internal async Task<FileUploadResult> UploadFile(Stream data, string fileName, string contentType, long size)
         {
             string uri = string.Format("{0}/upload", APIConfig.BaseURL);
+            string responseString = null;
 
             try
             {
-                ProgressMessageHandler progressHandler = new ProgressMessageHandler();
-                progressHandler.HttpSendProgress += progressHandler_HttpSendProgress;
+                client.DefaultRequestHeaders.ExpectContinue = false;
+                AuthKey key = AuthKey.LoadKey();
+                if (key == null)
+                    return FileUploadResult.NotAuthorized;
 
-                using (HttpClient client = HttpClientFactory.Create(progressHandler))
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Add("Authorization", key.Token);
+                client.DefaultRequestHeaders.Add("UploadFileSize", size.ToString());
+
+                using (MultipartFormDataContent content = new MultipartFormDataContent())
                 {
-                    client.DefaultRequestHeaders.ExpectContinue = false;
-                    AuthKey key = AuthKey.LoadKey();
-                    if (key == null)
-                        return FileUploadResult.NotAuthorized;
+                    content.Add(CreateFileContent(data, fileName, contentType));
 
-                    client.DefaultRequestHeaders.Add("Authorization", key.Token);
-                    client.DefaultRequestHeaders.Add("UploadFileSize", size.ToString());
-
-                    using (MultipartFormDataContent content = new MultipartFormDataContent())
+                    using (HttpResponseMessage response = await client.PostAsync(uri, content))
                     {
-                        content.Add(CreateFileContent(data, fileName, contentType));
+                        DataContractJsonSerializer jsonSerializer = new DataContractJsonSerializer(typeof(UploadedContent));
+                        responseString = await response.Content.ReadAsStringAsync();
+                        UploadedContent upload = jsonSerializer.ReadObject(await response.Content.ReadAsStreamAsync()) as UploadedContent;
 
-                        using (HttpResponseMessage response = await client.PostAsync(uri, content))
+                        File.AppendAllText(AppDomain.CurrentDomain.BaseDirectory + "responses.txt", "HTTP Response: " + response.StatusCode + Environment.NewLine);
+
+                        if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+                            return FileUploadResult.InvalidCredentials;
+
+                        if (response.StatusCode == System.Net.HttpStatusCode.OK && upload != null)
                         {
-                            DataContractJsonSerializer jsonSerializer = new DataContractJsonSerializer(typeof(UploadedContent));
-                            string response2 = await response.Content.ReadAsStringAsync();
-                            UploadedContent upload = jsonSerializer.ReadObject(await response.Content.ReadAsStreamAsync()) as UploadedContent;
-
-                            File.AppendAllText(AppDomain.CurrentDomain.BaseDirectory + "responses.txt", "HTTP Response: " + response.StatusCode + Environment.NewLine);
-
-                            if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
-                                return FileUploadResult.InvalidCredentials;
-
-                            if (response.StatusCode == System.Net.HttpStatusCode.OK && upload != null)
-                            {
-                                listener.ContentUplaoded(upload);
-                                return FileUploadResult.OK;
-                            }
-
-                            if (response.StatusCode == HttpStatusCode.BadRequest)
-                                return FileUploadResult.FileTooLarge;
-
-                            return FileUploadResult.Failed;
+                            listener.ContentUplaoded(upload);
+                            return FileUploadResult.OK;
                         }
+
+                        if (response.StatusCode == HttpStatusCode.BadRequest)
+                            return FileUploadResult.FileTooLarge;
+
+                        File.AppendAllText(AppDomain.CurrentDomain.BaseDirectory + "error_responses.txt", responseString + Environment.NewLine);
+                        return FileUploadResult.Failed;
                     }
                 }
             }
             catch (Exception e)
             {
-                File.AppendAllText(AppDomain.CurrentDomain.BaseDirectory + "error.txt", e.ToString());
+                File.AppendAllText(AppDomain.CurrentDomain.BaseDirectory + "error.txt", e.ToString() + Environment.NewLine);
+
+                if (responseString != null)
+                    File.AppendAllText(AppDomain.CurrentDomain.BaseDirectory + "error_responses.txt", responseString + Environment.NewLine);
                 return FileUploadResult.Failed;
             }
         }

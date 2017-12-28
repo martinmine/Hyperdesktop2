@@ -10,6 +10,7 @@ using System.Windows.Controls;
 using System.Linq;
 using System.Windows.Threading;
 using System.IO;
+using System.Xml;
 
 namespace Shikashi
 {
@@ -30,6 +31,7 @@ namespace Shikashi
             UpdateHelper = new UpdateHelper();
 
             Uploader.OnUploadCompleted += Uploader_OnUploadCompleted;
+            Uploader.OnUploadCompleted += ForceGC;
             
             if (!Shikashi.Properties.Settings.Default.AskedForStartup)
             {
@@ -53,13 +55,20 @@ namespace Shikashi
             if (Shikashi.Properties.Settings.Default.UseDarkTheme)
                 ModernTheme.ApplyTheme(ModernTheme.Theme.Dark, ModernTheme.CurrentAccent);
 
+            ShowTaskbarIcon();
+            KillOtherInstances();
+
             GlobalFunctions.CheckStartupPath();
             HotkeyManager.GetInstance().SetListener(Uploader);
             HotkeyManager.GetInstance().RegisterHotkeys();
             UpdateHelper.CheckForUpdates();
 
-            ShowTaskbarIcon();
             LoadItems();
+        }
+
+        private void ForceGC(FileUploadResult res)
+        {
+            GC.Collect();
         }
 
         public void OnUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs args)
@@ -253,6 +262,8 @@ namespace Shikashi
 
         internal static void ShowBalloonTip(string text, string title, int duration, Hardcodet.Wpf.TaskbarNotification.BalloonIcon icon = Hardcodet.Wpf.TaskbarNotification.BalloonIcon.Info, string link = null)
         {
+            XmlDocument toastXml = ToastNotificationManager.GetTemplateContent(ToastTemplateType.ToastImageAndText04);
+
             ApplicationTrayIcon.ShowBalloonTip(title, text, icon);
             lastViewedLink = link;
         }
@@ -315,6 +326,20 @@ namespace Shikashi
 
                 mainWindow = null;
             }
+        }
+
+        private void KillOtherInstances()
+        {
+            var otherProcesses = Process.GetProcessesByName("Shikashi");
+
+            foreach (Process process in otherProcesses)
+            {
+                if (process.Id != Process.GetCurrentProcess().Id)
+                    process.Kill();
+            }
+
+            if (otherProcesses.Length > 1)
+                ShowBalloonTip("Another Shikashi instance was closed", "Info", 2000, Hardcodet.Wpf.TaskbarNotification.BalloonIcon.Info);
         }
     }
 }
