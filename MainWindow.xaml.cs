@@ -1,6 +1,7 @@
 ﻿using Microsoft.Win32;
 using ModernWPF;
 using Shikashi.API;
+using Shikashi.Toast;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -155,7 +156,7 @@ namespace Shikashi
         }
 
         #region Callbacks from interfaces
-        public void ContentUplaoded(UploadedContent content)
+        public void ContentUplaoded(UploadedContent content, string location)
         {
             ProgressGroupBox.Header = "Upload Progress";
             UploadProgressBar.Value = 0;
@@ -224,9 +225,7 @@ namespace Shikashi
             else
             {
                 GlobalFunctions.PlaySound(Properties.Resources.error);
-
-                if (Properties.Settings.Default.BalloonMessages)
-                    AppServices.ShowBalloonTip("Could not delete file!", "Error", 2000, Hardcodet.Wpf.TaskbarNotification.BalloonIcon.Error);
+                ToastManager.CreateToast("Delete error", "Could not delete the specified file");
             }
         }
         #endregion

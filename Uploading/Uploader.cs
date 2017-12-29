@@ -71,7 +71,7 @@ namespace Shikashi.Uploading
             GlobalFunctions.PlaySound(Properties.Resources.capture);
 
             string nameSuffix = DateTime.Now.ToString("yyyy-MM-dd_HHmmss");
-            FileUploadResult result = await uploadHelper.UploadFile(screenshot.FileStream, string.Format("Upload {0}.png", nameSuffix), "image/png", GetFileSize(screenshot.Path));
+            FileUploadResult result = await uploadHelper.UploadFile(screenshot.FileStream, string.Format("Upload {0}.png", nameSuffix), "image/png", GetFileSize(screenshot.Path), screenshot.Path);
             OnUploadCompleted(result);
         }
 
@@ -88,7 +88,7 @@ namespace Shikashi.Uploading
             {
                 string mimeType = MimeMapping.Instance.GetMimeType(extension);
 
-                FileUploadResult result = await uploadHelper.UploadFile(fileStream, System.IO.Path.GetFileName(path), mimeType, GetFileSize(path));
+                FileUploadResult result = await uploadHelper.UploadFile(fileStream, System.IO.Path.GetFileName(path), mimeType, GetFileSize(path), path);
                 OnUploadCompleted(result);
             }
         }

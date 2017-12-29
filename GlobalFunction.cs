@@ -12,6 +12,8 @@ namespace Shikashi
         private static readonly RegistryKey StartupRegistryKey = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run", true);
         private const string StartupKey = "Shikashi Uploader";
 
+        public const string APP_ID = "Shikashi.Uploader";
+
         public static ImageFormat ExtensionToImageFormat(string extension)
         {
             switch (extension.ToLower())

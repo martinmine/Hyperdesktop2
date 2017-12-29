@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace Shikashi.Screenshotting
 {
@@ -23,6 +24,12 @@ namespace Shikashi.Screenshotting
         public void Dispose()
         {
             FileStream.Dispose();
+            DeleteFileLater();
+        }
+
+        private async Task DeleteFileLater()
+        {
+            await Task.Delay(5000);
             File.Delete(Path);
         }
     }

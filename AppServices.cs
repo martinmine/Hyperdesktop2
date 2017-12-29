@@ -1,16 +1,15 @@
 ﻿using Hardcodet.Wpf.TaskbarNotification;
 using ModernWPF;
 using Shikashi.API;
+using Shikashi.Toast;
 using Shikashi.Uploading;
 using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
-using System.Linq;
 using System.Windows.Threading;
-using System.IO;
-using System.Xml;
 
 namespace Shikashi
 {
@@ -32,20 +31,15 @@ namespace Shikashi
 
             Uploader.OnUploadCompleted += Uploader_OnUploadCompleted;
             Uploader.OnUploadCompleted += ForceGC;
-            
+
+            ShortcutHelper.TryCreateShortcut();
+
             if (!Shikashi.Properties.Settings.Default.AskedForStartup)
             {
-                MessageBoxResult result = System.Windows.MessageBox.Show(
-                    "Do you want to run Shikashi Uploader at Windows startup?",
-                    "First time run",
-                    MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.Yes
-                );
+                ToastManager.CreateToast("Shikashi will start automatically", "Go to options/behaviour to disable automatic startup");
 
-                if (result == MessageBoxResult.Yes)
-                {
-                    GlobalFunctions.SetRunAtStartup(true);
-                    Shikashi.Properties.Settings.Default.RunAtStartup = true;
-                }
+                GlobalFunctions.SetRunAtStartup(true);
+                Shikashi.Properties.Settings.Default.RunAtStartup = true;
 
                 Shikashi.Properties.Settings.Default.AskedForStartup = true;
                 Shikashi.Properties.Settings.Default.SaveFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures) + "\\Captures";
@@ -99,22 +93,22 @@ namespace Shikashi
             {
                 case FileUploadResult.Failed:
                     GlobalFunctions.PlaySound(Shikashi.Properties.Resources.error);
-                    ShowBalloonTip("Error uploading file!", "Error", 2000, Hardcodet.Wpf.TaskbarNotification.BalloonIcon.Error);
+                    ToastManager.CreateToast("Upload failure", "Something strange went wrong while uploading");
                     break;
 
                 case FileUploadResult.InvalidCredentials:
                     GlobalFunctions.PlaySound(Shikashi.Properties.Resources.error);
-                    ShowBalloonTip("Your credentials were invalid, please sign in again", "Error", 2000, Hardcodet.Wpf.TaskbarNotification.BalloonIcon.Error);
+                    ToastManager.CreateToast("Upload error", "Your credentials are invalid, please sign in again");
                     break;
 
                 case FileUploadResult.NotAuthorized:
                     GlobalFunctions.PlaySound(Shikashi.Properties.Resources.error);
-                    ShowBalloonTip("You need to sign in before uploading", "Error", 2000, Hardcodet.Wpf.TaskbarNotification.BalloonIcon.Error);
+                    ToastManager.CreateToast("Upload error", "You need to sign in before uploading");
                     break;
 
                 case FileUploadResult.FileTooLarge:
                     GlobalFunctions.PlaySound(Shikashi.Properties.Resources.error);
-                    ShowBalloonTip("This file was too large to be uploaded", "Error", 2000, Hardcodet.Wpf.TaskbarNotification.BalloonIcon.Error);
+                    ToastManager.CreateToast("Upload error", "This file was too large to be uploaded");
                     break;
             }
         }
@@ -260,14 +254,6 @@ namespace Shikashi
             Environment.Exit(0);
         }
 
-        internal static void ShowBalloonTip(string text, string title, int duration, Hardcodet.Wpf.TaskbarNotification.BalloonIcon icon = Hardcodet.Wpf.TaskbarNotification.BalloonIcon.Info, string link = null)
-        {
-            XmlDocument toastXml = ToastNotificationManager.GetTemplateContent(ToastTemplateType.ToastImageAndText04);
-
-            ApplicationTrayIcon.ShowBalloonTip(title, text, icon);
-            lastViewedLink = link;
-        }
-
         private void ApplicationTrayIcon_TrayBalloonTipClicked(object sender, RoutedEventArgs e)
         {
             if (!string.IsNullOrEmpty(lastViewedLink))
@@ -276,7 +262,7 @@ namespace Shikashi
             }
         }
 
-        public void ContentUplaoded(UploadedContent content)
+        public void ContentUplaoded(UploadedContent content, string location)
         {
             string link = string.Format("{0}/{1}", APIConfig.HostURL, content.Key);
 
@@ -284,7 +270,7 @@ namespace Shikashi
                 Clipboard.SetText(link);
 
             if (Shikashi.Properties.Settings.Default.BalloonMessages)
-                ShowBalloonTip("Link copied to clipboard:" + Environment.NewLine + link, "Upload Completed!", 2000, Hardcodet.Wpf.TaskbarNotification.BalloonIcon.Info, link);
+                ToastManager.CreateToastForUpload("Upload Completed", "Link copied to clipboard:", link, location);
 
             if (Shikashi.Properties.Settings.Default.LaunchBrowser)
                 Process.Start(link);
@@ -295,7 +281,7 @@ namespace Shikashi
 
             BuildTrayContextMenu();
             if (mainWindow != null)
-                mainWindow.ContentUplaoded(content);
+                mainWindow.ContentUplaoded(content, location);
         }
 
         public void OnProgress(long uploaded, long total)
@@ -339,7 +325,7 @@ namespace Shikashi
             }
 
             if (otherProcesses.Length > 1)
-                ShowBalloonTip("Another Shikashi instance was closed", "Info", 2000, Hardcodet.Wpf.TaskbarNotification.BalloonIcon.Info);
+                ToastManager.CreateToast("A Shikashi instance was killed", "Another Shikashi client was found, and shot.");
         }
     }
 }

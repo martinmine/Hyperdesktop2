@@ -24,7 +24,7 @@ namespace Shikashi.API
             client = HttpClientFactory.Create(progressHandler);
         }
 
-        internal async Task<FileUploadResult> UploadFile(Stream data, string fileName, string contentType, long size)
+        internal async Task<FileUploadResult> UploadFile(Stream data, string fileName, string contentType, long size, string location = null)
         {
             string uri = string.Format("{0}/upload", APIConfig.BaseURL);
             string responseString = null;
@@ -57,7 +57,7 @@ namespace Shikashi.API
 
                         if (response.StatusCode == System.Net.HttpStatusCode.OK && upload != null)
                         {
-                            listener.ContentUplaoded(upload);
+                            listener.ContentUplaoded(upload, location);
                             return FileUploadResult.OK;
                         }
 
