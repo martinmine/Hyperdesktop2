@@ -31,6 +31,7 @@ namespace Shikashi.API
 
             try
             {
+                client.Timeout = TimeSpan.FromMinutes(20);
                 client.DefaultRequestHeaders.ExpectContinue = false;
                 AuthKey key = AuthKey.LoadKey();
                 if (key == null)
