@@ -62,7 +62,7 @@ namespace Shikashi.API
                             return FileUploadResult.OK;
                         }
 
-                        if (response.StatusCode == HttpStatusCode.BadRequest)
+                        if (response.StatusCode == HttpStatusCode.BadRequest || response.StatusCode == HttpStatusCode.RequestEntityTooLarge)
                             return FileUploadResult.FileTooLarge;
 
                         File.AppendAllText(AppDomain.CurrentDomain.BaseDirectory + "error_responses.txt", responseString + Environment.NewLine);
