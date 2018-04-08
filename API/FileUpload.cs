@@ -22,6 +22,8 @@ namespace Shikashi.API
             progressHandler.HttpSendProgress += (o, sender) => { listener.OnProgress(sender.BytesTransferred, sender.TotalBytes.Value); };
 
             client = HttpClientFactory.Create(progressHandler);
+            client.Timeout = TimeSpan.FromMinutes(20);
+            client.DefaultRequestHeaders.ExpectContinue = false;
         }
 
         internal async Task<FileUploadResult> UploadFile(Stream data, string fileName, string contentType, long size, string location = null)
@@ -31,8 +33,6 @@ namespace Shikashi.API
 
             try
             {
-                client.Timeout = TimeSpan.FromMinutes(20);
-                client.DefaultRequestHeaders.ExpectContinue = false;
                 AuthKey key = AuthKey.LoadKey();
                 if (key == null)
                     return FileUploadResult.NotAuthorized;
