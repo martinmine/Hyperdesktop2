@@ -7,26 +7,11 @@
 
         private static string GetURL(string host)
         {
-            if (Shikashi.Properties.Settings.Default.SSLEnabled)
-                return string.Format("https://{0}", host);
-            else
-                return string.Format("http://{0}", host);
+            return Properties.Settings.Default.SSLEnabled ? $"https://{host}" : $"http://{host}";
         }
 
-        internal static string BaseURL
-        {
-            get
-            {
-                return GetURL(baseDomain);
-            }
-        }
+        internal static string BaseURL => GetURL(baseDomain);
 
-        internal static string HostURL
-        {
-            get
-            {
-                return GetURL(hostDomain);
-            }
-        }
+        internal static string HostURL => GetURL(hostDomain);
     }
 }
